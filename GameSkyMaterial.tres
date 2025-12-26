@@ -1,0 +1,9 @@
+[gd_resource type="ProceduralSkyMaterial" format=3 uid="uid://b1r5nc050ymc7"]
+
+[resource]
+sky_top_color = Color(6.2569975e-06, 0.60519683, 0.81083786, 1)
+sky_horizon_color = Color(0.7566182, 0.76280206, 0.77516407, 1)
+ground_bottom_color = Color(0.0089097265, 0.006475102, 0.0042597945, 1)
+ground_curve = 0.29857033
+sun_angle_max = 107.94
+sun_curve = 0.4392248
