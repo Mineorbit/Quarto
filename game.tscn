@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dv2va3uyae0k8"]
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://GameSkyMaterial.tres" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://Card.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://card/Card.tscn" id="2_e2o6t"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
 

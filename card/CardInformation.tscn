@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b06ycuqcc5odt"]
+
+[node name="CardInformation" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "Der gestiefelte Kater"
+metadata/_edit_use_anchors_ = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Gumption"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Fart"
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 1
