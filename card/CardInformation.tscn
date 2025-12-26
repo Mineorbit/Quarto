@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://b06ycuqcc5odt"]
+[gd_scene load_steps=3 format=3 uid="uid://b06ycuqcc5odt"]
+
+[ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://card/card_field_label.tscn" id="1_epr62"]
+[ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://card/card_field_value.tscn" id="2_jirx6"]
 
 [node name="CardInformation" type="VBoxContainer"]
 anchors_preset = 15
@@ -7,35 +10,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-clip_contents = false
-custom_minimum_size = Vector2(25, 25)
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 52
 text = "Der gestiefelte Kater"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="GridContainer"]
+[node name="CardFieldLabel" parent="GridContainer" instance=ExtResource("1_epr62")]
 layout_mode = 2
-text = "Gumption"
-vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="GridContainer"]
+[node name="CardFieldValue" parent="GridContainer" instance=ExtResource("2_jirx6")]
 layout_mode = 2
-text = "10"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Label3" type="Label" parent="GridContainer"]
-layout_mode = 2
-text = "Fart"
-vertical_alignment = 1
-
-[node name="Label4" type="Label" parent="GridContainer"]
-layout_mode = 2
-text = "1000"
-horizontal_alignment = 2
-vertical_alignment = 1

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bvjqy0oa2kejr"]
+
+[node name="CardFieldLabel" type="Label"]
+theme_override_font_sizes/font_size = 48
+text = "Gumption"
+vertical_alignment = 1
