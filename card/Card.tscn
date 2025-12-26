@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0qgk3uncjprm"]
+[gd_scene load_steps=8 format=3 uid="uid://b0qgk3uncjprm"]
 
 [ext_resource type="Script" uid="uid://co6ehvn41yjls" path="res://card/card.gd" id="1_hael8"]
 [ext_resource type="PackedScene" uid="uid://b06ycuqcc5odt" path="res://card/CardInformation.tscn" id="2_tyd3v"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3ujke"]
-size = Vector2(2, 3)
+size = Vector2(2, 3.5)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_dd2wi"]
 viewport_path = NodePath("SubViewport")
@@ -16,10 +16,13 @@ albedo_texture = SubResource("ViewportTexture_dd2wi")
 [sub_resource type="PlaneMesh" id="PlaneMesh_dd2wi"]
 size = Vector2(2, 1.5)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_tyd3v"]
+
 [node name="Card" type="Node3D"]
 script = ExtResource("1_hael8")
 
 [node name="Backplane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 mesh = SubResource("PlaneMesh_3ujke")
 
 [node name="Cardcontent" type="MeshInstance3D" parent="."]
@@ -27,6 +30,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0.75)
 material_override = SubResource("StandardMaterial3D_hael8")
 mesh = SubResource("PlaneMesh_dd2wi")
 skeleton = NodePath("../Backplane")
+
+[node name="CardImage" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("PlaneMesh_tyd3v")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true

@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dv2va3uyae0k8"]
+[gd_scene load_steps=8 format=3 uid="uid://dv2va3uyae0k8"]
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://GameSkyMaterial.tres" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://card/Card.tscn" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_feb5d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
+albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
 
@@ -18,6 +21,7 @@ fog_sky_affect = 0.1
 exposure_multiplier = 0.8
 
 [node name="Game" type="Node"]
+script = ExtResource("1_feb5d")
 
 [node name="World" type="Node3D" parent="."]
 
@@ -26,6 +30,7 @@ transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22
 shadow_enabled = true
 
 [node name="Baseplane" type="MeshInstance3D" parent="World"]
+material_override = SubResource("StandardMaterial3D_e2o6t")
 mesh = SubResource("PlaneMesh_mwb40")
 
 [node name="GameEnvironmentLighting" type="WorldEnvironment" parent="World"]
@@ -33,11 +38,9 @@ environment = SubResource("Environment_mwb40")
 camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 
 [node name="cards" type="Node3D" parent="World"]
-
-[node name="Card" parent="World/cards" instance=ExtResource("2_e2o6t")]
-transform = Transform3D(0.5, 0, 0, 0, 0.32259557, -0.3820106, 0, 0.3820106, 0.32259557, -0.0025995076, 0.38695443, 1.4041)
+transform = Transform3D(1, 0, 0, 0, 0.66237164, -0.7491754, 0, 0.7491754, 0.66237164, 0, -0.09988934, 1.3487667)
 
 [node name="CameraHinge" type="Node3D" parent="World"]
 
 [node name="View" type="Camera3D" parent="World/CameraHinge"]
-transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 0, 1.9013227, 2.3425403)
+transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)

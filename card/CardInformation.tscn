@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b06ycuqcc5odt"]
 
-[ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://card/card_field_label.tscn" id="1_epr62"]
-[ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://card/card_field_value.tscn" id="2_jirx6"]
+[ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://card/CardFieldLabel.tscn" id="1_epr62"]
+[ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://card/CardFieldValue.tscn" id="2_jirx6"]
 
 [node name="CardInformation" type="VBoxContainer"]
 anchors_preset = 15
@@ -22,12 +22,18 @@ autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_right = 75
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="CardFieldLabel" parent="GridContainer" instance=ExtResource("1_epr62")]
+[node name="CardFieldLabel" parent="MarginContainer/GridContainer" instance=ExtResource("1_epr62")]
+custom_minimum_size = Vector2(500, 3.14)
 layout_mode = 2
 
-[node name="CardFieldValue" parent="GridContainer" instance=ExtResource("2_jirx6")]
+[node name="CardFieldValue" parent="MarginContainer/GridContainer" instance=ExtResource("2_jirx6")]
 layout_mode = 2
