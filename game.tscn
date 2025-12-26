@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv2va3uyae0k8"]
+[gd_scene load_steps=7 format=3 uid="uid://dv2va3uyae0k8"]
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://GameSkyMaterial.tres" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://Card.tscn" id="2_e2o6t"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
 
@@ -20,10 +21,8 @@ exposure_multiplier = 0.8
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="Map" type="GridMap" parent="World"]
-
 [node name="View" type="Camera3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36928272, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.01067, 0.088682175)
 
 [node name="Sun" type="DirectionalLight3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
@@ -35,3 +34,8 @@ mesh = SubResource("PlaneMesh_mwb40")
 [node name="GameEnvironmentLighting" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_mwb40")
 camera_attributes = SubResource("CameraAttributesPractical_80nbo")
+
+[node name="cards" type="Node3D" parent="World"]
+
+[node name="Card" parent="World/cards" instance=ExtResource("2_e2o6t")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -0.0025995076, 0.14845777, 0.018162072)

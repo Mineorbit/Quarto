@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0qgk3uncjprm"]
+
+[ext_resource type="Script" uid="uid://co6ehvn41yjls" path="res://card.gd" id="1_hael8"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3ujke"]
+size = Vector2(2, 3)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dd2wi"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hael8"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_dd2wi")
+
+[node name="Card" type="Node3D"]
+script = ExtResource("1_hael8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_3ujke")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hael8")
+mesh = SubResource("PlaneMesh_3ujke")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "abc"
+metadata/_edit_use_anchors_ = true
