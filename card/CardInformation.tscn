@@ -22,18 +22,18 @@ autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Stats" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 75
 theme_override_constants/margin_right = 75
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Stats"]
 layout_mode = 2
 columns = 2
 
-[node name="CardFieldLabel" parent="MarginContainer/GridContainer" instance=ExtResource("1_epr62")]
+[node name="CardFieldLabel" parent="Stats/GridContainer" instance=ExtResource("1_epr62")]
 custom_minimum_size = Vector2(500, 3.14)
 layout_mode = 2
 
-[node name="CardFieldValue" parent="MarginContainer/GridContainer" instance=ExtResource("2_jirx6")]
+[node name="CardFieldValue" parent="Stats/GridContainer" instance=ExtResource("2_jirx6")]
 layout_mode = 2
