@@ -1,7 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b06ycuqcc5odt"]
-
-[ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://card/CardFieldLabel.tscn" id="1_epr62"]
-[ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://card/CardFieldValue.tscn" id="2_jirx6"]
+[gd_scene format=3 uid="uid://b06ycuqcc5odt"]
 
 [node name="CardInformation" type="VBoxContainer"]
 anchors_preset = 15
@@ -30,10 +27,3 @@ theme_override_constants/margin_right = 75
 [node name="GridContainer" type="GridContainer" parent="Stats"]
 layout_mode = 2
 columns = 2
-
-[node name="CardFieldLabel" parent="Stats/GridContainer" instance=ExtResource("1_epr62")]
-custom_minimum_size = Vector2(500, 3.14)
-layout_mode = 2
-
-[node name="CardFieldValue" parent="Stats/GridContainer" instance=ExtResource("2_jirx6")]
-layout_mode = 2

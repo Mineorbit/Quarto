@@ -44,3 +44,24 @@ transform = Transform3D(1, 0, 0, 0, 0.66237164, -0.7491754, 0, 0.7491754, 0.6623
 
 [node name="View" type="Camera3D" parent="World/CameraHinge"]
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurrentPlayer" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "Spieler 1 ist dran"
+horizontal_alignment = 1
+vertical_alignment = 1
