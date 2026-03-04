@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhw0e6nxp5obn"]
+
+[node name="Player" type="Node3D" unique_id=703443829]
+
+[node name="cards" type="Node3D" parent="." unique_id=1802972508]
+transform = Transform3D(1, 0, 0, 0, 0.66237164, -0.7491754, 0, 0.7491754, 0.66237164, 0, -0.09988934, 1.3487667)

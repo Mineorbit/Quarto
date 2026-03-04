@@ -1,9 +1,10 @@
 extends Node
 
-@onready var cards = $World/cards
+@onready var cardstack = $World/Stack
 @onready var CardTemplate = preload("res://card/Card.tscn")
 
 enum {UP,DOWN}
+var card_spacing = 0.065
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
@@ -25,10 +26,14 @@ func load_cardpack(path):
 		var card = CardTemplate.instantiate()
 		card.name = str(card_id)
 		var card_name = card_file.get_line()
-		cards.add_child(card)
+		cardstack.add_child(card)
 		card.initialize_card(card_name,{"White":20,"Red":30})
-		card.position = Vector3(card_id,card_id*0.25,0)
+		card.position = Vector3(0,card_id*card_spacing,0)
 		game_cards.append(card)
+
+
+func deal():
+	pass
 
 func _ready():
 	load_cardpack("Testpack")
