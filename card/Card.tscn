@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0qgk3uncjprm"]
+[gd_scene format=3 uid="uid://b0qgk3uncjprm"]
 
 [ext_resource type="Script" uid="uid://co6ehvn41yjls" path="res://card/card.gd" id="1_hael8"]
 [ext_resource type="PackedScene" uid="uid://b06ycuqcc5odt" path="res://card/CardInformation.tscn" id="2_tyd3v"]
@@ -18,26 +18,33 @@ size = Vector2(2, 1.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tyd3v"]
 
-[node name="Card" type="Node3D"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_yrjbe"]
+size = Vector2(2, 3)
+
+[node name="Card" type="Node3D" unique_id=284023391]
 script = ExtResource("1_hael8")
 
-[node name="Backplane" type="MeshInstance3D" parent="."]
+[node name="Backplane" type="MeshInstance3D" parent="." unique_id=290137209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 mesh = SubResource("PlaneMesh_3ujke")
 
-[node name="Cardcontent" type="MeshInstance3D" parent="."]
+[node name="Cardcontent" type="MeshInstance3D" parent="." unique_id=297431108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0.75)
 material_override = SubResource("StandardMaterial3D_hael8")
 mesh = SubResource("PlaneMesh_dd2wi")
 skeleton = NodePath("../Backplane")
 
-[node name="CardImage" type="MeshInstance3D" parent="."]
+[node name="CardImage" type="MeshInstance3D" parent="." unique_id=1195472331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 mesh = SubResource("PlaneMesh_tyd3v")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2054126845]
 disable_3d = true
 transparent_bg = true
 size = Vector2i(682, 512)
 
-[node name="CardInformation" parent="SubViewport" instance=ExtResource("2_tyd3v")]
+[node name="CardInformation" parent="SubViewport" unique_id=1221527264 instance=ExtResource("2_tyd3v")]
+
+[node name="BackSide" type="MeshInstance3D" parent="." unique_id=1235819827]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.012021244, 0)
+mesh = SubResource("PlaneMesh_yrjbe")

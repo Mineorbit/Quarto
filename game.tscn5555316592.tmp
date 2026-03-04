@@ -7,7 +7,6 @@
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
-size = Vector2(6, 6)
 
 [sub_resource type="Sky" id="Sky_80nbo"]
 sky_material = ExtResource("1_80nbo")

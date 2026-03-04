@@ -29,6 +29,7 @@ func load_cardpack(path):
 		cardstack.add_child(card)
 		card.initialize_card(card_name,{"White":20,"Red":30})
 		card.position = Vector3(0,card_id*card_spacing,0)
+		card.rotation_degrees.z += 180
 		game_cards.append(card)
 
 
