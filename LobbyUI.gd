@@ -6,6 +6,8 @@ extends Node
 func _ready() -> void:
 	NetworkLobby.player_connected.connect(add_player_to_list)
 	add_player_to_list(1,NetworkLobby.player_info)
+	
+	$LaunchGame.disabled = !multiplayer.is_server()
 
 
 func add_player_to_list(peer_id,player_info):

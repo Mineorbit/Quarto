@@ -8,10 +8,12 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="PlayerInfo" type="Panel" unique_id=983863671]
-custom_minimum_size = Vector2(200, 600)
+custom_minimum_size = Vector2(0, 200)
 anchors_preset = -1
 anchor_right = 0.26500002
 anchor_bottom = 0.568
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_4ky21")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1555427874]

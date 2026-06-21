@@ -17,6 +17,16 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.5
 
+[node name="LaunchGame" type="Button" parent="." unique_id=548098877]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.82600003
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Launch Game"
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
 _spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
 spawn_path = NodePath("../Players")
