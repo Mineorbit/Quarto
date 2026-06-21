@@ -21,6 +21,8 @@ var players = {}
 # entered in a UI scene.
 var player_info = {"name": "Name"}
 
+var own_id = -1
+
 var players_loaded = 0
 
 
@@ -96,6 +98,7 @@ func _on_player_disconnected(id):
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
+	own_id = peer_id
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
 

@@ -38,3 +38,6 @@ func deal():
 
 func _ready():
 	load_cardpack("Testpack")
+	
+func start_game():
+	print("Spiel gestartet")

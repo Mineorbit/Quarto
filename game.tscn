@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://GameSkyMaterial.tres" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_feb5d"]
-[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://Lobby.gd" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://NetworkLobby.gd" id="2_feb5d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)

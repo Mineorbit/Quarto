@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://d3m6it0f8umm7"]
+
+[ext_resource type="Script" uid="uid://bch5u2wbhrde7" path="res://MainMenuUI.gd" id="1_06t4h"]
+
+[node name="MainMenu" type="Control" unique_id=625377084]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=58121859]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play Local" type="Button" parent="Buttons" unique_id=1329011060]
+layout_mode = 2
+text = "Play Local"
+
+[node name="Play Host" type="Button" parent="Buttons" unique_id=1286925957]
+layout_mode = 2
+text = "Host Lobby"
+
+[node name="OnlineContainer" type="HBoxContainer" parent="Buttons" unique_id=994467352]
+layout_mode = 2
+
+[node name="IP" type="TextEdit" parent="Buttons/OnlineContainer" unique_id=223278236]
+custom_minimum_size = Vector2(172.15, 11.225)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "127.0.0.1"
+
+[node name="Play Online" type="Button" parent="Buttons/OnlineContainer" unique_id=1715159665]
+layout_mode = 2
+text = "Connect Lobby
+"
+
+[connection signal="pressed" from="Buttons/Play Host" to="." method="on_host_lobby_pressed"]
+[connection signal="pressed" from="Buttons/OnlineContainer/Play Online" to="." method="on_play_online_pressed"]
