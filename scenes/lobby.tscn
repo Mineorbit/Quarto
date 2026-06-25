@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dw10bco65qepe"]
 
-[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://LobbyUI.gd" id="1_ll2xe"]
+[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://LobbyUI.gd" id="1_o1atq"]
+[ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/player_info.tscn" id="2_5gu6x"]
 
 [node name="Lobby" type="Control" unique_id=1017026879]
 layout_mode = 3
@@ -9,7 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ll2xe")
+script = ExtResource("1_o1atq")
+player_info_scene = ExtResource("2_5gu6x")
 
 [node name="Players" type="HBoxContainer" parent="." unique_id=997064349]
 layout_mode = 1
@@ -28,5 +30,7 @@ grow_vertical = 2
 text = "Launch Game"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
-_spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
+_spawnable_scenes = PackedStringArray("res://player_info.tscn")
 spawn_path = NodePath("../Players")
+
+[connection signal="pressed" from="LaunchGame" to="." method="on_launch_game_pressed"]

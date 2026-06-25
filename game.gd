@@ -1,7 +1,7 @@
 extends Node
 
 @onready var cardstack = $World/Stack
-@onready var CardTemplate = preload("res://card/Card.tscn")
+@export var CardTemplate: PackedScene
 
 enum {UP,DOWN}
 var card_spacing = 0.065

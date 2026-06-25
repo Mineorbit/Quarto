@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://b0qgk3uncjprm"]
 
-[ext_resource type="Script" uid="uid://co6ehvn41yjls" path="res://card/card.gd" id="1_hael8"]
-[ext_resource type="PackedScene" uid="uid://b06ycuqcc5odt" path="res://card/CardInformation.tscn" id="2_tyd3v"]
+[ext_resource type="Script" uid="uid://co6ehvn41yjls" path="res://scenes/card/card.gd" id="1_hael8"]
+[ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://scenes/card/CardFieldLabel.tscn" id="2_3dwn4"]
+[ext_resource type="PackedScene" uid="uid://b06ycuqcc5odt" path="res://scenes/card/CardInformation.tscn" id="2_tyd3v"]
+[ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://scenes/card/CardFieldValue.tscn" id="3_4cxr5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3ujke"]
 size = Vector2(2, 3.5)
@@ -23,6 +25,8 @@ size = Vector2(2, 3)
 
 [node name="Card" type="Node3D" unique_id=284023391]
 script = ExtResource("1_hael8")
+card_field_label = ExtResource("2_3dwn4")
+card_field_value = ExtResource("3_4cxr5")
 
 [node name="Backplane" type="MeshInstance3D" parent="." unique_id=290137209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)

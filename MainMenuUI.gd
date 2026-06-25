@@ -3,6 +3,8 @@ extends Control
 @onready var ip_address_field = $Buttons/OnlineContainer/IP
 @onready var username_field = $Buttons/Username
 
+const LOBBY_UID = "uid://dw10bco65qepe"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	NetworkLobby.player_connected.connect(
@@ -15,7 +17,7 @@ func _ready() -> void:
 
 func enter_lobby():
 	print("Entering Lobby")
-	get_tree().change_scene_to_file("res://lobby.tscn")
+	get_tree().change_scene_to_file(LOBBY_UID)
 
 func on_host_lobby_pressed() -> void:
 	NetworkLobby.player_info["name"] = username_field.text

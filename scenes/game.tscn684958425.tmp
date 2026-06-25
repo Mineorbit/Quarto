@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dv2va3uyae0k8"]
+
+[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_iywne"]
+[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://NetworkLobby.gd" id="2_lbhrr"]
+[ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="4_p57ef"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
+albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
+size = Vector2(6, 6)
+
+[sub_resource type="Sky" id="Sky_80nbo"]
+sky_material = ExtResource("4_p57ef")
+
+[sub_resource type="Environment" id="Environment_mwb40"]
+background_mode = 2
+sky = SubResource("Sky_80nbo")
+fog_enabled = true
+fog_sky_affect = 0.1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
+exposure_multiplier = 0.8
+
+[node name="Game" type="Node" unique_id=2031124819]
+script = ExtResource("1_lnu2h")
+CardTemplate = ExtResource("2_iywne")
+
+[node name="Lobby" type="Node" parent="." unique_id=1229178285]
+script = ExtResource("2_lbhrr")
+
+[node name="World" type="Node3D" parent="." unique_id=1701400089]
+
+[node name="Sun" type="DirectionalLight3D" parent="World" unique_id=1721441626]
+transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Baseplane" type="MeshInstance3D" parent="World" unique_id=677391142]
+material_override = SubResource("StandardMaterial3D_e2o6t")
+mesh = SubResource("PlaneMesh_mwb40")
+
+[node name="GameEnvironmentLighting" type="WorldEnvironment" parent="World" unique_id=873283145]
+environment = SubResource("Environment_mwb40")
+camera_attributes = SubResource("CameraAttributesPractical_80nbo")
+
+[node name="CameraHinge" type="Node3D" parent="World" unique_id=698215917]
+
+[node name="View" type="Camera3D" parent="World/CameraHinge" unique_id=1533365295]
+transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
+
+[node name="Stack" type="Node3D" parent="World" unique_id=1217161125]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036996365, 0)
+
+[node name="Players" type="Node3D" parent="World" unique_id=1480405932]
+
+[node name="UI" type="Control" parent="." unique_id=796609197]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurrentPlayer" type="Label" parent="UI" unique_id=1549843954]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "Spieler 1 ist dran"
+horizontal_alignment = 1
+vertical_alignment = 1

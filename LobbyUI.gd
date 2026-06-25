@@ -1,6 +1,6 @@
 extends Node
 
-@onready var player_info_scene = load("res://player_info.tscn")
+@export var player_info_scene: PackedScene
 @onready var player_list = $Players
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,3 +26,7 @@ func add_player_to_list(peer_id,player_info):
 		player_list.add_child(new_player_ui)
 	
 	
+
+
+func on_launch_game_pressed() -> void:
+	NetworkLobby.load_game("res://scenes/game.tscn")

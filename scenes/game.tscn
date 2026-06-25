@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dv2va3uyae0k8"]
 
-[ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://GameSkyMaterial.tres" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_feb5d"]
-[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://NetworkLobby.gd" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_iywne"]
+[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://NetworkLobby.gd" id="2_lbhrr"]
+[ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="4_p57ef"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
@@ -11,7 +12,7 @@ albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 size = Vector2(6, 6)
 
 [sub_resource type="Sky" id="Sky_80nbo"]
-sky_material = ExtResource("1_80nbo")
+sky_material = ExtResource("4_p57ef")
 
 [sub_resource type="Environment" id="Environment_mwb40"]
 background_mode = 2
@@ -23,10 +24,11 @@ fog_sky_affect = 0.1
 exposure_multiplier = 0.8
 
 [node name="Game" type="Node" unique_id=2031124819]
-script = ExtResource("1_feb5d")
+script = ExtResource("1_lnu2h")
+CardTemplate = ExtResource("2_iywne")
 
 [node name="Lobby" type="Node" parent="." unique_id=1229178285]
-script = ExtResource("2_feb5d")
+script = ExtResource("2_lbhrr")
 
 [node name="World" type="Node3D" parent="." unique_id=1701400089]
 
