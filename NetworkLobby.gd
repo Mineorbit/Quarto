@@ -51,9 +51,9 @@ func create_game():
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
-
-	players[1] = player_info
-	player_connected.emit(1, player_info)
+	own_id = 1
+	players[own_id] = player_info
+	player_connected.emit(own_id, player_info)
 
 
 func remove_multiplayer_peer():
@@ -65,8 +65,18 @@ func remove_multiplayer_peer():
 # do Lobby.load_game.rpc(filepath)
 @rpc("call_local", "reliable")
 func load_game(game_scene_path):
+	assign_player_ids()
 	get_tree().change_scene_to_file(game_scene_path)
 
+
+func assign_player_ids():
+	var player_id = 0
+	var player_peer_ids = players.keys()
+	player_peer_ids.sort()
+	for key in player_peer_ids:
+		players[key]["player_id"] = player_id
+		print("Player "+str(key)+" is "+str(player_id))
+		player_id = player_id + 1
 
 # Every peer will call this when they have loaded the game scene.
 @rpc("any_peer", "call_local", "reliable")
@@ -95,6 +105,8 @@ func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
 
+
+	
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()

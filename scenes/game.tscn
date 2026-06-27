@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_iywne"]
-[ext_resource type="Script" uid="uid://crh62y7o72vmy" path="res://NetworkLobby.gd" id="2_lbhrr"]
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="4_p57ef"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
@@ -23,12 +22,11 @@ fog_sky_affect = 0.1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
 
-[node name="Game" type="Node" unique_id=2031124819]
+[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("cameraHinge", "cardstack")]
 script = ExtResource("1_lnu2h")
+cameraHinge = NodePath("World/CameraHinge")
+cardstack = NodePath("World/Stack")
 CardTemplate = ExtResource("2_iywne")
-
-[node name="Lobby" type="Node" parent="." unique_id=1229178285]
-script = ExtResource("2_lbhrr")
 
 [node name="World" type="Node3D" parent="." unique_id=1701400089]
 

@@ -30,7 +30,7 @@ grow_vertical = 2
 text = "Launch Game"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
-_spawnable_scenes = PackedStringArray("res://player_info.tscn")
+_spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
 spawn_path = NodePath("../Players")
 
 [connection signal="pressed" from="LaunchGame" to="." method="on_launch_game_pressed"]

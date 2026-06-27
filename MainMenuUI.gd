@@ -21,9 +21,7 @@ func enter_lobby():
 
 func on_host_lobby_pressed() -> void:
 	NetworkLobby.player_info["name"] = username_field.text
-	var error = NetworkLobby.create_game()
-	if error == null:
-		enter_lobby()
+	NetworkLobby.create_game()
 
 func on_play_online_pressed() -> void:
 	NetworkLobby.player_info["name"] = username_field.text

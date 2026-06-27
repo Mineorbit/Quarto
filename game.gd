@@ -1,6 +1,9 @@
 extends Node
 
-@onready var cardstack = $World/Stack
+
+
+@export var cameraHinge: Node3D
+@export var cardstack: Node3D
 @export var CardTemplate: PackedScene
 
 enum {UP,DOWN}
@@ -59,6 +62,13 @@ func deal():
 
 func _ready():
 	load_cardpack("Testpack")
-	
+	set_player_view(NetworkLobby.players[NetworkLobby.own_id]["player_id"])
+	NetworkLobby.player_loaded.rpc()
+
+
+func set_player_view(player_id):
+	cameraHinge.rotation_degrees.y = player_id*90
+
+# only called by server
 func start_game():
 	print("Spiel gestartet")

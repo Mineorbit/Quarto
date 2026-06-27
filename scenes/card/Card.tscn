@@ -23,6 +23,14 @@ size = Vector2(2, 1.5)
 [sub_resource type="PlaneMesh" id="PlaneMesh_yrjbe"]
 size = Vector2(2, 3)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3dwn4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Card" type="Node3D" unique_id=284023391]
 script = ExtResource("1_hael8")
 card_field_label = ExtResource("2_3dwn4")
@@ -52,3 +60,6 @@ size = Vector2i(682, 512)
 [node name="BackSide" type="MeshInstance3D" parent="." unique_id=1235819827]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.012021244, 0)
 mesh = SubResource("PlaneMesh_yrjbe")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
+replication_config = SubResource("SceneReplicationConfig_3dwn4")

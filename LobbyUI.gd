@@ -17,9 +17,9 @@ func add_player_to_list(peer_id,player_info):
 		
 		# CRITICAL: Name the node using the peer ID.
 		# Godot's multiplayer relies on node paths being identical across all clients.
-		print(player_info)
 		new_player_ui.name = str(peer_id)
 		new_player_ui.player_name = player_info["name"]
+		print("Adding Player Info for peer "+str(peer_id))
 		
 		# Adding it to the spawn path triggers the MultiplayerSpawner
 		# This will automatically appear on all client screens.
