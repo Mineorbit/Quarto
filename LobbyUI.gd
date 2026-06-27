@@ -29,4 +29,4 @@ func add_player_to_list(peer_id,player_info):
 
 
 func on_launch_game_pressed() -> void:
-	NetworkLobby.load_game("res://scenes/game.tscn")
+	NetworkLobby.load_game.rpc("res://scenes/game.tscn")
