@@ -30,3 +30,11 @@ func on_play_online_pressed() -> void:
 	print("Connecting as "+str(NetworkLobby.player_info["name"]))
 	NetworkLobby.join_game(ip_address_field.text)
 	
+
+
+func on_open_carddeck_button_pressed() -> void:
+	var path = "user://card_packs/"
+	# Convert the user:// path to an absolute system path
+	var absolute_path = ProjectSettings.globalize_path(path)
+	# Open the folder in the OS file manager
+	OS.shell_open(absolute_path)
