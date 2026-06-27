@@ -9,6 +9,8 @@ extends Node
 enum {UP,DOWN}
 var card_spacing = 0.065
 
+var game_cards = []
+
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
 	var meta_file = FileAccess.open("user://card_packs/"+path+"/meta.txt", FileAccess.READ)
@@ -22,7 +24,6 @@ func load_cardpack(path):
 		var card_field_data = card_field_line.split(",")
 		card_fields.append(card_field_data)
 	print("Card Rules: "+str(card_fields))
-	var game_cards = []
 	for card_id in range(number_cards):
 		var game_card = load_card(path,card_id)
 		if game_card:
@@ -57,8 +58,11 @@ func load_card(path, card_id):
 		print("File does not exist at: ", card_path)
 		return null
 
-func deal():
-	pass
+func deal_cards():
+	print("Dealing Cards")
+	for i in range(game_cards.size()):
+		var card_owner = i % NetworkLobby.players.size()
+		print("Giving Card "+str(i)+" to Player "+str(card_owner))
 
 func _ready():
 	load_cardpack("Testpack")
@@ -72,3 +76,5 @@ func set_player_view(player_id):
 # only called by server
 func start_game():
 	print("Spiel gestartet")
+	await get_tree().create_timer(1).timeout
+	deal_cards()
