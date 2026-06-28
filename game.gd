@@ -1,15 +1,19 @@
 extends Node
 
 
+@export var CardTemplate: PackedScene
+@export var PlayerHand: PackedScene
 
 @export var cameraHinge: Node3D
 @export var cardstack: Node3D
-@export var CardTemplate: PackedScene
+@export var players: Node3D
 
 enum {UP,DOWN}
 var card_spacing = 0.065
 
 var game_cards = []
+var player_cards = []
+var player_hands = []
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
@@ -58,11 +62,21 @@ func load_card(path, card_id):
 		print("File does not exist at: ", card_path)
 		return null
 
+
+func place_card_player_hand(card,player):
+	print("Placing Card in Player Hand")
+	card.position = player_hands[player].position
+
 func deal_cards():
 	print("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner = i % NetworkLobby.players.size()
 		print("Giving Card "+str(i)+" to Player "+str(card_owner))
+		player_cards[card_owner].append(game_cards[i])
+		place_card_player_hand(game_cards[i],card_owner)
+
+
+var radius = 2
 
 func _ready():
 	load_cardpack("Testpack")
@@ -71,10 +85,36 @@ func _ready():
 
 
 func set_player_view(player_id):
-	cameraHinge.rotation_degrees.y = player_id*90
+	cameraHinge.rotation_degrees.y = player_id*(360/NetworkLobby.players.size())
 
 # only called by server
 func start_game():
 	print("Spiel gestartet")
+	for i in range(NetworkLobby.players.size()):
+		player_cards.append([])
+		# 1. Calculate the angle for this player
+		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI
+		
+		# 2. Calculate position using trig
+		# We use x and z for a flat ground plane
+		var x = cos(angle) * radius
+		var z = sin(angle) * radius
+		var spawn_pos = Vector3(x, 0, z)
+		
+		# 3. Create and position the player
+		var playerHand = PlayerHand.instantiate()
+		playerHand.position = spawn_pos
+		playerHand.name = str(i)
+		
+		# 4. Rotate to face the center (0,0,0)
+		# We look at the center, then adjust so they face "inwards"
+		playerHand.look_at(Vector3(0, 0, 0), Vector3.UP)
+		
+		# 5. Add as child to Node A
+		players.add_child(playerHand)
+		player_hands.append(playerHand)
+		
+	
+	
 	await get_tree().create_timer(1).timeout
 	deal_cards()

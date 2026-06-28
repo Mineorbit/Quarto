@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_iywne"]
+[ext_resource type="PackedScene" uid="uid://hdpa7ydpetus" path="res://scenes/PlayerHand.tscn" id="3_lbhrr"]
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="4_p57ef"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
@@ -9,6 +10,8 @@ albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
 size = Vector2(6, 6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r3wyq"]
 
 [sub_resource type="Sky" id="Sky_80nbo"]
 sky_material = ExtResource("4_p57ef")
@@ -22,11 +25,13 @@ fog_sky_affect = 0.1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
 
-[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("cameraHinge", "cardstack")]
+[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("cameraHinge", "cardstack", "players")]
 script = ExtResource("1_lnu2h")
+CardTemplate = ExtResource("2_iywne")
+PlayerHand = ExtResource("3_lbhrr")
 cameraHinge = NodePath("World/CameraHinge")
 cardstack = NodePath("World/Stack")
-CardTemplate = ExtResource("2_iywne")
+players = NodePath("World/Players")
 
 [node name="World" type="Node3D" parent="." unique_id=1701400089]
 
@@ -37,6 +42,10 @@ shadow_enabled = true
 [node name="Baseplane" type="MeshInstance3D" parent="World" unique_id=677391142]
 material_override = SubResource("StandardMaterial3D_e2o6t")
 mesh = SubResource("PlaneMesh_mwb40")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Baseplane" unique_id=509242100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1353652, 0.9168333, -2.0381048)
+mesh = SubResource("CylinderMesh_r3wyq")
 
 [node name="GameEnvironmentLighting" type="WorldEnvironment" parent="World" unique_id=873283145]
 environment = SubResource("Environment_mwb40")
@@ -49,6 +58,10 @@ transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.849469
 
 [node name="Stack" type="Node3D" parent="World" unique_id=1217161125]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036996365, 0)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="World" unique_id=124598]
+_spawnable_scenes = PackedStringArray("uid://hdpa7ydpetus")
+spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="World" unique_id=1480405932]
 
