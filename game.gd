@@ -93,7 +93,8 @@ func load_card(path, card_id):
 
 func place_card_player_hand(card,player):
 	print("Placing Card in Player Hand")
-	card.position = player_hands[player].position
+	card.reparent(player_hands[player])
+	card.look_at_from_position( player_hands[player].position,position_of_player_hand(player)*2 + Vector3.UP,Vector3.UP)
 
 func deal_cards():
 	print("Dealing Cards")
@@ -112,23 +113,26 @@ func set_player_view(player_id):
 	cameraHinge.rotation_degrees.y = 90 + player_id*(360/NetworkLobby.players.size())
 
 
+func position_of_player_hand(i):
+		# 1. Calculate the angle for this player
+		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI
+		var x = cos(angle) * radius
+		var z = sin(angle) * radius
+		return Vector3(x, 0, z)
+	
+
 # only called by server
 func start_game():
 	print("Spiel gestartet")
 	for i in range(NetworkLobby.players.size()):
 		player_cards.append([])
-		# 1. Calculate the angle for this player
-		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI
 		
 		# 2. Calculate position using trig
 		# We use x and z for a flat ground plane
-		var x = cos(angle) * radius
-		var z = sin(angle) * radius
-		var spawn_pos = Vector3(x, 0, z)
 		
 		# 3. Create and position the player
 		var playerHand = PlayerHand.instantiate()
-		playerHand.position = spawn_pos + Vector3.UP * i
+		playerHand.position = position_of_player_hand(i)
 		playerHand.name = str(i)
 		
 		# 4. Rotate to face the center (0,0,0)
@@ -154,7 +158,8 @@ func start_player_turn(player_id):
 		player_text = "It's your turn!"
 	else:
 		player_text = "It's player "+str(player_id + 1)+"'s turn!"
-		
+	for i in range(NetworkLobby.players.size()):
+		player_hands[i].position = position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	CurrentPlayer.text = player_text
 	await get_tree().create_timer(10).timeout
 	player_turn_finished.emit(player_id)

@@ -4,9 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bvjqy0oa2kejr" path="res://scenes/card/CardFieldLabel.tscn" id="2_3dwn4"]
 [ext_resource type="PackedScene" uid="uid://b06ycuqcc5odt" path="res://scenes/card/CardInformation.tscn" id="2_tyd3v"]
 [ext_resource type="PackedScene" uid="uid://d3yxgbw61136p" path="res://scenes/card/CardFieldValue.tscn" id="3_4cxr5"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3ujke"]
-size = Vector2(2, 3.5)
+[ext_resource type="PackedScene" uid="uid://ba1kqprwuclf" path="res://assets/Card.blend" id="5_4cxr5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_dd2wi"]
 viewport_path = NodePath("SubViewport")
@@ -19,9 +17,6 @@ albedo_texture = SubResource("ViewportTexture_dd2wi")
 size = Vector2(2, 1.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tyd3v"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_yrjbe"]
-size = Vector2(2, 3)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3dwn4"]
 properties/0/path = NodePath(".:position")
@@ -36,18 +31,14 @@ script = ExtResource("1_hael8")
 card_field_label = ExtResource("2_3dwn4")
 card_field_value = ExtResource("3_4cxr5")
 
-[node name="Backplane" type="MeshInstance3D" parent="." unique_id=290137209]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
-mesh = SubResource("PlaneMesh_3ujke")
-
 [node name="Cardcontent" type="MeshInstance3D" parent="." unique_id=297431108]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0.75)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, -0.00020186705, -0.39958602, -0.13440992)
 material_override = SubResource("StandardMaterial3D_hael8")
 mesh = SubResource("PlaneMesh_dd2wi")
-skeleton = NodePath("../Backplane")
+skeleton = NodePath("")
 
 [node name="CardImage" type="MeshInstance3D" parent="." unique_id=1195472331]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 0.00020636134, 0.47534472, -0.12770832)
 mesh = SubResource("PlaneMesh_tyd3v")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2054126845]
@@ -57,9 +48,8 @@ size = Vector2i(682, 512)
 
 [node name="CardInformation" parent="SubViewport" unique_id=1221527264 instance=ExtResource("2_tyd3v")]
 
-[node name="BackSide" type="MeshInstance3D" parent="." unique_id=1235819827]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.012021244, 0)
-mesh = SubResource("PlaneMesh_yrjbe")
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
 replication_config = SubResource("SceneReplicationConfig_3dwn4")
+
+[node name="Card" parent="." unique_id=994605966 instance=ExtResource("5_4cxr5")]
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 2.2483799e-05, 0.092402644, -0.12435129)
