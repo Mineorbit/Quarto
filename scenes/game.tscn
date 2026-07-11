@@ -25,10 +25,11 @@ fog_sky_affect = 0.1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
 
-[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("cameraHinge", "cardstack", "players")]
+[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("CurrentPlayer", "cameraHinge", "cardstack", "players")]
 script = ExtResource("1_lnu2h")
 CardTemplate = ExtResource("2_iywne")
 PlayerHand = ExtResource("3_lbhrr")
+CurrentPlayer = NodePath("UI/CurrentPlayer")
 cameraHinge = NodePath("World/CameraHinge")
 cardstack = NodePath("World/Stack")
 players = NodePath("World/Players")

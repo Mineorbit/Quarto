@@ -4,6 +4,8 @@ extends Node
 @export var CardTemplate: PackedScene
 @export var PlayerHand: PackedScene
 
+@export var CurrentPlayer: Label
+
 @export var cameraHinge: Node3D
 @export var cardstack: Node3D
 @export var players: Node3D
@@ -14,6 +16,32 @@ var card_spacing = 0.065
 var game_cards = []
 var player_cards = []
 var player_hands = []
+
+# Define the phases of your infinite high-level loop
+enum GameState {
+	LOADING,
+	PLAYING,
+	PAUSED,
+	GAME_OVER
+}
+
+signal player_turn_finished(id)
+
+var own_player_id
+
+
+
+# Track the current loop state
+var current_state: GameState = GameState.LOADING
+
+
+
+func _ready():
+	own_player_id = NetworkLobby.players[NetworkLobby.own_id]["player_id"]
+	load_cardpack("Testpack")
+	set_player_view(own_player_id)
+	NetworkLobby.player_loaded.rpc()
+	player_turn_finished.connect(func(id): start_player_turn( (id + 1)  % NetworkLobby.players.size()))
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
@@ -78,14 +106,11 @@ func deal_cards():
 
 var radius = 2
 
-func _ready():
-	load_cardpack("Testpack")
-	set_player_view(NetworkLobby.players[NetworkLobby.own_id]["player_id"])
-	NetworkLobby.player_loaded.rpc()
 
 
 func set_player_view(player_id):
-	cameraHinge.rotation_degrees.y = player_id*(360/NetworkLobby.players.size())
+	cameraHinge.rotation_degrees.y = 90 + player_id*(360/NetworkLobby.players.size())
+
 
 # only called by server
 func start_game():
@@ -103,7 +128,7 @@ func start_game():
 		
 		# 3. Create and position the player
 		var playerHand = PlayerHand.instantiate()
-		playerHand.position = spawn_pos
+		playerHand.position = spawn_pos + Vector3.UP * i
 		playerHand.name = str(i)
 		
 		# 4. Rotate to face the center (0,0,0)
@@ -113,8 +138,23 @@ func start_game():
 		# 5. Add as child to Node A
 		players.add_child(playerHand)
 		player_hands.append(playerHand)
+		current_state = GameState.PLAYING
 		
 	
 	
 	await get_tree().create_timer(1).timeout
 	deal_cards()
+	start_player_turn(0)
+
+
+func start_player_turn(player_id):
+	var player_text = ""
+	
+	if player_id == own_player_id:
+		player_text = "It's your turn!"
+	else:
+		player_text = "It's player "+str(player_id + 1)+"'s turn!"
+		
+	CurrentPlayer.text = player_text
+	await get_tree().create_timer(10).timeout
+	player_turn_finished.emit(player_id)
