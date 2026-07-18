@@ -90,17 +90,13 @@ func load_card(path, card_id):
 		return null
 
 
-func place_card_player_hand(card,player_id):
-	print("Placing Card in Player "+str(player_id)+"'s Hand")
-	card.reparent(player_hands[player_id])
-	card.look_at_from_position( player_hands[player_id].position,position_of_player_hand(player_id)*2 + Vector3.UP,Vector3.UP)
 
 func deal_cards():
 	print("Dealing Cards")
 	for i in range(game_cards.size()):
-		var card_owner = i % NetworkLobby.players.size()
-		print("Giving Card "+str(i)+" to Player "+str(card_owner))
-		place_card_player_hand(game_cards[i],card_owner)
+		var card_owner_id = i % NetworkLobby.players.size()
+		print("Giving Card "+str(i)+" to Player "+str(card_owner_id))
+		player_hands[card_owner_id].place_card_in_hand(game_cards[i])
 
 
 var radius = 2
@@ -124,19 +120,11 @@ func start_game():
 	print("Spiel gestartet")
 	for i in range(NetworkLobby.players.size()):
 		
-		# 2. Calculate position using trig
-		# We use x and z for a flat ground plane
-		
-		# 3. Create and position the player
 		var playerHand = PlayerHand.instantiate()
 		playerHand.position = position_of_player_hand(i)
 		playerHand.name = str(i)
 		
-		# 4. Rotate to face the center (0,0,0)
-		# We look at the center, then adjust so they face "inwards"
-		playerHand.look_at(Vector3(0, 0, 0), Vector3.UP)
-		
-		# 5. Add as child to Node A
+		playerHand.look_at(position_of_player_hand(i)*2, Vector3.UP)
 		players.add_child(playerHand)
 		player_hands.append(playerHand)
 		current_state = GameState.PLAYING
@@ -150,10 +138,12 @@ func start_game():
 
 var picked_feature = "test"
 
-func get_players_card_value(player_id,feature):
-	player_hands[player_id].get_child(0).card_values[feature]
+
 
 func play_round(player_id):
+	if player_hands[player_id].get_top_card() != null:
+		await get_tree().create_timer(1).timeout
+		player_turn_finished.emit(player_id)
 	var player_text = ""
 	
 	if player_id == own_player_id:
@@ -169,19 +159,34 @@ func play_round(player_id):
 	# evaluate logic
 	
 	var max_player_index = 0
-	var max_card_value = get_players_card_value(0,picked_feature)
+	var max_card_value = player_hands[player_id].get_players_card_value(picked_feature)
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
-		top_cards.append(player_hands[player_id].get_child(0))
-		var player_card_value = get_players_card_value(i,picked_feature)
-		if player_card_value > max_card_value:
-			max_player_index = i
-			max_card_value = player_card_value
+		var other_player_top_card = player_hands[player_id].get_top_card()
+		if other_player_top_card != null:
+			top_cards.append(other_player_top_card)
+			var player_card_value = player_hands[i].get_players_card_value(picked_feature)
+			if player_card_value > max_card_value:
+				max_player_index = i
+				max_card_value = player_card_value
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
 	# TODO what if players have same value: stechen mechanic
 	
 	for card in top_cards:
-		place_card_player_hand(card,max_player_index)
-	player_turn_finished.emit(player_id)
+		player_hands[max_player_index].place_card_in_hand(card)
+	
+	var current_player_wins = true
+	for i in range(NetworkLobby.players.size()):
+		if i != player_id && player_hands[i].get_top_card() != null:
+			# another player still has a card
+			current_player_wins = false
+	if current_player_wins:
+		if player_id == own_player_id:
+			player_text = "You win!"
+		else:
+			player_text = "Player "+str(player_id + 1)+" wins!"	
+		CurrentPlayer.text = player_text
+	else:
+		player_turn_finished.emit(player_id)
