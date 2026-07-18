@@ -14,7 +14,6 @@ enum {UP,DOWN}
 var card_spacing = 0.065
 
 var game_cards = []
-var player_cards = []
 var player_hands = []
 
 # Define the phases of your infinite high-level loop
@@ -41,7 +40,7 @@ func _ready():
 	load_cardpack("Testpack")
 	set_player_view(own_player_id)
 	NetworkLobby.player_loaded.rpc()
-	player_turn_finished.connect(func(id): start_player_turn( (id + 1)  % NetworkLobby.players.size()))
+	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
@@ -91,17 +90,16 @@ func load_card(path, card_id):
 		return null
 
 
-func place_card_player_hand(card,player):
-	print("Placing Card in Player Hand")
-	card.reparent(player_hands[player])
-	card.look_at_from_position( player_hands[player].position,position_of_player_hand(player)*2 + Vector3.UP,Vector3.UP)
+func place_card_player_hand(card,player_id):
+	print("Placing Card in Player "+str(player_id)+"'s Hand")
+	card.reparent(player_hands[player_id])
+	card.look_at_from_position( player_hands[player_id].position,position_of_player_hand(player_id)*2 + Vector3.UP,Vector3.UP)
 
 func deal_cards():
 	print("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner = i % NetworkLobby.players.size()
 		print("Giving Card "+str(i)+" to Player "+str(card_owner))
-		player_cards[card_owner].append(game_cards[i])
 		place_card_player_hand(game_cards[i],card_owner)
 
 
@@ -125,7 +123,6 @@ func position_of_player_hand(i):
 func start_game():
 	print("Spiel gestartet")
 	for i in range(NetworkLobby.players.size()):
-		player_cards.append([])
 		
 		# 2. Calculate position using trig
 		# We use x and z for a flat ground plane
@@ -148,10 +145,15 @@ func start_game():
 	
 	await get_tree().create_timer(1).timeout
 	deal_cards()
-	start_player_turn(0)
+	play_round(0)
 
 
-func start_player_turn(player_id):
+var picked_feature = "test"
+
+func get_players_card_value(player_id,feature):
+	player_hands[player_id].get_child(0).card_values[feature]
+
+func play_round(player_id):
 	var player_text = ""
 	
 	if player_id == own_player_id:
@@ -161,5 +163,25 @@ func start_player_turn(player_id):
 	for i in range(NetworkLobby.players.size()):
 		player_hands[i].position = position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	CurrentPlayer.text = player_text
+	
 	await get_tree().create_timer(10).timeout
+	# TODO turn over cards
+	# evaluate logic
+	
+	var max_player_index = 0
+	var max_card_value = get_players_card_value(0,picked_feature)
+	var top_cards = []
+	for i in range(NetworkLobby.players.size()):
+		top_cards.append(player_hands[player_id].get_child(0))
+		var player_card_value = get_players_card_value(i,picked_feature)
+		if player_card_value > max_card_value:
+			max_player_index = i
+			max_card_value = player_card_value
+	
+	# TODO currently only supports maximum, needs beats(a,b) predicate
+	
+	# TODO what if players have same value: stechen mechanic
+	
+	for card in top_cards:
+		place_card_player_hand(card,max_player_index)
 	player_turn_finished.emit(player_id)
