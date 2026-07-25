@@ -17,7 +17,7 @@ var game_cards = []
 var card_rules = []
 
 
-var player_hands = []
+var player_hands = {}
 
 # Define the phases of your infinite high-level loop
 enum GameState {
@@ -134,14 +134,15 @@ func set_player_view(player_id):
 
 # only called by server
 func start_game():
-	print("Spiel gestartet")
+	print("Started Game")
+	$UI/DebugText.text = str(get_own_player_id())
 	for i in range(NetworkLobby.players.size()):
 		
 		var playerHand = PlayerHand.instantiate()
 		playerHand.name = str(i)
 		
 		players.add_child(playerHand)
-		player_hands.append(playerHand)
+		player_hands[i] = playerHand
 		
 		playerHand.position = playerHand.position_of_player_hand(i)
 		playerHand.look_at(playerHand.position_of_player_hand(i)*2 + Vector3.UP*2, Vector3.UP)
@@ -152,11 +153,11 @@ func start_game():
 	play_round(0)
 
 
-var picked_feature = "test"
+var picked_feature = "Größe"
 
 
 
-
+const REACTION_TIME = 3
 
 func play_round(player_id):
 	print("Playing Round of Player "+str(player_id))
@@ -172,7 +173,7 @@ func play_round(player_id):
 		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 
 	# TODO allow faster end by stopping timer on RPC with selected feature
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(REACTION_TIME).timeout
 	finish_round(player_id)
 	
 		
@@ -184,11 +185,14 @@ func finish_round(player_id):
 	var max_card_value = player_hands[player_id].get_players_card_value(picked_feature)
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
-		var other_player_top_card = player_hands[player_id].get_top_card()
+		var other_player_top_card = player_hands[i].get_top_card()
 		if other_player_top_card != null:
 			top_cards.append(other_player_top_card)
-			var player_card_value = player_hands[i].get_players_card_value(picked_feature)
+			print(other_player_top_card.card_values.keys())
+			var player_card_value = other_player_top_card.card_values[picked_feature]
+			print("Card: "+str(other_player_top_card.plain_card_name)+" with value "+str(player_card_value))
 			if player_card_value > max_card_value:
+				print("Beats")
 				round_winner = i
 				max_card_value = player_card_value
 	
@@ -196,18 +200,19 @@ func finish_round(player_id):
 	
 	
 	
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(1).timeout
 	# TODO what if players have same value: stechen mechanic
 	
 	InfoText.set_info("Player "+str(round_winner+1)+" wins the round!")
 	
 	await get_tree().create_timer(1).timeout
 	for card in top_cards:
-		player_hands[round_winner].place_card_in_hand(card)
+		player_hands[round_winner].place_card_in_hand(card,false)
 		await get_tree().create_timer(0.5).timeout
 	
 	var current_player_wins = true
 	for i in range(NetworkLobby.players.size()):
+		#print(str(i)+" "+str(player_hands[i].get_top_card()))
 		if i != player_id && player_hands[i].get_top_card() != null:
 			# another player still has a card
 			current_player_wins = false
