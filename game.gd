@@ -115,18 +115,17 @@ func start_game():
 	for i in range(NetworkLobby.players.size()):
 		
 		var playerHand = PlayerHand.instantiate()
-		playerHand.position = playerHand.position_of_player_hand(i)
 		playerHand.name = str(i)
 		
-		playerHand.look_at(playerHand.position_of_player_hand(i)*2, Vector3.UP)
 		players.add_child(playerHand)
 		player_hands.append(playerHand)
-		current_state = GameState.PLAYING
 		
-	
+		playerHand.position = playerHand.position_of_player_hand(i)
+		playerHand.look_at(playerHand.position_of_player_hand(i)*2 + Vector3.UP*2, Vector3.UP)
 	
 	await get_tree().create_timer(1).timeout
 	deal_cards()
+	current_state = GameState.PLAYING
 	play_round(0)
 
 

@@ -14,7 +14,7 @@ func place_card_in_hand(card):
 	print("Placing Card in Player's Hand")
 	card.reparent(cardHook)
 	card.position = Vector3.ZERO
-	card.look_at(2*get_parent().global_position + Vector3.UP,Vector3.UP)
+	card.rotation = cardHook.rotation
 
 func get_top_card():
 	print(cardHook.get_child_count())

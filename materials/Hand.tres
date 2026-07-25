@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://78m4tadjmhru"]
+
+[resource]
+diffuse_mode = 1
+disable_fog = true
+albedo_color = Color(1, 1, 0.21568628, 1)
+metallic = 0.05
+metallic_specular = 0.21
+roughness = 0.71
+emission_enabled = true
+emission = Color(0.40714052, 0.39783946, 0.16394398, 1)
+emission_energy_multiplier = 0.5
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.26
+disable_receive_shadows = true

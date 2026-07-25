@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://hdpa7ydpetus"]
 
 [ext_resource type="Script" uid="uid://r25h0gd4f6ou" path="res://PlayerHand.gd" id="1_ab6ha"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_r3wyq"]
+[ext_resource type="PackedScene" uid="uid://da7a4b6obiftp" path="res://scenes/PlayerHandModel.tscn" id="2_bxngx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mb8gs"]
 properties/0/path = NodePath(".:position")
@@ -16,20 +15,11 @@ properties/1/replication_mode = 1
 script = ExtResource("1_ab6ha")
 cardHook = NodePath("CardHook")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1292981930]
-mesh = SubResource("SphereMesh_r3wyq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1225501513]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.54185843, 0)
-mesh = SubResource("SphereMesh_r3wyq")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=552688934]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.5441425, 0.05120921, 0)
-mesh = SubResource("SphereMesh_r3wyq")
-skeleton = NodePath("../MeshInstance3D")
+[node name="PlayerHand" parent="." unique_id=409849312 instance=ExtResource("2_bxngx")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, 0, 0, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1216790682]
 replication_config = SubResource("SceneReplicationConfig_mb8gs")
 
 [node name="CardHook" type="Node3D" parent="." unique_id=742437348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40352154, 0.33913398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14820257, -0.31452417)

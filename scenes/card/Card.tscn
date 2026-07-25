@@ -27,6 +27,7 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Card" type="Node3D" unique_id=284023391]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("1_hael8")
 card_field_label = ExtResource("2_3dwn4")
 card_field_value = ExtResource("3_4cxr5")
@@ -51,5 +52,5 @@ size = Vector2i(682, 512)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
 replication_config = SubResource("SceneReplicationConfig_3dwn4")
 
-[node name="Card" parent="." unique_id=994605966 instance=ExtResource("5_4cxr5")]
+[node name="CardModel" parent="." unique_id=994605966 instance=ExtResource("5_4cxr5")]
 transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 2.2483799e-05, 0.092402644, -0.12435129)

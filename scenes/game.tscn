@@ -65,6 +65,7 @@ _spawnable_scenes = PackedStringArray("uid://hdpa7ydpetus")
 spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="World" unique_id=1480405932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2911079, 0)
 
 [node name="UI" type="Control" parent="." unique_id=796609197]
 layout_mode = 3
