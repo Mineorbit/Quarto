@@ -17,7 +17,6 @@ func place_card_in_hand(card):
 	card.rotation = cardHook.rotation
 
 func get_top_card():
-	print(cardHook.get_child_count())
 	if cardHook.get_child_count() > 0:
 		return cardHook.get_child(0)
 	else:

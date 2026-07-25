@@ -1,10 +1,10 @@
 extends Node
-
+class_name Game
 
 @export var CardTemplate: PackedScene
 @export var PlayerHand: PackedScene
+@export var InfoText: Label
 
-@export var CurrentPlayer: Label
 
 @export var cameraHinge: Node3D
 @export var cardstack: Node3D
@@ -32,6 +32,9 @@ signal player_turn_finished(id)
 var own_player_id
 
 
+# TODO this should vary in local payer mode
+static func get_own_player_id():
+	return NetworkLobby.players[NetworkLobby.own_id]["player_id"]
 
 # Track the current loop state
 var current_state: GameState = GameState.LOADING
@@ -44,11 +47,10 @@ func count_player_card_files(path: String) -> int:
 	return count
 
 func _ready():
-	own_player_id = NetworkLobby.players[NetworkLobby.own_id]["player_id"]
-	load_cardpack("Testpack")
-	set_player_view(own_player_id)
-	NetworkLobby.player_loaded.rpc()
 	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
+	load_cardpack("Testpack")
+	set_player_view(get_own_player_id())
+	NetworkLobby.player_loaded.rpc()
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
@@ -85,9 +87,7 @@ func load_card(path, card_id):
 			var card_fields = {}
 			
 			for card_rule in card_rules:
-				print(card_rule)
 				var card_field_value = file.get_line()
-				print(card_field_value)
 				card_fields[card_rule[0]] = card_field_value
 			
 			card.initialize_card(card_name,card_fields)
@@ -109,11 +109,11 @@ func load_card(path, card_id):
 
 
 func shuffle_cards():
-	print("Shuffling Cards")
+	InfoText.set_info("Shuffling Cards")
 
 func deal_cards():
 	shuffle_cards()
-	print("Dealing Cards")
+	InfoText.set_info("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
 		var selected_card = cardstack.get_child(0)
@@ -147,12 +147,14 @@ func start_game():
 		playerHand.look_at(playerHand.position_of_player_hand(i)*2 + Vector3.UP*2, Vector3.UP)
 	
 	await get_tree().create_timer(1).timeout
-	deal_cards()
+	await deal_cards()
 	current_state = GameState.PLAYING
 	play_round(0)
 
 
 var picked_feature = "test"
+
+
 
 
 
@@ -164,15 +166,17 @@ func play_round(player_id):
 		player_turn_finished.emit(player_id)
 	var player_text = ""
 	
-	if player_id == own_player_id:
-		player_text = "It's your turn!"
-	else:
-		player_text = "It's player "+str(player_id + 1)+"'s turn!"
+	InfoText.set_turn_text(player_id)
+	
 	for i in range(NetworkLobby.players.size()):
 		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
-	CurrentPlayer.text = player_text
-	
+
+	# TODO allow faster end by stopping timer on RPC with selected feature
 	await get_tree().create_timer(10).timeout
+	finish_round(player_id)
+	
+		
+func finish_round(player_id):
 	# TODO turn over cards
 	# evaluate logic
 	
@@ -206,10 +210,6 @@ func play_round(player_id):
 			# another player still has a card
 			current_player_wins = false
 	if current_player_wins:
-		if player_id == own_player_id:
-			player_text = "You win!"
-		else:
-			player_text = "Player "+str(player_id + 1)+" wins!"	
-		CurrentPlayer.text = player_text
+		InfoText.declare_winner(player_id)
 	else:
 		player_turn_finished.emit(player_id)

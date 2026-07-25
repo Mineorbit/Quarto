@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dw10bco65qepe"]
 
-[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://LobbyUI.gd" id="1_o1atq"]
+[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://scripts/LobbyUI.gd" id="1_o1atq"]
 [ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/player_info.tscn" id="2_5gu6x"]
 
 [node name="Lobby" type="Control" unique_id=1017026879]
