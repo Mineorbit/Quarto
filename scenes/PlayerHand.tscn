@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hdpa7ydpetus"]
 
-[ext_resource type="Script" uid="uid://r25h0gd4f6ou" path="res://scenes/player_hand.gd" id="1_ab6ha"]
+[ext_resource type="Script" uid="uid://r25h0gd4f6ou" path="res://PlayerHand.gd" id="1_ab6ha"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_r3wyq"]
 

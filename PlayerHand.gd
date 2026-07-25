@@ -9,14 +9,24 @@ func get_players_card_value(feature):
 	else:
 		return 0
 
+
 func place_card_in_hand(card):
 	print("Placing Card in Player's Hand")
 	card.reparent(cardHook)
 	card.position = Vector3.ZERO
-	card.look_at(card.position + cardHook.global_transform.basis.z + Vector3.UP,Vector3.UP)
+	card.look_at(2*get_parent().global_position + Vector3.UP,Vector3.UP)
 
 func get_top_card():
+	print(cardHook.get_child_count())
 	if cardHook.get_child_count() > 0:
 		return cardHook.get_child(0)
 	else:
 		return null
+
+var radius = 2
+func position_of_player_hand(i):
+		# 1. Calculate the angle for this player
+		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI
+		var x = cos(angle) * radius
+		var z = sin(angle) * radius
+		return Vector3(x, 0, z)

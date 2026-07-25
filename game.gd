@@ -99,7 +99,6 @@ func deal_cards():
 		player_hands[card_owner_id].place_card_in_hand(game_cards[i])
 
 
-var radius = 2
 
 
 
@@ -107,12 +106,7 @@ func set_player_view(player_id):
 	cameraHinge.rotation_degrees.y = 90 + player_id*(360/NetworkLobby.players.size())
 
 
-func position_of_player_hand(i):
-		# 1. Calculate the angle for this player
-		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI
-		var x = cos(angle) * radius
-		var z = sin(angle) * radius
-		return Vector3(x, 0, z)
+
 	
 
 # only called by server
@@ -121,10 +115,10 @@ func start_game():
 	for i in range(NetworkLobby.players.size()):
 		
 		var playerHand = PlayerHand.instantiate()
-		playerHand.position = position_of_player_hand(i)
+		playerHand.position = playerHand.position_of_player_hand(i)
 		playerHand.name = str(i)
 		
-		playerHand.look_at(position_of_player_hand(i)*2, Vector3.UP)
+		playerHand.look_at(playerHand.position_of_player_hand(i)*2, Vector3.UP)
 		players.add_child(playerHand)
 		player_hands.append(playerHand)
 		current_state = GameState.PLAYING
@@ -141,8 +135,10 @@ var picked_feature = "test"
 
 
 func play_round(player_id):
-	if player_hands[player_id].get_top_card() != null:
+	print("Playing Round of Player "+str(player_id))
+	if player_hands[player_id].get_top_card() == null:
 		await get_tree().create_timer(1).timeout
+		print("Player had no cards")
 		player_turn_finished.emit(player_id)
 	var player_text = ""
 	
@@ -151,7 +147,7 @@ func play_round(player_id):
 	else:
 		player_text = "It's player "+str(player_id + 1)+"'s turn!"
 	for i in range(NetworkLobby.players.size()):
-		player_hands[i].position = position_of_player_hand(i) + Vector3.UP * int(i == player_id)
+		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	CurrentPlayer.text = player_text
 	
 	await get_tree().create_timer(10).timeout
