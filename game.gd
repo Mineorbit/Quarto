@@ -75,7 +75,7 @@ func load_card(path, card_id):
 			cardstack.add_child(card)
 			card.initialize_card(card_name,{"White":20,"Red":30})
 			card.position = Vector3(0,card_id*card_spacing,0)
-			card.rotation_degrees.z += 180
+			card.rotation = cardstack.rotation
 			print("Loaded card: "+str(card_id))
 			return card
 			# FileAccess automatically closes when it goes out of scope, 
@@ -167,7 +167,12 @@ func play_round(player_id):
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
+	
+	
+	await get_tree().create_timer(10).timeout
 	# TODO what if players have same value: stechen mechanic
+	
+	
 	
 	for card in top_cards:
 		player_hands[max_player_index].place_card_in_hand(card)

@@ -12,7 +12,7 @@ func get_players_card_value(feature):
 
 func place_card_in_hand(card):
 	print("Placing Card in Player's Hand")
-	card.reparent(cardHook)
+	card.request_reparent(cardHook)
 	card.position = Vector3.ZERO
 	card.rotation = cardHook.rotation
 

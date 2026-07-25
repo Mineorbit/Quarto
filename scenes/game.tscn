@@ -58,14 +58,18 @@ camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
 
 [node name="Stack" type="Node3D" parent="World" unique_id=1217161125]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.036996365, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.75638294, 0.11515403, 0)
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="World" unique_id=124598]
-_spawnable_scenes = PackedStringArray("uid://hdpa7ydpetus")
-spawn_path = NodePath("../Players")
+[node name="CardSpawner" type="MultiplayerSpawner" parent="World" unique_id=428670524]
+_spawnable_scenes = PackedStringArray("uid://b0qgk3uncjprm")
+spawn_path = NodePath("../Stack")
 
 [node name="Players" type="Node3D" parent="World" unique_id=1480405932]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2911079, 0)
+
+[node name="PlayerHandSpawner" type="MultiplayerSpawner" parent="." unique_id=124598]
+_spawnable_scenes = PackedStringArray("uid://hdpa7ydpetus")
+spawn_path = NodePath("../World/Players")
 
 [node name="UI" type="Control" parent="." unique_id=796609197]
 layout_mode = 3
@@ -84,6 +88,6 @@ offset_left = -65.0
 offset_right = 65.0
 offset_bottom = 34.0
 grow_horizontal = 2
-text = "Spieler 1 ist dran"
+text = "Starting the Game"
 horizontal_alignment = 1
 vertical_alignment = 1

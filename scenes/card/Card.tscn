@@ -49,8 +49,8 @@ size = Vector2i(682, 512)
 
 [node name="CardInformation" parent="SubViewport" unique_id=1221527264 instance=ExtResource("2_tyd3v")]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
-replication_config = SubResource("SceneReplicationConfig_3dwn4")
-
 [node name="CardModel" parent="." unique_id=994605966 instance=ExtResource("5_4cxr5")]
 transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 2.2483799e-05, 0.092402644, -0.12435129)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
+replication_config = SubResource("SceneReplicationConfig_3dwn4")
