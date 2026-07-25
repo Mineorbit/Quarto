@@ -92,7 +92,7 @@ func load_card(path, card_id):
 			
 			card.initialize_card(card_name,card_fields)
 			card.position = Vector3(0,card_id*card_spacing,0)
-			card.rotation = cardstack.rotation
+			card.rotation_degrees = Vector3(-90,0,0)
 			print("Loaded card: "+str(card_id))
 			return card
 			# FileAccess automatically closes when it goes out of scope, 
@@ -116,7 +116,7 @@ func deal_cards():
 	InfoText.set_info("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
-		var selected_card = cardstack.get_child(0)
+		var selected_card = cardstack.get_child(-1)
 		print("Giving Card "+str(selected_card)+" to Player "+str(card_owner_id))
 		player_hands[card_owner_id].place_card_in_hand(selected_card)
 		await get_tree().create_timer(1).timeout
@@ -180,7 +180,7 @@ func finish_round(player_id):
 	# TODO turn over cards
 	# evaluate logic
 	
-	var max_player_index = 0
+	var round_winner = 0
 	var max_card_value = player_hands[player_id].get_players_card_value(picked_feature)
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
@@ -189,20 +189,22 @@ func finish_round(player_id):
 			top_cards.append(other_player_top_card)
 			var player_card_value = player_hands[i].get_players_card_value(picked_feature)
 			if player_card_value > max_card_value:
-				max_player_index = i
+				round_winner = i
 				max_card_value = player_card_value
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
 	
 	
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(4).timeout
 	# TODO what if players have same value: stechen mechanic
 	
+	InfoText.set_info("Player "+str(round_winner+1)+" wins the round!")
 	
-	
+	await get_tree().create_timer(1).timeout
 	for card in top_cards:
-		player_hands[max_player_index].place_card_in_hand(card)
+		player_hands[round_winner].place_card_in_hand(card)
+		await get_tree().create_timer(0.5).timeout
 	
 	var current_player_wins = true
 	for i in range(NetworkLobby.players.size()):

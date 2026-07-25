@@ -59,7 +59,7 @@ camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
 
 [node name="Stack" type="Node3D" parent="World" unique_id=1217161125]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.75638294, 0.11515403, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75638294, 0.11515403, 0)
 
 [node name="CardSpawner" type="MultiplayerSpawner" parent="World" unique_id=428670524]
 _spawnable_scenes = PackedStringArray("uid://b0qgk3uncjprm")

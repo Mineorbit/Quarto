@@ -22,4 +22,4 @@ transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-
 replication_config = SubResource("SceneReplicationConfig_mb8gs")
 
 [node name="CardHook" type="Node3D" parent="." unique_id=742437348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14820257, -0.31452417)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14820257, -0.1997307)
