@@ -14,6 +14,9 @@ enum {UP,DOWN}
 var card_spacing = 0.065
 
 var game_cards = []
+var card_rules = []
+
+
 var player_hands = []
 
 # Define the phases of your infinite high-level loop
@@ -33,7 +36,12 @@ var own_player_id
 # Track the current loop state
 var current_state: GameState = GameState.LOADING
 
-
+func count_player_card_files(path: String) -> int:
+	var count := 0
+	for file in DirAccess.get_files_at(path):
+		if file.ends_with(".txt") and file.get_basename().is_valid_int():
+			count += 1
+	return count
 
 func _ready():
 	own_player_id = NetworkLobby.players[NetworkLobby.own_id]["player_id"]
@@ -44,17 +52,17 @@ func _ready():
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
-	var meta_file = FileAccess.open("user://card_packs/"+path+"/meta.txt", FileAccess.READ)
+	var card_pack_path = "user://card_packs/"+path+"/"
+	var meta_file = FileAccess.open(card_pack_path+"meta.txt", FileAccess.READ)
 	var cardset_name = meta_file.get_line()
 	print("Cardset: "+cardset_name)
-	var number_cards = int(meta_file.get_line())
+	var number_cards = count_player_card_files(card_pack_path)
 	print("Number of Cards: "+str(number_cards))
-	var card_fields = []
 	while not meta_file.eof_reached():
-		var card_field_line = meta_file.get_line()
-		var card_field_data = card_field_line.split(",")
-		card_fields.append(card_field_data)
-	print("Card Rules: "+str(card_fields))
+		var card_rule_line = meta_file.get_line()
+		var card_rule_data = card_rule_line.split(",")
+		card_rules.append(card_rule_data)
+	print("Card Fields: "+str(card_rules))
 	for card_id in range(number_cards):
 		var game_card = load_card(path,card_id)
 		if game_card:
@@ -73,7 +81,16 @@ func load_card(path, card_id):
 			card.name = str(card_id)
 			var card_name = file.get_line()
 			cardstack.add_child(card)
-			card.initialize_card(card_name,{"White":20,"Red":30})
+			
+			var card_fields = {}
+			
+			for card_rule in card_rules:
+				print(card_rule)
+				var card_field_value = file.get_line()
+				print(card_field_value)
+				card_fields[card_rule[0]] = card_field_value
+			
+			card.initialize_card(card_name,card_fields)
 			card.position = Vector3(0,card_id*card_spacing,0)
 			card.rotation = cardstack.rotation
 			print("Loaded card: "+str(card_id))
@@ -91,12 +108,18 @@ func load_card(path, card_id):
 
 
 
+func shuffle_cards():
+	print("Shuffling Cards")
+
 func deal_cards():
+	shuffle_cards()
 	print("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
-		print("Giving Card "+str(i)+" to Player "+str(card_owner_id))
-		player_hands[card_owner_id].place_card_in_hand(game_cards[i])
+		var selected_card = cardstack.get_child(0)
+		print("Giving Card "+str(selected_card)+" to Player "+str(card_owner_id))
+		player_hands[card_owner_id].place_card_in_hand(selected_card)
+		await get_tree().create_timer(1).timeout
 
 
 
