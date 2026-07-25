@@ -73,6 +73,7 @@ func load_cardpack(path):
 
 func load_card(path, card_id):
 	var card_path = "user://card_packs/"+path+"/"+str(card_id)+".txt"
+	var card_image_path = "user://card_packs/"+path+"/"+str(card_id)+".png"
 	# 1. Check if the file exists before attempting to open
 	if FileAccess.file_exists(card_path):
 		var file = FileAccess.open(card_path, FileAccess.READ)
@@ -91,6 +92,7 @@ func load_card(path, card_id):
 				card_fields[card_rule[0]] = card_field_value
 			
 			card.initialize_card(card_name,card_fields)
+			card.set_image(card_image_path)
 			card.position = Vector3(0,card_id*card_spacing,0)
 			card.rotation_degrees = Vector3(-90,0,0)
 			print("Loaded card: "+str(card_id))
@@ -157,7 +159,7 @@ var picked_feature = "Größe"
 
 
 
-const REACTION_TIME = 3
+const REACTION_TIME = 6
 
 func play_round(player_id):
 	print("Playing Round of Player "+str(player_id))
@@ -171,7 +173,7 @@ func play_round(player_id):
 	
 	for i in range(NetworkLobby.players.size()):
 		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
-
+	player_hands[player_id].get_top_card().highlight_stat(picked_feature)
 	# TODO allow faster end by stopping timer on RPC with selected feature
 	await get_tree().create_timer(REACTION_TIME).timeout
 	finish_round(player_id)
@@ -195,6 +197,9 @@ func finish_round(player_id):
 				print("Beats")
 				round_winner = i
 				max_card_value = player_card_value
+	
+	# clear the highlight color
+	player_hands[player_id].get_top_card().highlight_stat("")
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	

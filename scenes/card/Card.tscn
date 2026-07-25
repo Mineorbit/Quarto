@@ -31,6 +31,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("1_hael8")
 card_field_label = ExtResource("2_3dwn4")
 card_field_value = ExtResource("3_4cxr5")
+highlight_color = Color(0.5992708, 0.8246272, 0.03352249, 1)
 
 [node name="Cardcontent" type="MeshInstance3D" parent="." unique_id=297431108]
 transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, -0.00020186705, -0.39958602, -0.13440992)
