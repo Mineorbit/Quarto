@@ -30,7 +30,6 @@ enum GameState {
 
 signal player_turn_finished(id)
 
-var own_player_id
 
 
 # TODO this should vary in local payer mode
@@ -156,13 +155,17 @@ func start_game():
 	play_round(0)
 
 
-var picked_feature = "Größe"
+var picked_stat_index = 0
 
-
+func picked_stat():
+	return card_rules[picked_stat_index][0]
 
 const REACTION_TIME = 6
 
+var current_player_turn = -1
+
 func play_round(player_id):
+	current_player_turn = player_id
 	print("Playing Round of Player "+str(player_id))
 	if player_hands[player_id].get_top_card() == null:
 		await get_tree().create_timer(1).timeout
@@ -174,7 +177,7 @@ func play_round(player_id):
 	
 	for i in range(NetworkLobby.players.size()):
 		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
-	player_hands[player_id].get_top_card().highlight_stat(picked_feature)
+	player_hands[player_id].get_top_card().highlight_stat(picked_stat())
 	# TODO allow faster end by stopping timer on RPC with selected feature
 	
 	var timer = get_tree().create_timer(REACTION_TIME)
@@ -184,18 +187,20 @@ func play_round(player_id):
 	
 		
 func finish_round(player_id):
+	# lock player from changing input
+	current_player_turn = -1
 	# TODO turn over cards
 	# evaluate logic
 	
 	var round_winner = 0
-	var max_card_value = player_hands[player_id].get_players_card_value(picked_feature)
+	var max_card_value = player_hands[player_id].get_players_card_value(picked_stat())
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
 		var other_player_top_card = player_hands[i].get_top_card()
 		if other_player_top_card != null:
 			top_cards.append(other_player_top_card)
 			print(other_player_top_card.card_values.keys())
-			var player_card_value = other_player_top_card.card_values[picked_feature]
+			var player_card_value = other_player_top_card.card_values[picked_stat()]
 			print("Card: "+str(other_player_top_card.plain_card_name)+" with value "+str(player_card_value))
 			if player_card_value > max_card_value:
 				print("Beats")
@@ -203,7 +208,7 @@ func finish_round(player_id):
 				max_card_value = player_card_value
 	
 	# clear the highlight color
-	player_hands[player_id].get_top_card().highlight_stat("")
+	player_hands[player_id].get_top_card().highlight_stat(picked_stat())
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
@@ -218,7 +223,7 @@ func finish_round(player_id):
 	for card in top_cards:
 		player_hands[round_winner].place_card_in_hand(card,false)
 		await get_tree().create_timer(0.5).timeout
-	
+	current_player_turn = -1
 	var current_player_wins = true
 	for i in range(NetworkLobby.players.size()):
 		#print(str(i)+" "+str(player_hands[i].get_top_card()))
@@ -229,3 +234,17 @@ func finish_round(player_id):
 		InfoText.declare_winner(player_id)
 	else:
 		player_turn_finished.emit(player_id)
+
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if current_player_turn == get_own_player_id():
+		if event.is_action_pressed("card_stat_selection_down"): # or "menu_down"
+			# Move down; wrap to 0 when reaching the end
+			picked_stat_index = (picked_stat_index + 1) % card_rules.size()
+			print("Test")
+			player_hands[get_own_player_id()].get_top_card().highlight_stat(picked_stat())
+
+		elif event.is_action_pressed("card_stat_selection_up"):
+			picked_stat_index = (picked_stat_index - 1) % card_rules.size()
+			player_hands[get_own_player_id()].get_top_card().highlight_stat(picked_stat())
