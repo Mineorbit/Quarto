@@ -22,7 +22,7 @@ func align_cards_in_hand():
 	for c in cardHook.get_children():
 		c.position = Vector3.ZERO
 		c.rotation = cardHook.rotation
-		c.position = (Vector3.FORWARD+Vector3.RIGHT)*i*card_spacing
+		c.position = (Vector3.FORWARD+Vector3.RIGHT*2.5)*i*card_spacing
 		i = i + 1
 
 func get_top_card():

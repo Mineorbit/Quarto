@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://hdpa7ydpetus" path="res://scenes/PlayerHand.tscn" id="3_lbhrr"]
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="4_p57ef"]
 [ext_resource type="Script" uid="uid://cryx818lbty0e" path="res://scripts/InfoText.gd" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://cdlageu8t8gyp" path="res://assets/timer.png" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://qegq228jj8r5" path="res://scripts/RoundTimer.gd" id="7_u5sy4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
@@ -26,11 +28,12 @@ fog_sky_affect = 0.1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
 
-[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "cameraHinge", "cardstack", "players")]
+[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "RoundTimer", "cameraHinge", "cardstack", "players")]
 script = ExtResource("1_lnu2h")
 CardTemplate = ExtResource("2_iywne")
 PlayerHand = ExtResource("3_lbhrr")
 InfoText = NodePath("UI/InfoText")
+RoundTimer = NodePath("UI/RoundTimer")
 cameraHinge = NodePath("World/CameraHinge")
 cardstack = NodePath("World/Stack")
 players = NodePath("World/Players")
@@ -82,13 +85,13 @@ grow_vertical = 2
 
 [node name="DebugText" type="Label" parent="UI" unique_id=100965362]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 435.0
-offset_top = 614.0
-offset_right = 576.0
-offset_bottom = 648.0
+anchors_preset = -1
+anchor_left = 0.878
+anchor_top = 0.9480001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.4560547
+offset_top = -0.30407715
 grow_horizontal = 2
 text = "Test"
 horizontal_alignment = 1
@@ -108,3 +111,25 @@ text = "Starting the Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_iywne")
+
+[node name="Submit" type="Button" parent="UI" unique_id=969864112]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.9
+anchor_right = 0.75
+anchor_bottom = 1.0
+text = "SUBMIT"
+
+[node name="RoundTimer" type="TextureProgressBar" parent="UI" unique_id=281406110]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.92100006
+anchor_right = 1.0
+anchor_bottom = 0.119
+offset_left = -163.99207
+offset_bottom = 179.888
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("6_p57ef")
+script = ExtResource("7_u5sy4")

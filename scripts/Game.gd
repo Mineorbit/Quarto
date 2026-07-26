@@ -4,6 +4,7 @@ class_name Game
 @export var CardTemplate: PackedScene
 @export var PlayerHand: PackedScene
 @export var InfoText: Label
+@export var RoundTimer: TextureProgressBar
 
 
 @export var cameraHinge: Node3D
@@ -175,7 +176,10 @@ func play_round(player_id):
 		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	player_hands[player_id].get_top_card().highlight_stat(picked_feature)
 	# TODO allow faster end by stopping timer on RPC with selected feature
-	await get_tree().create_timer(REACTION_TIME).timeout
+	
+	var timer = get_tree().create_timer(REACTION_TIME)
+	RoundTimer.start(timer,REACTION_TIME)
+	await timer.timeout
 	finish_round(player_id)
 	
 		
