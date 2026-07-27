@@ -30,7 +30,12 @@ enum GameState {
 
 signal player_turn_finished(id)
 
-
+func get_player_hand(player_id):
+	if player_hands.has(player_id):
+		return player_hands[player_id]
+	else:
+		player_hands[player_id] = players.find_child(str(player_id),false,false)
+		return player_hands[player_id]
 
 # TODO this should vary in local payer mode
 static func get_own_player_id():
@@ -111,17 +116,17 @@ func load_card(path, card_id):
 
 
 func shuffle_cards():
-	InfoText.set_info("Shuffling Cards")
+	InfoText.set_info.rpc("Shuffling Cards")
 
 func deal_cards():
 	shuffle_cards()
-	InfoText.set_info("Dealing Cards")
+	InfoText.set_info.rpc("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
 		var selected_card = cardstack.get_child(-1)
 		print("Giving Card "+str(selected_card)+" to Player "+str(card_owner_id))
-		player_hands[card_owner_id].place_card_in_hand(selected_card)
-		await get_tree().create_timer(1).timeout
+		get_player_hand(card_owner_id).place_card_in_hand(selected_card)
+		await get_tree().create_timer(0.2).timeout
 
 
 
@@ -162,22 +167,22 @@ func picked_stat():
 
 const REACTION_TIME = 6
 
-var current_player_turn = -1
+@export var current_player_turn = -1
 
 func play_round(player_id):
 	current_player_turn = player_id
 	print("Playing Round of Player "+str(player_id))
-	if player_hands[player_id].get_top_card() == null:
+	if get_player_hand(player_id).get_top_card() == null:
 		await get_tree().create_timer(1).timeout
 		print("Player had no cards")
 		player_turn_finished.emit(player_id)
 	var player_text = ""
 	
-	InfoText.set_turn_text(player_id)
+	InfoText.set_turn_text.rpc(player_id)
 	
 	for i in range(NetworkLobby.players.size()):
-		player_hands[i].position = player_hands[i].position_of_player_hand(i) + Vector3.UP * int(i == player_id)
-	player_hands[player_id].get_top_card().highlight_stat(picked_stat())
+		get_player_hand(i).position = get_player_hand(i).position_of_player_hand(i) + Vector3.UP * int(i == player_id)
+	get_player_hand(player_id).get_top_card().highlight_stat(picked_stat())
 	# TODO allow faster end by stopping timer on RPC with selected feature
 	
 	var timer = get_tree().create_timer(REACTION_TIME)
@@ -192,23 +197,23 @@ func finish_round(player_id):
 	# TODO turn over cards
 	# evaluate logic
 	
-	var round_winner = 0
-	var max_card_value = player_hands[player_id].get_players_card_value(picked_stat())
+	var round_winner = player_id
+	var max_card_value = get_player_hand(player_id).get_players_card_value(picked_stat())
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
-		var other_player_top_card = player_hands[i].get_top_card()
+		var other_player_top_card = get_player_hand(i).get_top_card()
 		if other_player_top_card != null:
 			top_cards.append(other_player_top_card)
 			print(other_player_top_card.card_values.keys())
 			var player_card_value = other_player_top_card.card_values[picked_stat()]
-			print("Card: "+str(other_player_top_card.plain_card_name)+" with value "+str(player_card_value))
+			print("Card: "+str(other_player_top_card.plain_card_name)+" with value "+str(player_card_value)+ " against "+str(max_card_value))
 			if player_card_value > max_card_value:
 				print("Beats")
 				round_winner = i
 				max_card_value = player_card_value
 	
-	# clear the highlight color
-	player_hands[player_id].get_top_card().highlight_stat(picked_stat())
+	# clear the stat selection
+	clear_stat_selection.rpc()
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
@@ -217,34 +222,40 @@ func finish_round(player_id):
 	await get_tree().create_timer(1).timeout
 	# TODO what if players have same value: stechen mechanic
 	
-	InfoText.set_info("Player "+str(round_winner+1)+" wins the round!")
+	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2).timeout
 	for card in top_cards:
-		player_hands[round_winner].place_card_in_hand(card,false)
+		get_player_hand(round_winner).place_card_in_hand(card,false)
 		await get_tree().create_timer(0.5).timeout
 	current_player_turn = -1
 	var current_player_wins = true
 	for i in range(NetworkLobby.players.size()):
-		#print(str(i)+" "+str(player_hands[i].get_top_card()))
-		if i != player_id && player_hands[i].get_top_card() != null:
+		if i != player_id && get_player_hand(i).get_top_card() != null:
 			# another player still has a card
 			current_player_wins = false
 	if current_player_wins:
-		InfoText.declare_winner(player_id)
+		InfoText.declare_winner.rpc(player_id)
 	else:
 		player_turn_finished.emit(player_id)
 
-	
+@rpc("any_peer", "call_local", "reliable")
+func set_selected_stat(stat_index):
+	if current_player_turn == NetworkLobby.players[multiplayer.get_remote_sender_id()]["player_id"]:
+		print("Updated stat at "+str(NetworkLobby.own_id))
+		picked_stat_index = stat_index
+
+@rpc("any_peer", "call_local", "reliable")
+func clear_stat_selection():
+	get_player_hand(get_own_player_id()).get_top_card().highlight_stat("")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if current_player_turn == get_own_player_id():
 		if event.is_action_pressed("card_stat_selection_down"): # or "menu_down"
 			# Move down; wrap to 0 when reaching the end
-			picked_stat_index = (picked_stat_index + 1) % card_rules.size()
-			print("Test")
-			player_hands[get_own_player_id()].get_top_card().highlight_stat(picked_stat())
+			set_selected_stat.rpc((picked_stat_index + 1) % card_rules.size())
+			get_player_hand(get_own_player_id()).get_top_card().highlight_stat(picked_stat())
 
 		elif event.is_action_pressed("card_stat_selection_up"):
-			picked_stat_index = (picked_stat_index - 1) % card_rules.size()
-			player_hands[get_own_player_id()].get_top_card().highlight_stat(picked_stat())
+			set_selected_stat.rpc((picked_stat_index - 1) % card_rules.size())
+			get_player_hand(get_own_player_id()).get_top_card().highlight_stat(picked_stat())
