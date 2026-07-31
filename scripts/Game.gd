@@ -165,7 +165,7 @@ var picked_stat_index = 0
 func picked_stat():
 	return card_rules[picked_stat_index][0]
 
-const REACTION_TIME = 6
+const REACTION_TIME = 10
 
 @export var current_player_turn = -1
 
@@ -195,6 +195,8 @@ func finish_round(player_id):
 	# lock player from changing input
 	current_player_turn = -1
 	# TODO turn over cards
+	
+	
 	# evaluate logic
 	
 	var round_winner = player_id

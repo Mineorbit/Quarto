@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://sihqoujix06h"]
+
+[ext_resource type="Texture2D" uid="uid://c8pcxi6gqh64o" path="res://icon.svg" id="1_qcark"]
+
+[node name="CardDeckSelector" type="AspectRatioContainer" unique_id=111197453]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardDeckImage" type="TextureRect" parent="." unique_id=1834608952]
+layout_mode = 2
+texture = ExtResource("1_qcark")
+
+[node name="CardDeckName" type="RichTextLabel" parent="." unique_id=334230654]
+layout_mode = 2
+text = "ABC"
+horizontal_alignment = 2
+vertical_alignment = 2
