@@ -6,17 +6,15 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  GODOT_VERSION: 4.7.1.stable # Set your Godot version (e.g., 4.2.2.stable, 3.5.3.stable)
-  EXPORT_NAME: Quarto        # The name of your output binary/files
-
 jobs:
+  # --------------------------------------------------
+  # WEB EXPORT
+  # --------------------------------------------------
   export-web:
     name: Web Export
     runs-on: ubuntu-latest
     container:
-      # Use the godot-ci Docker image matching your Godot version
-      image: barichello/godot-ci:${{ env.GODOT_VERSION }}
+      image: barichello/godot-ci:4.7.1-stable
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,10 +23,82 @@ jobs:
         run: mkdir -v -p build/web
 
       - name: Export Web
-        run: godot --headless --export-release "HTML5" build/web/index.html
+        run: godot --headless --export-release "Web" build/web/index.html
 
       - name: Upload Web Artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-export
           path: build/web
+
+  # --------------------------------------------------
+  # WINDOWS EXPORT
+  # --------------------------------------------------
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.1-stable
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Build Directory
+        run: mkdir -v -p build/windows
+
+      - name: Export Windows
+        run: godot --headless --export-release "Windows" build/windows/Quarto.exe
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-export
+          path: build/windows
+
+  # --------------------------------------------------
+  # LINUX EXPORT
+  # --------------------------------------------------
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.1-stable
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Build Directory
+        run: mkdir -v -p build/linux
+
+      - name: Export Linux
+        run: godot --headless --export-release "Linux" build/linux/Quarto.x86_64
+
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-export
+          path: build/linux
+
+  # --------------------------------------------------
+  # MACOS EXPORT
+  # --------------------------------------------------
+  export-mac:
+    name: macOS Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.1-stable
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Build Directory
+        run: mkdir -v -p build/mac
+
+      - name: Export macOS
+        run: godot --headless --export-release "macOS" build/mac/Quarto.zip
+
+      - name: Upload macOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-export
+          path: build/mac/Quarto.zip
