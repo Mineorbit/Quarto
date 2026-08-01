@@ -125,7 +125,6 @@ func deal_cards():
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
 		var selected_card = cardStack.get_child(-1)
-		print("Giving Card "+str(selected_card)+" to Player "+str(card_owner_id))
 		get_player_hand(card_owner_id).place_card_in_hand(selected_card)
 		await get_tree().create_timer(0.2).timeout
 
@@ -203,33 +202,33 @@ func play_round(player_id):
 	finish_round(player_id)
 
 
-func place_cards_on_surface(cards,elevated_cards):
-	var c = 0
-	for card in cards:
+
+func place_cards_on_surface(cards,card_players: Array[int],elevated_cards,offset = 0):
+	for i in range(cards.size()):
+		var card = cards[i]
 		card.highlight_stat.rpc(picked_stat())
-		card.position = Vector3.RIGHT*c + 0.5*Vector3.UP*int(card in elevated_cards)
+		card.position = Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
 		card.rotation_degrees = Vector3(90,0,0)
-		c = c + 1
 
 
-# TODO currently only supports maximum, needs beats(a,b) predicate
-func find_winner_card_set(players,cards):
-	var round_winners = []
+# TODO currently only supports maximum of integers, needs beats(a,b) predicate between cards and better parsing instead
+func find_winner_card_set(card_players,cards):
+	assert(card_players.size() == cards.size())
+	var round_winners: Array[int] = []
 	var winner_cards = []
-	var max_card_value = cards[0].card_values[picked_stat()]
-	var c = 0
-	for i in players:
-		var player_card_value = cards[i].card_values[picked_stat()]
+	var max_card_value = 0
+	for i in range(card_players.size()):
+		var player_card_value: int = int(cards[i].card_values[picked_stat()])
 		print("Card: \""+str(cards[i].plain_card_name)+"\" with value "+str(player_card_value)+ " against "+str(max_card_value))
 		if player_card_value > max_card_value:
 			print("Beats")
 			max_card_value = player_card_value
 			winner_cards = [cards[i]]
-			round_winners = [i]
+			round_winners = [card_players[i]]
 		elif player_card_value == max_card_value:
 			winner_cards.append(cards[i])
-			round_winners.append(i)
-		c = c + 1
+			round_winners.append(card_players[i])
+	print("Winners: "+str(round_winners)+ " with cards: "+str(winner_cards))
 	return [round_winners,winner_cards]
 
 func finish_round(player_id):
@@ -242,12 +241,13 @@ func finish_round(player_id):
 	# evaluate logic
 	
 	var top_cards = []
+	var competing_players: Array[int] = []
 	for i in range(NetworkLobby.players.size()):
-		top_cards.append(get_player_hand(i).get_top_card())
+		var top_card = get_player_hand(i).get_top_card()
+		if top_card != null:
+			top_cards.append(top_card)
+			competing_players.append(i)
 	
-	var r = find_winner_card_set(range(NetworkLobby.players.size()),top_cards)
-	var round_winners = r[0]
-	var winner_cards = r[1]
 	
 	
 	# Turn over cards
@@ -255,34 +255,61 @@ func finish_round(player_id):
 	
 	reveal_cards(top_cards)
 	
-	place_cards_on_surface(top_cards,[])
+	place_cards_on_surface(top_cards,competing_players,[])
+	
+	
+	var r = find_winner_card_set(range(NetworkLobby.players.size()),top_cards)
+	var round_winners = r[0]
+	var winner_cards = r[1]
 	
 	await get_tree().create_timer(2).timeout
 	
+	place_cards_on_surface(top_cards,competing_players,winner_cards)
+	await get_tree().create_timer(2).timeout
+	
 
-	# TODO what if players have same value: stechen mechanic
-	if round_winners.size() > 1:
+	# If players have same value: stechen mechanic -> players keep picking top card with same stat until one player wins
+	var c = 0
+	while round_winners.size() > 1:
+		InfoText.set_info.rpc("Players "+str(round_winners)+" stechen!")
+		# place cards back down on the surface
+		for j in range(cardSurface.get_child_count()):
+			var card = cardSurface.get_child(j)
+			card.clear_stat_selection.rpc()
+			card.position = Vector3.FORWARD + card_spacing*Vector3.UP*j
+			card.rotation_degrees = Vector3(90,90,0)
+		
+		await get_tree().create_timer(2).timeout
 		# collect next top level cards
 		var next_competing_cards = []
+		var next_competing_players: Array[int] = []
 		for round_winner_id in round_winners:
-			next_competing_cards.append(get_player_hand(round_winner_id).get_top_card())
-			# todo stechen repeaten bis eine gewinnt, dafür rekursiv winner card set berechnen
-		
-	place_cards_on_surface(top_cards,winner_cards)
+			var top_card = get_player_hand(round_winner_id).get_top_card()
+			if top_card != null:
+				top_card.highlight_stat(picked_stat())
+				next_competing_cards.append(top_card)
+				next_competing_players.append(round_winner_id)
+		reveal_cards(next_competing_cards)
+		place_cards_on_surface(next_competing_cards,next_competing_players,[],(c+1)*0.25)
+		await get_tree().create_timer(2).timeout
+		r = find_winner_card_set(next_competing_players,next_competing_cards)
+		round_winners = r[0]
+		winner_cards = r[1]
+		place_cards_on_surface(next_competing_cards,next_competing_players,winner_cards,(c+1)*0.25)
+		c = c + 1
 	
 	var round_winner = round_winners[0]
 	
 	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")
-	await get_tree().create_timer(2).timeout
 	
 	set_player_view.rpc()
 	# clear the stat selection
-	for card in top_cards:
+	for card in cardSurface.get_children():
 		card.clear_stat_selection.rpc()
 	
 	
 	await get_tree().create_timer(2).timeout
-	for card in top_cards:
+	for card in cardSurface.get_children():
 		get_player_hand(round_winner).place_card_in_hand(card,false)
 		await get_tree().create_timer(0.5).timeout
 	current_player_turn = -1
