@@ -21,11 +21,20 @@ card_deck_template = ExtResource("3_cdhm0")
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.469
+offset_bottom = 0.08798218
 
 [node name="PlayerInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
 _spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
 spawn_path = NodePath("../Players")
+
+[node name="DeckSelectorLabel" type="Label" parent="." unique_id=218658165]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.47100002
+anchor_right = 0.101
+anchor_bottom = 0.5
+text = "Card Decks:"
 
 [node name="ScrollboxCardDecks" type="ScrollContainer" parent="." unique_id=916246196]
 layout_mode = 1
@@ -33,6 +42,7 @@ anchors_preset = -1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.8
+offset_top = 0.039978027
 vertical_scroll_mode = 0
 
 [node name="CardDecks" type="HBoxContainer" parent="ScrollboxCardDecks" unique_id=1560879701]

@@ -7,8 +7,8 @@ const LOBBY_UID = "uid://dw10bco65qepe"
 
 
 func gen_random_name():
-	var adj = ["Stinky", "Large", "Big", "Tiny", "Honored", "Precious", "Devoted", "Smirkin'", "Befuddled", "Chunky"]
-	var name = ["Timmy", "John", "Samantha", "Amanda", "Max", "Henry", "Patrick"]
+	var adj = ["Advanced", "Stinky", "Large", "Big", "Tiny", "Honored", "Precious", "Devoted", "Smirkin'", "Befuddled", "Chunky", "Felonious", "Malicious", "Wonderous"]
+	var name = ["Spaniard", "Peggy", "Phil", "Timmy", "John", "Samantha", "Amanda", "Max", "Henry", "Patrick", "Pascal", "Fae", "Aaron", "Hanna","Benjamin"]
 	return adj.pick_random()+" "+name.pick_random()
 
 

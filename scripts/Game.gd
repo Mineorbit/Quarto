@@ -201,8 +201,37 @@ func play_round(player_id):
 	RoundTimer.start(timer,REACTION_TIME)
 	await timer.timeout
 	finish_round(player_id)
-	
-		
+
+
+func place_cards_on_surface(cards,elevated_cards):
+	var c = 0
+	for card in cards:
+		card.highlight_stat.rpc(picked_stat())
+		card.position = Vector3.RIGHT*c + 0.5*Vector3.UP*int(card in elevated_cards)
+		card.rotation_degrees = Vector3(90,0,0)
+		c = c + 1
+
+
+# TODO currently only supports maximum, needs beats(a,b) predicate
+func find_winner_card_set(players,cards):
+	var round_winners = []
+	var winner_cards = []
+	var max_card_value = cards[0].card_values[picked_stat()]
+	var c = 0
+	for i in players:
+		var player_card_value = cards[i].card_values[picked_stat()]
+		print("Card: \""+str(cards[i].plain_card_name)+"\" with value "+str(player_card_value)+ " against "+str(max_card_value))
+		if player_card_value > max_card_value:
+			print("Beats")
+			max_card_value = player_card_value
+			winner_cards = [cards[i]]
+			round_winners = [i]
+		elif player_card_value == max_card_value:
+			winner_cards.append(cards[i])
+			round_winners.append(i)
+		c = c + 1
+	return [round_winners,winner_cards]
+
 func finish_round(player_id):
 	for i in range(NetworkLobby.players.size()):
 		get_player_hand(i).position = get_player_hand(i).position_of_player_hand(i)
@@ -212,48 +241,45 @@ func finish_round(player_id):
 	
 	# evaluate logic
 	
-	var round_winner = player_id
-	var max_card_value = get_player_hand(player_id).get_players_card_value(picked_stat())
 	var top_cards = []
 	for i in range(NetworkLobby.players.size()):
-		var other_player_top_card = get_player_hand(i).get_top_card()
-		if other_player_top_card != null:
-			top_cards.append(other_player_top_card)
-			print(other_player_top_card.card_values.keys())
-			var player_card_value = other_player_top_card.card_values[picked_stat()]
-			print("Card: "+str(other_player_top_card.plain_card_name)+" with value "+str(player_card_value)+ " against "+str(max_card_value))
-			if player_card_value > max_card_value:
-				print("Beats")
-				round_winner = i
-				max_card_value = player_card_value
+		top_cards.append(get_player_hand(i).get_top_card())
+	
+	var r = find_winner_card_set(range(NetworkLobby.players.size()),top_cards)
+	var round_winners = r[0]
+	var winner_cards = r[1]
+	
 	
 	# Turn over cards
 	set_topdown_view.rpc()
 	
 	reveal_cards(top_cards)
 	
-	var c = 0
-	for card in top_cards:
-		card.highlight_stat.rpc(picked_stat())
-		card.position = Vector3.RIGHT*c
-		card.rotation_degrees = Vector3(90,0,0)
-		c = c + 1
+	place_cards_on_surface(top_cards,[])
 	
+	await get_tree().create_timer(2).timeout
 	
-	await get_tree().create_timer(4).timeout
+
+	# TODO what if players have same value: stechen mechanic
+	if round_winners.size() > 1:
+		# collect next top level cards
+		var next_competing_cards = []
+		for round_winner_id in round_winners:
+			next_competing_cards.append(get_player_hand(round_winner_id).get_top_card())
+			# todo stechen repeaten bis eine gewinnt, dafür rekursiv winner card set berechnen
+		
+	place_cards_on_surface(top_cards,winner_cards)
+	
+	var round_winner = round_winners[0]
+	
+	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")
+	await get_tree().create_timer(2).timeout
 	
 	set_player_view.rpc()
 	# clear the stat selection
 	for card in top_cards:
 		card.clear_stat_selection.rpc()
 	
-	# TODO currently only supports maximum, needs beats(a,b) predicate
-	
-	
-	
-	# TODO what if players have same value: stechen mechanic
-	
-	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")
 	
 	await get_tree().create_timer(2).timeout
 	for card in top_cards:
