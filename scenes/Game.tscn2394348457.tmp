@@ -13,16 +13,12 @@ properties/0/path = NodePath(".:current_player_turn")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "RoundTimer", "cameraHinge", "cardStack", "cardSurface", "players")]
+[node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "RoundTimer")]
 script = ExtResource("1_kiw3p")
 CardTemplate = ExtResource("2_400sg")
 PlayerHand = ExtResource("3_g4kob")
 InfoText = NodePath("UI/InfoText")
 RoundTimer = NodePath("UI/RoundTimer")
-cameraHinge = NodePath("World/CameraHinge")
-cardStack = NodePath("World/Stack")
-cardSurface = NodePath("World/Surface")
-players = NodePath("World/Players")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1064685654]
 replication_config = SubResource("SceneReplicationConfig_u5sy4")
@@ -93,5 +89,3 @@ step = 0.01
 fill_mode = 4
 texture_progress = ExtResource("6_mcffj")
 script = ExtResource("7_2rd6h")
-
-[editable path="World"]

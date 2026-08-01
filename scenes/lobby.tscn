@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dw10bco65qepe"]
 
 [ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://scripts/LobbyUI.gd" id="1_o1atq"]
-[ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/player_info.tscn" id="2_5gu6x"]
+[ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/PlayerInfo.tscn" id="2_5gu6x"]
 [ext_resource type="PackedScene" uid="uid://sihqoujix06h" path="res://scenes/CardDeckSelector.tscn" id="3_cdhm0"]
 
-[node name="Lobby" type="Control" unique_id=1017026879]
+[node name="Lobby" type="Control" unique_id=1017026879 node_paths=PackedStringArray("player_list", "card_decks")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o1atq")
 player_info_scene = ExtResource("2_5gu6x")
+player_list = NodePath("Players")
+card_decks = NodePath("ScrollboxCardDecks/CardDecks")
+card_deck_template = ExtResource("3_cdhm0")
 
 [node name="Players" type="HBoxContainer" parent="." unique_id=997064349]
 layout_mode = 1
@@ -20,10 +23,14 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.5
 
+[node name="PlayerInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
+_spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
+spawn_path = NodePath("../Players")
+
 [node name="ScrollboxCardDecks" type="ScrollContainer" parent="." unique_id=916246196]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.43500003
+anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.8
 vertical_scroll_mode = 0
@@ -32,23 +39,9 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CardDeckSelector6" parent="ScrollboxCardDecks/CardDecks" unique_id=111197453 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
-
-[node name="CardDeckSelector5" parent="ScrollboxCardDecks/CardDecks" unique_id=2049247910 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
-
-[node name="CardDeckSelector4" parent="ScrollboxCardDecks/CardDecks" unique_id=145432681 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
-
-[node name="CardDeckSelector3" parent="ScrollboxCardDecks/CardDecks" unique_id=1742542531 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
-
-[node name="CardDeckSelector2" parent="ScrollboxCardDecks/CardDecks" unique_id=1454332363 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
-
-[node name="CardDeckSelector" parent="ScrollboxCardDecks/CardDecks" unique_id=1521334715 instance=ExtResource("3_cdhm0")]
-layout_mode = 2
+[node name="CardDeckInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1962405622]
+_spawnable_scenes = PackedStringArray("uid://sihqoujix06h")
+spawn_path = NodePath("../ScrollboxCardDecks/CardDecks")
 
 [node name="LaunchGame" type="Button" parent="." unique_id=548098877]
 layout_mode = 1
@@ -59,9 +52,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Launch Game"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
-_spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
-spawn_path = NodePath("../Players")
 
 [connection signal="pressed" from="LaunchGame" to="." method="on_launch_game_pressed"]

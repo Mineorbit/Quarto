@@ -8,7 +8,8 @@ class_name Game
 
 
 @export var cameraHinge: Node3D
-@export var cardstack: Node3D
+@export var cardStack: Node3D
+@export var cardSurface: Node3D
 @export var players: Node3D
 
 enum {UP,DOWN}
@@ -88,7 +89,7 @@ func load_card(path, card_id):
 			var card = CardTemplate.instantiate()
 			card.name = str(card_id)
 			var card_name = file.get_line()
-			cardstack.add_child(card)
+			cardStack.add_child(card)
 			
 			var card_fields = {}
 			
@@ -123,12 +124,16 @@ func deal_cards():
 	InfoText.set_info.rpc("Dealing Cards")
 	for i in range(game_cards.size()):
 		var card_owner_id = i % NetworkLobby.players.size()
-		var selected_card = cardstack.get_child(-1)
+		var selected_card = cardStack.get_child(-1)
 		print("Giving Card "+str(selected_card)+" to Player "+str(card_owner_id))
 		get_player_hand(card_owner_id).place_card_in_hand(selected_card)
 		await get_tree().create_timer(0.2).timeout
 
 
+func reveal_cards(cards):
+	print("Revealing Cards")
+	for card in cards:
+		card.request_reparent(cardSurface)
 
 
 
@@ -194,7 +199,6 @@ func play_round(player_id):
 func finish_round(player_id):
 	# lock player from changing input
 	current_player_turn = -1
-	# TODO turn over cards
 	
 	
 	# evaluate logic
@@ -214,8 +218,19 @@ func finish_round(player_id):
 				round_winner = i
 				max_card_value = player_card_value
 	
+	# TODO turn over cards
+	reveal_cards(top_cards)
+	
+	for card in top_cards:
+		card.highlight_stat.rpc(picked_stat())
+		card.position = Vector3.ZERO
+	
+	
+	await get_tree().create_timer(1).timeout
+	
 	# clear the stat selection
-	clear_stat_selection.rpc()
+	for card in top_cards:
+		card.clear_stat_selection.rpc()
 	
 	# TODO currently only supports maximum, needs beats(a,b) predicate
 	
@@ -247,9 +262,6 @@ func set_selected_stat(stat_index):
 		print("Updated stat at "+str(NetworkLobby.own_id))
 		picked_stat_index = stat_index
 
-@rpc("any_peer", "call_local", "reliable")
-func clear_stat_selection():
-	get_player_hand(get_own_player_id()).get_top_card().highlight_stat("")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if current_player_turn == get_own_player_id():

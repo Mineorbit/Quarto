@@ -5,6 +5,13 @@ extends Control
 
 const LOBBY_UID = "uid://dw10bco65qepe"
 
+
+func gen_random_name():
+	var adj = ["Stinky", "Large", "Big", "Tiny", "Honored", "Precious", "Devoted", "Smirkin'", "Befuddled", "Chunky"]
+	var name = ["Timmy", "John", "Samantha", "Amanda", "Max", "Henry", "Patrick"]
+	return adj.pick_random()+" "+name.pick_random()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	NetworkLobby.player_connected.connect(
@@ -13,6 +20,7 @@ func _ready() -> void:
 			if id == NetworkLobby.own_id:
 				enter_lobby()
 	)
+	username_field.text = gen_random_name()
 
 
 func enter_lobby():
