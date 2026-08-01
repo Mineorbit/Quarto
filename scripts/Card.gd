@@ -56,16 +56,15 @@ func _execute_reparent(new_parent_path: NodePath, front: bool) -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func highlight_stat(stat_name):
+	print("Highlighting on card "+str(self)+" "+str(stat_name))
 	for item in card_values:
-		if stat_labels[item].has_theme_color_override("font_color"):
+		if stat_labels[item].has_theme_color_override("font_color") and item != stat_name:
 			stat_labels[item].remove_theme_color_override("font_color")
 			value_labels[item].remove_theme_color_override("font_color")
 		else:
 			if item == stat_name:
 				stat_labels[item].add_theme_color_override("font_color",highlight_color)
 				value_labels[item].add_theme_color_override("font_color",highlight_color)
-				
-				
 
 @rpc("any_peer", "call_local", "reliable")
 func clear_stat_selection():

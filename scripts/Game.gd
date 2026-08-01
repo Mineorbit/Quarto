@@ -55,7 +55,7 @@ func count_player_card_files(path: String) -> int:
 func _ready():
 	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
 	load_cardpack("Testpack")
-	set_player_view(get_own_player_id())
+	set_player_view()
 	NetworkLobby.player_loaded.rpc()
 
 func load_cardpack(path):
@@ -136,9 +136,16 @@ func reveal_cards(cards):
 		card.request_reparent(cardSurface)
 
 
+@rpc("any_peer", "call_local", "reliable")
+func set_topdown_view():
+	cameraHinge.rotation_degrees = Vector3(-60,-180,0)
+	cameraHinge.get_child(0).position = Vector3(0,1.3,2)
 
-func set_player_view(player_id):
-	cameraHinge.rotation_degrees.y = 90 + player_id*(360/NetworkLobby.players.size())
+@rpc("any_peer", "call_local", "reliable")
+func set_player_view():
+	cameraHinge.rotation_degrees = Vector3(0,90 + get_own_player_id()*(360/NetworkLobby.players.size()),0)
+	cameraHinge.get_child(0).position = Vector3(0,2.6,3.7)
+
 
 
 
@@ -197,6 +204,8 @@ func play_round(player_id):
 	
 		
 func finish_round(player_id):
+	for i in range(NetworkLobby.players.size()):
+		get_player_hand(i).position = get_player_hand(i).position_of_player_hand(i)
 	# lock player from changing input
 	current_player_turn = -1
 	
@@ -218,16 +227,22 @@ func finish_round(player_id):
 				round_winner = i
 				max_card_value = player_card_value
 	
-	# TODO turn over cards
+	# Turn over cards
+	set_topdown_view.rpc()
+	
 	reveal_cards(top_cards)
 	
+	var c = 0
 	for card in top_cards:
 		card.highlight_stat.rpc(picked_stat())
-		card.position = Vector3.ZERO
+		card.position = Vector3.RIGHT*c
+		card.rotation_degrees = Vector3(90,0,0)
+		c = c + 1
 	
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(4).timeout
 	
+	set_player_view.rpc()
 	# clear the stat selection
 	for card in top_cards:
 		card.clear_stat_selection.rpc()
@@ -236,7 +251,6 @@ func finish_round(player_id):
 	
 	
 	
-	await get_tree().create_timer(1).timeout
 	# TODO what if players have same value: stechen mechanic
 	
 	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")

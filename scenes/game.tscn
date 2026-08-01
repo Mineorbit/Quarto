@@ -29,6 +29,12 @@ replication_config = SubResource("SceneReplicationConfig_u5sy4")
 
 [node name="World" parent="." unique_id=1716413306 instance=ExtResource("4_kiw3p")]
 
+[node name="CameraHinge" parent="World" index="3" unique_id=948910527]
+transform = Transform3D(-4.371139e-08, -0.86602545, 0.49999997, 0, 0.49999997, 0.86602545, -1, 3.7855173e-08, -2.1855692e-08, 0, 0, 0)
+
+[node name="Surface" parent="World" index="4" unique_id=814807059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07579397, 0)
+
 [node name="PlayerHandSpawner" type="MultiplayerSpawner" parent="." unique_id=124598]
 _spawnable_scenes = PackedStringArray("uid://hdpa7ydpetus")
 spawn_path = NodePath("../World/Players")
