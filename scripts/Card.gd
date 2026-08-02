@@ -12,6 +12,8 @@ var value_labels = {}
 
 var plain_card_name
 
+var target_position: Vector3
+
 func initialize_card(card_name,card_value_array):
 	card_name_label.text = card_name
 	plain_card_name = card_name
@@ -68,3 +70,15 @@ func highlight_stat(stat_name):
 @rpc("any_peer", "call_local", "reliable")
 func clear_stat_selection():
 	highlight_stat("")
+
+
+var eps = 0.0001
+
+var morph_strength = 0.8
+
+func _process(delta: float) -> void:
+	if multiplayer.is_server():
+		if (position - target_position).length_squared() > eps:
+			position = morph_strength*position + (1-morph_strength)*target_position
+		else:
+			position = target_position

@@ -4,6 +4,9 @@ extends Node3D
 
 var card_spacing = 0.065
 
+
+var target_position: Vector3
+
 func get_players_card_value(feature):
 	var top_card = get_top_card()
 	if top_card !=  null && top_card.card_values.has(feature):
@@ -20,9 +23,9 @@ func place_card_in_hand(card,front=true):
 func align_cards_in_hand():
 	var i = 0
 	for c in cardHook.get_children():
-		c.position = Vector3.ZERO
+		c.target_position = Vector3.ZERO
 		c.rotation = cardHook.rotation
-		c.position = (Vector3.FORWARD+Vector3.RIGHT*2.5)*i*card_spacing
+		c.target_position = (Vector3.FORWARD+Vector3.RIGHT*2.5)*i*card_spacing
 		i = i + 1
 
 func get_top_card():
@@ -38,3 +41,14 @@ func position_of_player_hand(i):
 		var x = cos(angle) * radius
 		var z = sin(angle) * radius
 		return Vector3(x, 0, z)
+
+var eps = 0.0001
+
+var morph_strength = 0.8
+
+func _process(delta: float) -> void:
+	if multiplayer.is_server():
+		if (position - target_position).length_squared() > eps:
+			position = morph_strength*position + (1-morph_strength)*target_position
+		else:
+			position = target_position

@@ -99,7 +99,7 @@ func load_card(path, card_id):
 			
 			card.initialize_card(card_name,card_fields)
 			card.set_image(card_image_path)
-			card.position = Vector3(0,card_id*card_spacing,0)
+			card.target_position = Vector3(0,card_id*card_spacing,0)
 			card.rotation_degrees = Vector3(-90,0,0)
 			print("Loaded card: "+str(card_id))
 			return card
@@ -162,7 +162,7 @@ func start_game():
 		players.add_child(playerHand)
 		player_hands[i] = playerHand
 		
-		playerHand.position = playerHand.position_of_player_hand(i)
+		playerHand.target_position = playerHand.position_of_player_hand(i)
 		playerHand.look_at(playerHand.position_of_player_hand(i)*2 + Vector3.UP*2, Vector3.UP)
 	
 	await get_tree().create_timer(1).timeout
@@ -192,7 +192,7 @@ func play_round(player_id):
 	InfoText.set_turn_text.rpc(player_id)
 	
 	for i in range(NetworkLobby.players.size()):
-		get_player_hand(i).position = get_player_hand(i).position_of_player_hand(i) + Vector3.UP * int(i == player_id)
+		get_player_hand(i).target_position = get_player_hand(i).position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	get_player_hand(player_id).get_top_card().highlight_stat(picked_stat())
 	# TODO allow faster end by stopping timer on RPC with selected feature
 	
@@ -207,7 +207,7 @@ func place_cards_on_surface(cards,card_players: Array[int],elevated_cards,offset
 	for i in range(cards.size()):
 		var card = cards[i]
 		card.highlight_stat.rpc(picked_stat())
-		card.position = Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
+		card.target_position = Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
 		card.rotation_degrees = Vector3(90,0,0)
 
 
@@ -233,7 +233,7 @@ func find_winner_card_set(card_players,cards):
 
 func finish_round(player_id):
 	for i in range(NetworkLobby.players.size()):
-		get_player_hand(i).position = get_player_hand(i).position_of_player_hand(i)
+		get_player_hand(i).target_position = get_player_hand(i).position_of_player_hand(i)
 	# lock player from changing input
 	current_player_turn = -1
 	
@@ -276,7 +276,7 @@ func finish_round(player_id):
 		for j in range(cardSurface.get_child_count()):
 			var card = cardSurface.get_child(j)
 			card.clear_stat_selection.rpc()
-			card.position = Vector3.FORWARD + card_spacing*Vector3.UP*j
+			card.target_position = Vector3.FORWARD + card_spacing*Vector3.UP*j
 			card.rotation_degrees = Vector3(90,90,0)
 		
 		await get_tree().create_timer(2).timeout
@@ -326,7 +326,6 @@ func finish_round(player_id):
 @rpc("any_peer", "call_local", "reliable")
 func set_selected_stat(stat_index):
 	if current_player_turn == NetworkLobby.players[multiplayer.get_remote_sender_id()]["player_id"]:
-		print("Updated stat at "+str(NetworkLobby.own_id))
 		picked_stat_index = stat_index
 
 
