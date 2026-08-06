@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7c4ijo2qtbqh"]
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="1_b4j12"]
+[ext_resource type="PackedScene" uid="uid://cudpdjqf68kpu" path="res://assets/CardRack.blend" id="2_hpeaq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
@@ -46,7 +47,10 @@ camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
 
 [node name="Surface" type="Node3D" parent="." unique_id=814807059]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31144935, 0)
+
+[node name="CardRack" parent="." unique_id=1591161783 instance=ExtResource("2_hpeaq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2595824, 0.11721778)
 
 [node name="Stack" type="Node3D" parent="." unique_id=733673916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75638294, 0.11515403, 0)
