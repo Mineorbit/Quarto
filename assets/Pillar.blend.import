@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cudpdjqf68kpu"
-path="res://.godot/imported/CardRack.blend-1598454f6c26563442cd6276ace5a731.scn"
+uid="uid://d0hcjmoc31ax8"
+path="res://.godot/imported/Pillar.blend-3f8df2628a625a873de583a8a7cdec2f.scn"
 
 [deps]
 
-source_file="res://assets/CardRack.blend"
-dest_files=["res://.godot/imported/CardRack.blend-1598454f6c26563442cd6276ace5a731.scn"]
+source_file="res://assets/Pillar.blend"
+dest_files=["res://.godot/imported/Pillar.blend-3f8df2628a625a873de583a8a7cdec2f.scn"]
 
 [params]
 
@@ -39,7 +39,19 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"meshes": {
+"Pillar_Cube": {
+"generate/lightmap_uv": 1,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": false,
+"save_to_file/fallback_path": "",
+"save_to_file/path": ""
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

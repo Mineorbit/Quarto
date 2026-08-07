@@ -23,8 +23,7 @@ func place_card_in_hand(card,front=true):
 func align_cards_in_hand():
 	var i = 0
 	for c in cardHook.get_children():
-		c.target_position = Vector3.ZERO
-		c.rotation = cardHook.rotation
+		c.target_rotation = cardHook.quaternion
 		c.target_position = (Vector3.FORWARD+Vector3.RIGHT*2.5)*i*card_spacing
 		i = i + 1
 

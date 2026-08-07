@@ -100,7 +100,7 @@ func load_card(path, card_id):
 			card.initialize_card(card_name,card_fields)
 			card.set_image(card_image_path)
 			card.target_position = Vector3(0,card_id*card_spacing,0)
-			card.rotation_degrees = Vector3(-90,0,0)
+			card.target_rotation = Quaternion.from_euler(Vector3(deg_to_rad(-90), 0, 0))
 			print("Loaded card: "+str(card_id))
 			return card
 			# FileAccess automatically closes when it goes out of scope, 
@@ -129,10 +129,6 @@ func deal_cards():
 		await get_tree().create_timer(0.2).timeout
 
 
-func reveal_cards(cards):
-	print("Revealing Cards")
-	for card in cards:
-		card.request_reparent(cardSurface)
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -206,9 +202,10 @@ func play_round(player_id):
 func place_cards_on_surface(cards,card_players: Array[int],elevated_cards,offset = 0):
 	for i in range(cards.size()):
 		var card = cards[i]
+		card.request_reparent(cardSurface)
 		card.highlight_stat.rpc(picked_stat())
-		card.target_position = Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
-		card.rotation_degrees = Vector3(90,0,0)
+		card.target_position = cardSurface.global_position + Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
+		card.target_rotation = Quaternion.from_euler(Vector3(deg_to_rad(90), 0, 0))
 
 
 # TODO currently only supports maximum of integers, needs beats(a,b) predicate between cards and better parsing instead
@@ -253,7 +250,6 @@ func finish_round(player_id):
 	# Turn over cards
 	set_topdown_view.rpc()
 	
-	reveal_cards(top_cards)
 	
 	place_cards_on_surface(top_cards,competing_players,[])
 	
@@ -277,7 +273,8 @@ func finish_round(player_id):
 			var card = cardSurface.get_child(j)
 			card.clear_stat_selection.rpc()
 			card.target_position = Vector3.FORWARD + card_spacing*Vector3.UP*j
-			card.rotation_degrees = Vector3(90,90,0)
+			# card.target_rotation = Quaternion.from_euler(Vector3(deg_to_rad(90), deg_to_rad(90), 0))
+			card.target_rotation = Quaternion.from_euler(Vector3(deg_to_rad(90), deg_to_rad(90), 0))
 		
 		await get_tree().create_timer(2).timeout
 		# collect next top level cards
@@ -289,7 +286,6 @@ func finish_round(player_id):
 				top_card.highlight_stat(picked_stat())
 				next_competing_cards.append(top_card)
 				next_competing_players.append(round_winner_id)
-		reveal_cards(next_competing_cards)
 		place_cards_on_surface(next_competing_cards,next_competing_players,[],(c+1)*0.25)
 		await get_tree().create_timer(2).timeout
 		r = find_winner_card_set(next_competing_players,next_competing_cards)

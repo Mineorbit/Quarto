@@ -13,6 +13,7 @@ var value_labels = {}
 var plain_card_name
 
 var target_position: Vector3
+var target_rotation: Quaternion
 
 func initialize_card(card_name,card_value_array):
 	card_name_label.text = card_name
@@ -82,3 +83,4 @@ func _process(delta: float) -> void:
 			position = morph_strength*position + (1-morph_strength)*target_position
 		else:
 			position = target_position
+		quaternion = quaternion.slerp(target_rotation,0.2)

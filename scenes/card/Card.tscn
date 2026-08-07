@@ -34,13 +34,13 @@ card_field_value = ExtResource("3_4cxr5")
 highlight_color = Color(0.5992708, 0.8246272, 0.03352249, 1)
 
 [node name="Cardcontent" type="MeshInstance3D" parent="." unique_id=297431108]
-transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, -0.00020186705, -0.39958602, -0.13440992)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, -0.00020186703, -0.39958602, -0.018330345)
 material_override = SubResource("StandardMaterial3D_hael8")
 mesh = SubResource("PlaneMesh_dd2wi")
 skeleton = NodePath("")
 
 [node name="CardImage" type="MeshInstance3D" parent="." unique_id=1195472331]
-transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 0.00020636134, 0.47534472, -0.12770832)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 0.00020636134, 0.47534472, -0.011628739)
 mesh = SubResource("PlaneMesh_tyd3v")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2054126845]
@@ -51,7 +51,7 @@ size = Vector2i(682, 512)
 [node name="CardInformation" parent="SubViewport" unique_id=1221527264 instance=ExtResource("2_tyd3v")]
 
 [node name="CardModel" parent="." unique_id=994605966 instance=ExtResource("5_4cxr5")]
-transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 2.2483799e-05, 0.092402644, -0.12435129)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 2.2483799e-05, 0.092402644, -0.008271709)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=428558944]
 replication_config = SubResource("SceneReplicationConfig_3dwn4")

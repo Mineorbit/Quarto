@@ -2,6 +2,22 @@
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="1_b4j12"]
 [ext_resource type="PackedScene" uid="uid://cudpdjqf68kpu" path="res://assets/CardRack.blend" id="2_hpeaq"]
+[ext_resource type="PackedScene" uid="uid://d0hcjmoc31ax8" path="res://assets/Pillar.blend" id="3_eb18a"]
+[ext_resource type="LightmapGIData" uid="uid://d2rqfa1bj4ul" path="res://scenes/GameWorld/GameWorld.lmbake" id="4_13lyd"]
+
+[sub_resource type="Sky" id="Sky_80nbo"]
+sky_material = ExtResource("1_b4j12")
+
+[sub_resource type="Environment" id="Environment_mwb40"]
+background_mode = 2
+background_energy_multiplier = 1.1
+sky = SubResource("Sky_80nbo")
+sky_custom_fov = 97.3
+fog_enabled = true
+fog_sky_affect = 0.1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
+exposure_multiplier = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
@@ -9,37 +25,39 @@ albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
 size = Vector2(6, 6)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_r3wyq"]
-
-[sub_resource type="Sky" id="Sky_80nbo"]
-sky_material = ExtResource("1_b4j12")
-
-[sub_resource type="Environment" id="Environment_mwb40"]
-background_mode = 2
-sky = SubResource("Sky_80nbo")
-fog_enabled = true
-fog_sky_affect = 0.1
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
-exposure_multiplier = 0.8
-
 [node name="World" type="Node3D" unique_id=1716413306]
-
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=879947125]
-transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
-shadow_enabled = true
-
-[node name="Baseplane" type="MeshInstance3D" parent="." unique_id=206270335]
-material_override = SubResource("StandardMaterial3D_e2o6t")
-mesh = SubResource("PlaneMesh_mwb40")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Baseplane" unique_id=1160539192]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1353652, 0.9168333, -2.0381048)
-mesh = SubResource("CylinderMesh_r3wyq")
 
 [node name="GameEnvironmentLighting" type="WorldEnvironment" parent="." unique_id=1630363410]
 environment = SubResource("Environment_mwb40")
 camera_attributes = SubResource("CameraAttributesPractical_80nbo")
+
+[node name="Sun" type="DirectionalLight3D" parent="GameEnvironmentLighting" unique_id=879947125]
+transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
+light_color = Color(0.87543887, 0.895209, 0.851795, 1)
+light_energy = 1.35
+light_indirect_energy = 1.164
+light_volumetric_fog_energy = 0.426
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Baseplane" type="MeshInstance3D" parent="GameEnvironmentLighting" unique_id=206270335]
+material_override = SubResource("StandardMaterial3D_e2o6t")
+mesh = SubResource("PlaneMesh_mwb40")
+skeleton = NodePath("../..")
+
+[node name="CardRack" parent="GameEnvironmentLighting" unique_id=1591161783 instance=ExtResource("2_hpeaq")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 0, 0.2595824, 0.11721778)
+
+[node name="Pillar" parent="GameEnvironmentLighting" unique_id=2145677499 instance=ExtResource("3_eb18a")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.195908, 0, -2.3979578)
+
+[node name="Pillar2" parent="GameEnvironmentLighting" unique_id=737732917 instance=ExtResource("3_eb18a")]
+transform = Transform3D(0.5653083, 0, 0.4128275, 0, 0.7, 0, -0.4128275, 0, 0.5653083, 1.5881193, -0.056375504, -1.6754936)
+
+[node name="LightmapGI" type="LightmapGI" parent="GameEnvironmentLighting" unique_id=440077155]
+quality = 3
+shadowmask_mode = 1
+light_data = ExtResource("4_13lyd")
 
 [node name="CameraHinge" type="Node3D" parent="." unique_id=948910527]
 
@@ -47,13 +65,10 @@ camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
 
 [node name="Surface" type="Node3D" parent="." unique_id=814807059]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31144935, 0)
-
-[node name="CardRack" parent="." unique_id=1591161783 instance=ExtResource("2_hpeaq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2595824, 0.11721778)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93968105, 0.07067302)
 
 [node name="Stack" type="Node3D" parent="." unique_id=733673916]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75638294, 0.11515403, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028089315, 0.31236148, 0.06444472)
 
 [node name="CardSpawner" type="MultiplayerSpawner" parent="." unique_id=1141669091]
 _spawnable_scenes = PackedStringArray("uid://b0qgk3uncjprm")
