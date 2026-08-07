@@ -33,7 +33,7 @@ func get_top_card():
 	else:
 		return null
 
-var radius = 2
+var radius = 2.5
 func position_of_player_hand(i):
 		# 1. Calculate the angle for this player
 		var angle = (float(i) / float(NetworkLobby.players.size())) * 2.0 * PI

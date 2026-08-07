@@ -23,7 +23,7 @@ exposure_multiplier = 0.8
 albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
-size = Vector2(6, 6)
+size = Vector2(10, 10)
 
 [node name="World" type="Node3D" unique_id=1716413306]
 
@@ -46,13 +46,13 @@ mesh = SubResource("PlaneMesh_mwb40")
 skeleton = NodePath("../..")
 
 [node name="CardRack" parent="GameEnvironmentLighting" unique_id=1591161783 instance=ExtResource("2_hpeaq")]
-transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 0, 0.2595824, 0.11721778)
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 0, 0.355572, 0.11721778)
 
 [node name="Pillar" parent="GameEnvironmentLighting" unique_id=2145677499 instance=ExtResource("3_eb18a")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.195908, 0, -2.3979578)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.5883396, 0, -2.8743606)
 
 [node name="Pillar2" parent="GameEnvironmentLighting" unique_id=737732917 instance=ExtResource("3_eb18a")]
-transform = Transform3D(0.5653083, 0, 0.4128275, 0, 0.7, 0, -0.4128275, 0, 0.5653083, 1.5881193, -0.056375504, -1.6754936)
+transform = Transform3D(0.5653083, 0, 0.4128275, 0, 0.7, 0, -0.4128275, 0, 0.5653083, 1.9805508, -0.056375504, -2.1518965)
 
 [node name="LightmapGI" type="LightmapGI" parent="GameEnvironmentLighting" unique_id=440077155]
 quality = 3
@@ -65,7 +65,7 @@ light_data = ExtResource("4_13lyd")
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
 
 [node name="Surface" type="Node3D" parent="." unique_id=814807059]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93968105, 0.07067302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44061455, 0.07067302)
 
 [node name="Stack" type="Node3D" parent="." unique_id=733673916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028089315, 0.31236148, 0.06444472)

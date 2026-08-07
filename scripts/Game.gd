@@ -134,12 +134,12 @@ func deal_cards():
 @rpc("any_peer", "call_local", "reliable")
 func set_topdown_view():
 	cameraHinge.rotation_degrees = Vector3(-60,-180,0)
-	cameraHinge.get_child(0).position = Vector3(0,1.3,2)
+	cameraHinge.get_child(0).position = Vector3(0,1.6,2.5)
 
 @rpc("any_peer", "call_local", "reliable")
 func set_player_view():
 	cameraHinge.rotation_degrees = Vector3(0,90 + get_own_player_id()*(360/NetworkLobby.players.size()),0)
-	cameraHinge.get_child(0).position = Vector3(0,2.6,3.7)
+	cameraHinge.get_child(0).position = 0.8*Vector3(0,3,5)
 
 
 
@@ -204,7 +204,7 @@ func place_cards_on_surface(cards,card_players: Array[int],elevated_cards,offset
 		var card = cards[i]
 		card.request_reparent(cardSurface)
 		card.highlight_stat.rpc(picked_stat())
-		card.target_position = cardSurface.global_position + Vector3.RIGHT*card_players[i] + 0.5*Vector3.UP*(offset + int(card in elevated_cards))
+		card.target_position =cardSurface.transform.basis.x*card_players[i] + 0.5*cardSurface.transform.basis.y*(offset + int(card in elevated_cards))
 		card.target_rotation = Quaternion.from_euler(Vector3(deg_to_rad(90), 0, 0))
 
 
