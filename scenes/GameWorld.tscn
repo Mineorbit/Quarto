@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7c4ijo2qtbqh"]
 
 [ext_resource type="Material" uid="uid://b1r5nc050ymc7" path="res://resources/GameSkyMaterial.tres" id="1_b4j12"]
+[ext_resource type="PackedScene" uid="uid://bky3r7r5bf52k" path="res://assets/Landscape.blend" id="2_2ifvn"]
 [ext_resource type="PackedScene" uid="uid://cudpdjqf68kpu" path="res://assets/CardRack.blend" id="2_hpeaq"]
 [ext_resource type="PackedScene" uid="uid://d0hcjmoc31ax8" path="res://assets/Pillar.blend" id="3_eb18a"]
 [ext_resource type="LightmapGIData" uid="uid://d2rqfa1bj4ul" path="res://scenes/GameWorld/GameWorld.lmbake" id="4_13lyd"]
@@ -20,17 +21,14 @@ fog_sky_affect = 0.1
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2o6t"]
-albedo_color = Color(0.5546411, 0.67585224, 0.08009856, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
-size = Vector2(10, 10)
-
 [node name="World" type="Node3D" unique_id=1716413306]
 
 [node name="GameEnvironmentLighting" type="WorldEnvironment" parent="." unique_id=1630363410]
 environment = SubResource("Environment_mwb40")
 camera_attributes = SubResource("CameraAttributesPractical_80nbo")
+
+[node name="Landscape" parent="GameEnvironmentLighting" unique_id=1063268503 instance=ExtResource("2_2ifvn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9617802, 0)
 
 [node name="Sun" type="DirectionalLight3D" parent="GameEnvironmentLighting" unique_id=879947125]
 transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
@@ -41,19 +39,14 @@ light_volumetric_fog_energy = 0.426
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="Baseplane" type="MeshInstance3D" parent="GameEnvironmentLighting" unique_id=206270335]
-material_override = SubResource("StandardMaterial3D_e2o6t")
-mesh = SubResource("PlaneMesh_mwb40")
-skeleton = NodePath("../..")
-
 [node name="CardRack" parent="GameEnvironmentLighting" unique_id=1591161783 instance=ExtResource("2_hpeaq")]
-transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 0, 0.355572, 0.11721778)
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 0, 0.356, 0)
 
 [node name="Pillar" parent="GameEnvironmentLighting" unique_id=2145677499 instance=ExtResource("3_eb18a")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.5883396, 0, -2.8743606)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.854544, 0.1500358, -3.1989906)
 
 [node name="Pillar2" parent="GameEnvironmentLighting" unique_id=737732917 instance=ExtResource("3_eb18a")]
-transform = Transform3D(0.5653083, 0, 0.4128275, 0, 0.7, 0, -0.4128275, 0, 0.5653083, 1.9805508, -0.056375504, -2.1518965)
+transform = Transform3D(0.56472534, -0.031782333, 0.4124018, 0.039860934, 0.69886386, -0.00072491914, -0.41169944, 0.024068711, 0.56561846, 2.3222573, 0.023040503, -2.4829936)
 
 [node name="LightmapGI" type="LightmapGI" parent="GameEnvironmentLighting" unique_id=440077155]
 quality = 3
