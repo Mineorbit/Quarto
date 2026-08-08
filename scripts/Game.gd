@@ -55,7 +55,7 @@ func count_player_card_files(path: String) -> int:
 func _ready():
 	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
 	load_cardpack("Testpack")
-	set_player_view()
+	cameraHinge.set_player_view(true)
 	NetworkLobby.player_loaded.rpc()
 
 func load_cardpack(path):
@@ -131,15 +131,6 @@ func deal_cards():
 
 
 
-@rpc("any_peer", "call_local", "reliable")
-func set_topdown_view():
-	cameraHinge.rotation_degrees = Vector3(-60,-180,0)
-	cameraHinge.get_child(0).position = Vector3(0,1.6,2.5)
-
-@rpc("any_peer", "call_local", "reliable")
-func set_player_view():
-	cameraHinge.rotation_degrees = Vector3(0,90 + get_own_player_id()*(360/NetworkLobby.players.size()),0)
-	cameraHinge.get_child(0).position = 0.8*Vector3(0,3,5)
 
 
 
@@ -248,7 +239,7 @@ func finish_round(player_id):
 	
 	
 	# Turn over cards
-	set_topdown_view.rpc()
+	cameraHinge.set_topdown_view.rpc()
 	
 	
 	place_cards_on_surface(top_cards,competing_players,[])
@@ -298,7 +289,7 @@ func finish_round(player_id):
 	
 	InfoText.set_info.rpc("Player "+str(round_winner+1)+" wins the round!")
 	
-	set_player_view.rpc()
+	cameraHinge.set_player_view.rpc()
 	# clear the stat selection
 	for card in cardSurface.get_children():
 		card.clear_stat_selection.rpc()

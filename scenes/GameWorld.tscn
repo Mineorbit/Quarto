@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cudpdjqf68kpu" path="res://assets/CardRack.blend" id="2_hpeaq"]
 [ext_resource type="PackedScene" uid="uid://d0hcjmoc31ax8" path="res://assets/Pillar.blend" id="3_eb18a"]
 [ext_resource type="LightmapGIData" uid="uid://d2rqfa1bj4ul" path="res://scenes/GameWorld/GameWorld.lmbake" id="4_13lyd"]
+[ext_resource type="Script" uid="uid://dq47c1ijgbr41" path="res://scripts/CameraHinge.gd" id="5_5og86"]
 
 [sub_resource type="Sky" id="Sky_80nbo"]
 sky_material = ExtResource("1_b4j12")
@@ -60,6 +61,7 @@ shadowmask_mode = 1
 light_data = ExtResource("4_13lyd")
 
 [node name="CameraHinge" type="Node3D" parent="." unique_id=948910527]
+script = ExtResource("5_5og86")
 
 [node name="View" type="Camera3D" parent="CameraHinge" unique_id=837778858]
 transform = Transform3D(1, 0, 0, 0, 0.84946936, 0.527638, 0, -0.527638, 0.84946936, 2.3841858e-07, 2.600467, 3.7138128)
