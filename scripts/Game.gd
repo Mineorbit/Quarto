@@ -305,6 +305,7 @@ func finish_round(player_id):
 		if i != player_id && get_player_hand(i).get_top_card() != null:
 			# another player still has a card
 			current_player_wins = false
+			print("Player "+str(i)+" still has a card")
 	if current_player_wins:
 		InfoText.declare_winner.rpc(player_id)
 	else:
