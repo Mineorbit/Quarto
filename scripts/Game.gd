@@ -300,12 +300,13 @@ func finish_round(player_id):
 		get_player_hand(round_winner).place_card_in_hand(card,false)
 		await get_tree().create_timer(0.5).timeout
 	current_player_turn = -1
-	var current_player_wins = true
+	var players_with_cards = 0
 	for i in range(NetworkLobby.players.size()):
-		if i != player_id && get_player_hand(i).get_top_card() != null:
-			# another player still has a card
-			current_player_wins = false
-			print("Player "+str(i)+" still has a card")
+		if get_player_hand(i).get_top_card() != null:
+			print("Player "+str(i+1)+" still has a card")
+			players_with_cards = players_with_cards + 1
+			
+	var current_player_wins = (players_with_cards == 1)
 	if current_player_wins:
 		InfoText.declare_winner.rpc(player_id)
 	else:
