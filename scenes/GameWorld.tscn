@@ -44,7 +44,7 @@ directional_shadow_blend_splits = true
 transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 0, 0.356, 0)
 
 [node name="Water2" parent="GameEnvironmentLighting" unique_id=539177629 instance=ExtResource("4_g8ckf")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -0.2634323, 0)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -0.26343217, 0)
 
 [node name="Pillar" parent="GameEnvironmentLighting" unique_id=2145677499 instance=ExtResource("3_eb18a")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.854544, 0.1500358, -3.1989906)
