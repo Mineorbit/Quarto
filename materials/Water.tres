@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://bc2varwnb2y5n"]
-
-[ext_resource type="Shader" uid="uid://b1mox2y0b07kr" path="res://materials/WaterShader.tres" id="1_htf5n"]
-
-[resource]
-render_priority = 0
-shader = ExtResource("1_htf5n")

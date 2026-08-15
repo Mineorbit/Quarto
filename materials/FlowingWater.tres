@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://crpljguti2tok"]
+
+[ext_resource type="Shader" uid="uid://b1mox2y0b07kr" path="res://materials/WaterShader.tres" id="1_ggksi"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ggksi")
+shader_parameter/flowDirection = Vector2(0, 5000)
+shader_parameter/Morph = 0.0
