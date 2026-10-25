@@ -13,6 +13,17 @@ properties/0/path = NodePath(".:current_player_turn")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gee14"]
+properties/0/path = NodePath(".:value")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:max_value")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "RoundTimer", "cameraHinge", "cardStack", "cardSurface", "players")]
 script = ExtResource("1_kiw3p")
 CardTemplate = ExtResource("2_400sg")
@@ -29,7 +40,7 @@ replication_config = SubResource("SceneReplicationConfig_u5sy4")
 
 [node name="World" parent="." unique_id=1716413306 instance=ExtResource("4_kiw3p")]
 
-[node name="Pillar2" parent="World/GameEnvironmentLighting" parent_id_path=PackedInt32Array(1716413306, 1630363410) index="4" unique_id=737732917]
+[node name="Pillar2" parent="World/GameEnvironmentLighting" parent_id_path=PackedInt32Array(1716413306, 1630363410) index="5" unique_id=737732917]
 transform = Transform3D(0.56472534, -0.03178234, 0.4124017, 0.039860938, 0.6988639, -0.0007249169, -0.4116994, 0.024068713, 0.5656185, 2.3222573, 0.023040503, -2.4829936)
 
 [node name="CameraHinge" parent="World" index="1" unique_id=948910527]
@@ -99,5 +110,8 @@ step = 0.01
 fill_mode = 4
 texture_progress = ExtResource("6_mcffj")
 script = ExtResource("7_2rd6h")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="UI/RoundTimer" unique_id=675536632]
+replication_config = SubResource("SceneReplicationConfig_gee14")
 
 [editable path="World"]

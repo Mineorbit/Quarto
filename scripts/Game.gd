@@ -54,6 +54,7 @@ func count_player_card_files(path: String) -> int:
 
 func _ready():
 	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
+	$UI/Submit.pressed.connect(func(): confirm_stat_selection.rpc())
 	load_cardpack("Testpack")
 	cameraHinge.set_player_view(true)
 	NetworkLobby.player_loaded.rpc()
@@ -167,6 +168,13 @@ const REACTION_TIME = 10
 
 @export var current_player_turn = -1
 
+@rpc("any_peer", "call_local", "reliable")
+func confirm_stat_selection():
+	# Only allow ending the timer by the player who has the turn
+	if current_player_turn == NetworkLobby.players[multiplayer.get_remote_sender_id()]["player_id"]:
+		print("Stopping round timer")
+		RoundTimer.stop_timer()
+
 func play_round(player_id):
 	current_player_turn = player_id
 	print("Playing Round of Player "+str(player_id))
@@ -174,18 +182,23 @@ func play_round(player_id):
 		await get_tree().create_timer(1).timeout
 		print("Player had no cards")
 		player_turn_finished.emit(player_id)
-	var player_text = ""
-	
+		return
+		
 	InfoText.set_turn_text.rpc(player_id)
 	
 	for i in range(NetworkLobby.players.size()):
 		get_player_hand(i).target_position = get_player_hand(i).position_of_player_hand(i) + Vector3.UP * int(i == player_id)
 	get_player_hand(player_id).get_top_card().highlight_stat(picked_stat())
-	# TODO allow faster end by stopping timer on RPC with selected feature
 	
-	var timer = get_tree().create_timer(REACTION_TIME)
-	RoundTimer.start(timer,REACTION_TIME)
-	await timer.timeout
+	# Start the cancelable RoundTimer and await completion or early stop
+	RoundTimer.start_timer(REACTION_TIME)
+	var timed_out = await RoundTimer.finished
+	
+	if timed_out:
+		print("Round timed out naturally.")
+	else:
+		print("Round ended early by player confirmation.")
+		
 	finish_round(player_id)
 
 
