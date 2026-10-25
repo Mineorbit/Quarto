@@ -2,5 +2,9 @@
 
 [ext_resource type="FontFile" uid="uid://poi1qjfg6hou" path="res://assets/fonts/static/PlaywriteDEGrund-Light.ttf" id="1_lmais"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pexic"]
+bg_color = Color(0.8154075, 0.563458, 0.41906923, 1)
+
 [resource]
 default_font = ExtResource("1_lmais")
+Button/styles/normal = SubResource("StyleBoxFlat_pexic")

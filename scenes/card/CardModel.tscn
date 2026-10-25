@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dblhm45khy57k"]
+
+[ext_resource type="PackedScene" uid="uid://ba1kqprwuclf" path="res://assets/Card.blend" id="1_mvd8x"]
+[ext_resource type="Material" uid="uid://dts6bwh5eopfl" path="res://materials/BaseCard.tres" id="2_vsdv1"]
+
+[node name="Card" unique_id=604068440 instance=ExtResource("1_mvd8x")]
+
+[node name="Cube" parent="." index="0" unique_id=682285958]
+material_override = ExtResource("2_vsdv1")
