@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d3m6it0f8umm7"]
 
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="1_0ykhv"]
 [ext_resource type="Script" uid="uid://bch5u2wbhrde7" path="res://scripts/MainMenuUI.gd" id="1_yqorp"]
 
 [node name="MainMenu" type="Control" unique_id=625377084]
@@ -10,6 +11,7 @@ anchor_right = 0.8
 anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0ykhv")
 script = ExtResource("1_yqorp")
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=58121859]
@@ -19,41 +21,50 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0ykhv")
 
 [node name="Play Local" type="Button" parent="Buttons" unique_id=1329011060]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Play Local"
 
 [node name="TextLabel" type="Label" parent="Buttons" unique_id=967544095]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Multiplayer:"
 
 [node name="Username" type="TextEdit" parent="Buttons" unique_id=69459171]
 custom_minimum_size = Vector2(172.15, 32.825)
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Dein name"
 placeholder_text = "Dein name"
 
 [node name="Play Host" type="Button" parent="Buttons" unique_id=1286925957]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Host Lobby"
 
 [node name="OnlineContainer" type="HBoxContainer" parent="Buttons" unique_id=994467352]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 
 [node name="IP" type="TextEdit" parent="Buttons/OnlineContainer" unique_id=223278236]
 custom_minimum_size = Vector2(172.15, 11.225)
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
 
 [node name="Play Online" type="Button" parent="Buttons/OnlineContainer" unique_id=1715159665]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Connect Lobby
 "
 
 [node name="Button" type="Button" parent="Buttons" unique_id=301944261]
 layout_mode = 2
+theme = ExtResource("1_0ykhv")
 text = "Open \"CardDecks\" Folder"
 
 [connection signal="pressed" from="Buttons/Play Host" to="." method="on_host_lobby_pressed"]

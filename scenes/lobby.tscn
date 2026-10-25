@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dw10bco65qepe"]
 
-[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://scripts/LobbyUI.gd" id="1_o1atq"]
-[ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/PlayerInfo.tscn" id="2_5gu6x"]
-[ext_resource type="PackedScene" uid="uid://sihqoujix06h" path="res://scenes/CardDeckSelector.tscn" id="3_cdhm0"]
+[ext_resource type="Script" uid="uid://cfmqdhnhn1gsx" path="res://scripts/LobbyUI.gd" id="1_qbi84"]
+[ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/PlayerInfo.tscn" id="2_oeg6l"]
+[ext_resource type="PackedScene" uid="uid://sihqoujix06h" path="res://scenes/CardDeckSelector.tscn" id="3_1yh37"]
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="4_jp1kc"]
 
 [node name="Lobby" type="Control" unique_id=1017026879 node_paths=PackedStringArray("player_list", "card_decks")]
 layout_mode = 3
@@ -11,11 +12,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_o1atq")
-player_info_scene = ExtResource("2_5gu6x")
+script = ExtResource("1_qbi84")
+player_info_scene = ExtResource("2_oeg6l")
 player_list = NodePath("Players")
 card_decks = NodePath("ScrollboxCardDecks/CardDecks")
-card_deck_template = ExtResource("3_cdhm0")
+card_deck_template = ExtResource("3_1yh37")
 
 [node name="Players" type="HBoxContainer" parent="." unique_id=997064349]
 layout_mode = 1
@@ -23,6 +24,7 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.469
 offset_bottom = 0.08798218
+theme = ExtResource("4_jp1kc")
 
 [node name="PlayerInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1632398218]
 _spawnable_scenes = PackedStringArray("uid://cya7cvevgppw7")
@@ -34,6 +36,7 @@ anchors_preset = -1
 anchor_top = 0.47100002
 anchor_right = 0.101
 anchor_bottom = 0.5
+theme = ExtResource("4_jp1kc")
 text = "Card Decks:"
 
 [node name="ScrollboxCardDecks" type="ScrollContainer" parent="." unique_id=916246196]
@@ -43,11 +46,13 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.8
 offset_top = 0.039978027
+theme = ExtResource("4_jp1kc")
 vertical_scroll_mode = 0
 
 [node name="CardDecks" type="HBoxContainer" parent="ScrollboxCardDecks" unique_id=1560879701]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("4_jp1kc")
 
 [node name="CardDeckInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1962405622]
 _spawnable_scenes = PackedStringArray("uid://sihqoujix06h")
@@ -61,6 +66,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_jp1kc")
 text = "Launch Game"
 
 [connection signal="pressed" from="LaunchGame" to="." method="on_launch_game_pressed"]

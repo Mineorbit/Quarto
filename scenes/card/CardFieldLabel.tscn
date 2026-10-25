@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://bvjqy0oa2kejr"]
 
-[node name="CardFieldLabel" type="Label"]
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="1_vbap6"]
+
+[node name="CardFieldLabel" type="Label" unique_id=99017227]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_vbap6")
 theme_override_font_sizes/font_size = 48
 text = "Gumption"
 vertical_alignment = 2

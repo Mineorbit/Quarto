@@ -1,29 +1,39 @@
 [gd_scene format=3 uid="uid://b06ycuqcc5odt"]
 
-[node name="CardInformation" type="VBoxContainer"]
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="1_8isdc"]
+[ext_resource type="FontFile" uid="uid://c3jakjj0smvcp" path="res://assets/fonts/PlaywriteDEGrund-VariableFont_wght.ttf" id="2_if68m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_if68m"]
+font = ExtResource("2_if68m")
+font_size = 48
+shadow_color = Color(0, 0, 0, 0.5411765)
+shadow_offset = Vector2(2, 2)
+
+[node name="CardInformation" type="VBoxContainer" unique_id=367375351]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Name" type="Label" parent="."]
-custom_minimum_size = Vector2(0, 72)
+[node name="Name" type="Label" parent="." unique_id=1275508368]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 52
+theme = ExtResource("1_8isdc")
+theme_override_font_sizes/font_size = 46
 text = "Der gestiefelte Kater"
+label_settings = SubResource("LabelSettings_if68m")
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Stats" type="MarginContainer" parent="."]
+[node name="Stats" type="MarginContainer" parent="." unique_id=342011903]
 layout_mode = 2
-theme_override_constants/margin_left = 75
-theme_override_constants/margin_right = 75
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_right = 72
 
-[node name="GridContainer" type="GridContainer" parent="Stats"]
+[node name="GridContainer" type="GridContainer" parent="Stats" unique_id=667963434]
 layout_mode = 2
+theme = ExtResource("1_8isdc")
 columns = 2

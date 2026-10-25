@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c8pcxi6gqh64o" path="res://icon.svg" id="1_qcark"]
 [ext_resource type="Script" uid="uid://bpt0wfc54p2y7" path="res://scripts/CardDeckInfo.gd" id="2_sv58c"]
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="3_k1im4"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sv58c"]
 properties/0/path = NodePath(".:deck_info_name")
@@ -23,6 +24,7 @@ texture = ExtResource("1_qcark")
 
 [node name="CardDeckName" type="RichTextLabel" parent="." unique_id=334230654]
 layout_mode = 2
+theme = ExtResource("3_k1im4")
 text = "ABC"
 horizontal_alignment = 2
 vertical_alignment = 2

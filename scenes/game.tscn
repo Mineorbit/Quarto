@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://dv2va3uyae0k8"]
 
-[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://scripts/Game.gd" id="1_kiw3p"]
-[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_400sg"]
-[ext_resource type="PackedScene" uid="uid://hdpa7ydpetus" path="res://scenes/PlayerHand.tscn" id="3_g4kob"]
-[ext_resource type="PackedScene" uid="uid://b7c4ijo2qtbqh" path="res://scenes/GameWorld.tscn" id="4_kiw3p"]
-[ext_resource type="Script" uid="uid://cryx818lbty0e" path="res://scripts/InfoText.gd" id="5_3xj3m"]
-[ext_resource type="Texture2D" uid="uid://cdlageu8t8gyp" path="res://assets/timer.png" id="6_mcffj"]
-[ext_resource type="Script" uid="uid://qegq228jj8r5" path="res://scripts/RoundTimer.gd" id="7_2rd6h"]
+[ext_resource type="Script" uid="uid://b0uuas1cddp25" path="res://scripts/Game.gd" id="1_400sg"]
+[ext_resource type="PackedScene" uid="uid://b0qgk3uncjprm" path="res://scenes/card/Card.tscn" id="2_g4kob"]
+[ext_resource type="PackedScene" uid="uid://hdpa7ydpetus" path="res://scenes/PlayerHand.tscn" id="3_qy1jj"]
+[ext_resource type="PackedScene" uid="uid://b7c4ijo2qtbqh" path="res://scenes/GameWorld.tscn" id="4_3xj3m"]
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="5_mcffj"]
+[ext_resource type="Script" uid="uid://cryx818lbty0e" path="res://scripts/InfoText.gd" id="6_2rd6h"]
+[ext_resource type="Texture2D" uid="uid://cdlageu8t8gyp" path="res://assets/timer.png" id="7_7ua8r"]
+[ext_resource type="Script" uid="uid://qegq228jj8r5" path="res://scripts/RoundTimer.gd" id="8_r7sob"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u5sy4"]
 properties/0/path = NodePath(".:current_player_turn")
@@ -25,9 +26,9 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Game" type="Node" unique_id=2031124819 node_paths=PackedStringArray("InfoText", "RoundTimer", "cameraHinge", "cardStack", "cardSurface", "players")]
-script = ExtResource("1_kiw3p")
-CardTemplate = ExtResource("2_400sg")
-PlayerHand = ExtResource("3_g4kob")
+script = ExtResource("1_400sg")
+CardTemplate = ExtResource("2_g4kob")
+PlayerHand = ExtResource("3_qy1jj")
 InfoText = NodePath("UI/InfoText")
 RoundTimer = NodePath("UI/RoundTimer")
 cameraHinge = NodePath("World/CameraHinge")
@@ -38,7 +39,7 @@ players = NodePath("World/Players")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1064685654]
 replication_config = SubResource("SceneReplicationConfig_u5sy4")
 
-[node name="World" parent="." unique_id=1716413306 instance=ExtResource("4_kiw3p")]
+[node name="World" parent="." unique_id=1716413306 instance=ExtResource("4_3xj3m")]
 
 [node name="Pillar2" parent="World/GameEnvironmentLighting" parent_id_path=PackedInt32Array(1716413306, 1630363410) index="5" unique_id=737732917]
 transform = Transform3D(0.56472534, -0.03178234, 0.4124017, 0.039860938, 0.6988639, -0.0007249169, -0.4116994, 0.024068713, 0.5656185, 2.3222573, 0.023040503, -2.4829936)
@@ -68,10 +69,11 @@ anchor_bottom = 1.0
 offset_left = -0.4560547
 offset_top = -0.30407715
 grow_horizontal = 2
+theme = ExtResource("5_mcffj")
 text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("5_3xj3m")
+script = ExtResource("6_2rd6h")
 
 [node name="InfoText" type="Label" parent="UI" unique_id=1549843954]
 layout_mode = 1
@@ -82,10 +84,11 @@ offset_left = -65.0
 offset_right = 65.0
 offset_bottom = 34.0
 grow_horizontal = 2
+theme = ExtResource("5_mcffj")
 text = "Starting the Game"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("5_3xj3m")
+script = ExtResource("6_2rd6h")
 
 [node name="Submit" type="Button" parent="UI" unique_id=969864112]
 layout_mode = 1
@@ -94,6 +97,7 @@ anchor_left = 0.25
 anchor_top = 0.9
 anchor_right = 0.75
 anchor_bottom = 1.0
+theme = ExtResource("5_mcffj")
 text = "SUBMIT"
 
 [node name="RoundTimer" type="TextureProgressBar" parent="UI" unique_id=281406110]
@@ -106,10 +110,11 @@ offset_right = 128.0
 offset_bottom = 256.0
 grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
+theme = ExtResource("5_mcffj")
 step = 0.01
 fill_mode = 4
-texture_progress = ExtResource("6_mcffj")
-script = ExtResource("7_2rd6h")
+texture_progress = ExtResource("7_7ua8r")
+script = ExtResource("8_r7sob")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="UI/RoundTimer" unique_id=675536632]
 replication_config = SubResource("SceneReplicationConfig_gee14")

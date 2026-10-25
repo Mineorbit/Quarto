@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://lyh1ifqpagok"]
+
+[ext_resource type="FontFile" uid="uid://poi1qjfg6hou" path="res://assets/fonts/static/PlaywriteDEGrund-Light.ttf" id="1_lmais"]
+
+[resource]
+default_font = ExtResource("1_lmais")
