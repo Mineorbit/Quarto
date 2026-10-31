@@ -7,7 +7,6 @@
 [ext_resource type="LightmapGIData" uid="uid://d2rqfa1bj4ul" path="res://scenes/GameWorld/GameWorld.lmbake" id="4_13lyd"]
 [ext_resource type="PackedScene" uid="uid://se3nernmrybt" path="res://assets/Water.blend" id="4_g8ckf"]
 [ext_resource type="Script" uid="uid://dq47c1ijgbr41" path="res://scripts/CameraHinge.gd" id="5_5og86"]
-[ext_resource type="Material" uid="uid://crpljguti2tok" path="res://materials/FlowingWater.tres" id="7_yms0u"]
 [ext_resource type="Material" uid="uid://bwmyt6pxfinsx" path="res://materials/WaterFog.tres" id="8_pexic"]
 [ext_resource type="Material" uid="uid://drkmnj3h6k038" path="res://materials/WaterSplash.tres" id="9_n8hyf"]
 [ext_resource type="PackedScene" uid="uid://fal86fqtc6mm" path="res://assets/Waterfountain.blend" id="10_n8hyf"]
@@ -25,12 +24,6 @@ fog_sky_affect = 0.1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_80nbo"]
 exposure_multiplier = 0.8
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_r3wyq"]
-material = ExtResource("7_yms0u")
-top_radius = 0.1430664
-bottom_radius = 0.1430664
-height = 0.67456055
 
 [sub_resource type="QuadMesh" id="QuadMesh_dlafm"]
 material = ExtResource("9_n8hyf")
@@ -71,17 +64,8 @@ quality = 3
 shadowmask_mode = 1
 light_data = ExtResource("4_13lyd")
 
-[node name="Waterfall2" type="MeshInstance3D" parent="GameEnvironmentLighting" unique_id=1036086355]
-transform = Transform3D(0.57859945, -0.46958822, -0.084909245, 0.027364125, 0.16587779, -0.73091435, 0.47641778, 0.56077754, 0.14510222, -1.132031, 0.44580284, 2.1686726)
-mesh = SubResource("CylinderMesh_r3wyq")
-skeleton = NodePath("../Waterfall")
-
-[node name="Waterfall" type="MeshInstance3D" parent="GameEnvironmentLighting" unique_id=409347224]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9978873, 0.051612914, 1.9912581)
-mesh = SubResource("CylinderMesh_r3wyq")
-
 [node name="GPUParticles3D" type="GPUParticles3D" parent="GameEnvironmentLighting" unique_id=928153543]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0051162, -0.2747297, 2.0054598)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.057581, -0.2747297, 2.0881772)
 amount = 32
 amount_ratio = 0.95
 lifetime = 2.0
@@ -90,10 +74,7 @@ process_material = ExtResource("8_pexic")
 draw_pass_1 = SubResource("QuadMesh_dlafm")
 
 [node name="Waterfountain" parent="GameEnvironmentLighting" unique_id=1815339043 instance=ExtResource("10_n8hyf")]
-transform = Transform3D(0.7801072, 0, -0.6256459, 0, 1, 0, 0.6256459, 0, 0.7801072, -1.3421161, -0.3400177, 2.579423)
-
-[node name="Waterfountain2" parent="GameEnvironmentLighting" unique_id=23737482 instance=ExtResource("10_n8hyf")]
-transform = Transform3D(0.974674, 0, -0.22363031, 0, 1, 0, 0.22363031, 0, 0.974674, -2.0852966, -0.0022091568, 3.9279652)
+transform = Transform3D(0.7801072, 0, -0.6256459, 0, 1, 0, 0.6256459, 0, 0.7801072, -1.5483031, -0.10068026, 2.8985653)
 
 [node name="CameraHinge" type="Node3D" parent="." unique_id=948910527]
 script = ExtResource("5_5og86")
