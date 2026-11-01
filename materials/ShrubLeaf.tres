@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b47weaon76k6w"]
+
+[ext_resource type="Texture2D" uid="uid://cxnpdk8ebxuj6" path="res://assets/Shrub_LeafTexture.png" id="1_137ki"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_137ki")

@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dq47c1ijgbr41" path="res://scripts/CameraHinge.gd" id="5_5og86"]
 [ext_resource type="Material" uid="uid://bwmyt6pxfinsx" path="res://materials/WaterFog.tres" id="8_pexic"]
 [ext_resource type="Material" uid="uid://drkmnj3h6k038" path="res://materials/WaterSplash.tres" id="9_n8hyf"]
+[ext_resource type="PackedScene" uid="uid://b3fhogg30tuq0" path="res://assets/Shrub.glb" id="10_d67nr"]
 [ext_resource type="PackedScene" uid="uid://fal86fqtc6mm" path="res://assets/Waterfountain.blend" id="10_n8hyf"]
 
 [sub_resource type="Sky" id="Sky_80nbo"]
@@ -66,7 +67,7 @@ light_data = ExtResource("4_13lyd")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="GameEnvironmentLighting" unique_id=928153543]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.057581, -0.2747297, 2.0881772)
-amount = 32
+amount = 64
 amount_ratio = 0.95
 lifetime = 2.0
 trail_lifetime = 0.01
@@ -75,6 +76,15 @@ draw_pass_1 = SubResource("QuadMesh_dlafm")
 
 [node name="Waterfountain" parent="GameEnvironmentLighting" unique_id=1815339043 instance=ExtResource("10_n8hyf")]
 transform = Transform3D(0.7801072, 0, -0.6256459, 0, 1, 0, 0.6256459, 0, 0.7801072, -1.5483031, -0.10068026, 2.8985653)
+
+[node name="Shrub3" parent="GameEnvironmentLighting" unique_id=1088086995 instance=ExtResource("10_d67nr")]
+transform = Transform3D(0.024127513, 0.0085424725, 0.29890615, -0.04768514, 0.29615006, -0.0046145865, -0.2952016, -0.047140114, 0.025175706, -3.0793767, 0.33029437, 2.316161)
+
+[node name="Shrub2" parent="GameEnvironmentLighting" unique_id=1432465423 instance=ExtResource("10_d67nr")]
+transform = Transform3D(0.118424036, 0, 0.10759067, -0.016996136, 0.15799104, 0.018707488, -0.106239736, -0.025275258, 0.11693709, -3.5607793, 0.24250202, 1.7416751)
+
+[node name="Shrub" parent="GameEnvironmentLighting" unique_id=1426446735 instance=ExtResource("10_d67nr")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -3.989468, 0.30769575, 2.7215133)
 
 [node name="CameraHinge" type="Node3D" parent="." unique_id=948910527]
 script = ExtResource("5_5og86")
