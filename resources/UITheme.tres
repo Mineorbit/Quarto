@@ -8,3 +8,5 @@ bg_color = Color(0.8154075, 0.563458, 0.41906923, 1)
 [resource]
 default_font = ExtResource("1_lmais")
 Button/styles/normal = SubResource("StyleBoxFlat_pexic")
+TextEdit/colors/background_color = Color(0.9642847, 0.88682616, 0.8444062, 1)
+TextEdit/colors/font_color = Color(0.68814373, 0.4480487, 0.30686155, 1)

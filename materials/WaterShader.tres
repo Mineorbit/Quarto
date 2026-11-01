@@ -99,7 +99,7 @@ default_input_values = [0, 0.9, 1, 0.15]
 operator = 2
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_4dmx2"]
-constant = Color(0, 0.013932879, 0.025960362, 1)
+constant = Color(0.0421232, 0.17245269, 0.18631752, 1)
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_crfv6"]
 default_input_values = [0, 5.0, 1, 0.0]
