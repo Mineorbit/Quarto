@@ -1,0 +1,20 @@
+[gd_resource type="VisualShader" format=3 uid="uid://da8oixun5j2uc"]
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_lwgtk"]
+function = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_idy8g"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_btg2p"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0, 1, 0), 2, Vector3(0, 0, 0)]
+op_type = 2
+
+[resource]
+nodes/vertex/2/node = SubResource("VisualShaderNodeFloatFunc_lwgtk")
+nodes/vertex/2/position = Vector2(-300, 200)
+nodes/vertex/3/node = SubResource("VisualShaderNodeInput_idy8g")
+nodes/vertex/3/position = Vector2(-320, 360)
+nodes/vertex/5/node = SubResource("VisualShaderNodeMultiplyAdd_btg2p")
+nodes/vertex/5/position = Vector2(19, 248)
+nodes/vertex/connections = PackedInt32Array(3, 0, 5, 2, 5, 0, 0, 0, 2, 0, 5, 0)
