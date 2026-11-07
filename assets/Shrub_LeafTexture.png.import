@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxnpdk8ebxuj6"
+uid="uid://bsykv5c3mbjnx"
 path.s3tc="res://.godot/imported/Shrub_LeafTexture.png-6e4dcc7fad7280312e7091b5fc660eda.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "b6b0287059f2314a1d170540cb2365d2"
+"md5": "b5cfa9d6c8febd618f91ac2843d50a1c"
 }
 
 [deps]

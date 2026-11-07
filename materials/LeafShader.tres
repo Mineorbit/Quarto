@@ -1,20 +1,70 @@
 [gd_resource type="VisualShader" format=3 uid="uid://da8oixun5j2uc"]
 
+[ext_resource type="Texture2D" uid="uid://caloap8lpcuib" path="res://assets/textures/Shrub_LeafTexture.png" id="1_idy8g"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_btg2p"]
+expanded_output_ports = [0]
+texture = ExtResource("1_idy8g")
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_idy8g"]
+constant = 0.5
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_btg2p"]
+constant = 0.2
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_5beac"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_eikms"]
+default_input_values = [0, 0.0, 1, 0.1]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorLen" id="VisualShaderNodeVectorLen_yejue"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
 [sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_lwgtk"]
 function = 0
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_idy8g"]
+expanded_output_ports = [0]
 input_name = "vertex"
 
 [sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_btg2p"]
-default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0, 1, 0), 2, Vector3(0, 0, 0)]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0, 0.25, 0), 2, Vector3(0, 0, 0)]
 op_type = 2
 
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_kikwc"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_sjvs1"]
+operator = 2
+
 [resource]
+modes/cull = 2
+flags/depth_prepass_alpha = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeFloatFunc_lwgtk")
 nodes/vertex/2/position = Vector2(-300, 200)
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_idy8g")
-nodes/vertex/3/position = Vector2(-320, 360)
+nodes/vertex/3/position = Vector2(-1940, 460)
 nodes/vertex/5/node = SubResource("VisualShaderNodeMultiplyAdd_btg2p")
-nodes/vertex/5/position = Vector2(19, 248)
-nodes/vertex/connections = PackedInt32Array(3, 0, 5, 2, 5, 0, 0, 0, 2, 0, 5, 0)
+nodes/vertex/5/position = Vector2(160, 300)
+nodes/vertex/6/node = SubResource("VisualShaderNodeInput_kikwc")
+nodes/vertex/6/position = Vector2(-1100, 160)
+nodes/vertex/8/node = SubResource("VisualShaderNodeFloatOp_sjvs1")
+nodes/vertex/8/position = Vector2(-480, 260)
+nodes/vertex/10/node = SubResource("VisualShaderNodeVectorCompose_5beac")
+nodes/vertex/10/position = Vector2(-1020, 360)
+nodes/vertex/14/node = SubResource("VisualShaderNodeFloatOp_eikms")
+nodes/vertex/14/position = Vector2(-700, 200)
+nodes/vertex/15/node = SubResource("VisualShaderNodeVectorLen_yejue")
+nodes/vertex/15/position = Vector2(-720, 420)
+nodes/vertex/connections = PackedInt32Array(3, 0, 5, 2, 5, 0, 0, 0, 8, 0, 2, 0, 3, 1, 10, 0, 3, 3, 10, 1, 6, 0, 14, 0, 14, 0, 8, 0, 10, 0, 15, 0, 15, 0, 8, 1, 2, 0, 5, 0)
+nodes/fragment/0/position = Vector2(540, 280)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_btg2p")
+nodes/fragment/2/position = Vector2(-180, 200)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatConstant_idy8g")
+nodes/fragment/3/position = Vector2(260, 1040)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_btg2p")
+nodes/fragment/4/position = Vector2(260, 520)
+nodes/fragment/connections = PackedInt32Array(2, 4, 0, 1, 2, 0, 0, 0, 3, 0, 0, 19, 4, 0, 0, 4)

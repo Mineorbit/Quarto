@@ -20,6 +20,8 @@ background_mode = 2
 background_energy_multiplier = 1.1
 sky = SubResource("Sky_80nbo")
 sky_custom_fov = 97.3
+ssr_enabled = true
+ssao_enabled = true
 fog_enabled = true
 fog_sky_affect = 0.1
 
@@ -37,7 +39,7 @@ environment = SubResource("Environment_mwb40")
 camera_attributes = SubResource("CameraAttributesPractical_80nbo")
 
 [node name="Landscape" parent="GameEnvironmentLighting" unique_id=1063268503 instance=ExtResource("2_2ifvn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9617802, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012105107, -0.9497324, -0.047528267)
 
 [node name="Sun" type="DirectionalLight3D" parent="GameEnvironmentLighting" unique_id=879947125]
 transform = Transform3D(1, 0, 0, 0, -0.22780712, 0.9737063, 0, -0.9737063, -0.22780712, 0, 0, 0)
@@ -78,7 +80,7 @@ draw_pass_1 = SubResource("QuadMesh_dlafm")
 transform = Transform3D(0.7801072, 0, -0.6256459, 0, 1, 0, 0.6256459, 0, 0.7801072, -1.5483031, -0.10068026, 2.8985653)
 
 [node name="Shrub3" parent="GameEnvironmentLighting" unique_id=1088086995 instance=ExtResource("10_d67nr")]
-transform = Transform3D(0.024127513, 0.0085424725, 0.29890615, -0.04768514, 0.29615006, -0.0046145865, -0.2952016, -0.047140114, 0.025175706, -3.0793767, 0.33029437, 2.316161)
+transform = Transform3D(0.024127513, 0.0085424725, 0.29890615, -0.04768514, 0.29615006, -0.0046145865, -0.2952016, -0.047140114, 0.025175706, -3.0793767, 0.4123292, 2.316161)
 
 [node name="Shrub2" parent="GameEnvironmentLighting" unique_id=1432465423 instance=ExtResource("10_d67nr")]
 transform = Transform3D(0.118424036, 0, 0.10759067, -0.016996136, 0.15799104, 0.018707488, -0.106239736, -0.025275258, 0.11693709, -3.5607793, 0.24250202, 1.7416751)
