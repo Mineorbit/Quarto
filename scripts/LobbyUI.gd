@@ -39,7 +39,7 @@ func add_card_decks_to_list() -> void:
 		local_decks[pack_hash] = deck_path
 		local_hashes.append(pack_hash)
 	
-	print(local_hashes)
+	print("Local Hashes: "+str(local_hashes))
 	if multiplayer.is_server():
 		server_deck_map = local_decks
 		peer_deck_hashes[multiplayer.get_unique_id()] = local_hashes
@@ -70,6 +70,7 @@ func check_and_process_intersections() -> void:
 	
 	for peer_id in peer_deck_hashes:
 		var hashes = peer_deck_hashes[peer_id]
+		print("Peer Hashes: "+str(hashes))
 		if first:
 			intersection = hashes.duplicate()
 			first = false
