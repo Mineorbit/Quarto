@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://se3nernmrybt"
-path="res://.godot/imported/Water.blend-fa2c8ce135b1a8f26bf4fa1799326269.scn"
+uid="uid://cudpdjqf68kpu"
+path="res://.godot/imported/CardRack.blend-0540888f1a42fc0f3b4d9ad2ab94516a.scn"
 
 [deps]
 
-source_file="res://assets/Water.blend"
-dest_files=["res://.godot/imported/Water.blend-fa2c8ce135b1a8f26bf4fa1799326269.scn"]
+source_file="res://assets/models/CardRack.blend"
+dest_files=["res://.godot/imported/CardRack.blend-0540888f1a42fc0f3b4d9ad2ab94516a.scn"]
 
 [params]
 
@@ -26,7 +26,7 @@ nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
-meshes/light_baking=1
+meshes/light_baking=2
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
@@ -39,15 +39,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"Water": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://materials/Water.tres",
-"use_external/path": "uid://bc2varwnb2y5n"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

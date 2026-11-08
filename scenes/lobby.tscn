@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cya7cvevgppw7" path="res://scenes/PlayerInfo.tscn" id="2_oeg6l"]
 [ext_resource type="PackedScene" uid="uid://sihqoujix06h" path="res://scenes/CardDeckSelector.tscn" id="3_1yh37"]
 [ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="4_jp1kc"]
+[ext_resource type="Script" uid="uid://mycxokjrllus" path="res://scripts/CardDecksArray.gd" id="5_oeg6l"]
 
 [node name="Lobby" type="Control" unique_id=1017026879 node_paths=PackedStringArray("player_list", "card_decks")]
 layout_mode = 3
@@ -40,19 +41,22 @@ theme = ExtResource("4_jp1kc")
 text = "Card Decks:"
 
 [node name="ScrollboxCardDecks" type="ScrollContainer" parent="." unique_id=916246196]
+clip_contents = false
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.5
+anchor_top = 0.515
 anchor_right = 1.0
-anchor_bottom = 0.8
-offset_top = 0.039978027
+anchor_bottom = 0.825
 theme = ExtResource("4_jp1kc")
 vertical_scroll_mode = 0
 
 [node name="CardDecks" type="HBoxContainer" parent="ScrollboxCardDecks" unique_id=1560879701]
 layout_mode = 2
 size_flags_vertical = 3
+offset_transform_enabled = true
 theme = ExtResource("4_jp1kc")
+alignment = 1
+script = ExtResource("5_oeg6l")
 
 [node name="CardDeckInfoMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1962405622]
 _spawnable_scenes = PackedStringArray("uid://sihqoujix06h")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://da7a4b6obiftp"]
 
-[ext_resource type="PackedScene" uid="uid://3ajq4noc3qrs" path="res://assets/PlayerHand.blend" id="1_kfxdn"]
-[ext_resource type="Material" uid="uid://78m4tadjmhru" path="res://materials/Hand.tres" id="2_g8lpl"]
+[ext_resource type="PackedScene" uid="uid://3ajq4noc3qrs" path="res://assets/models/PlayerHand.blend" id="1_kfxdn"]
+[ext_resource type="Material" uid="uid://78m4tadjmhru" path="res://assets/materials/Hand.tres" id="2_g8lpl"]
 
 [node name="PlayerHand" unique_id=409849312 instance=ExtResource("1_kfxdn")]
 

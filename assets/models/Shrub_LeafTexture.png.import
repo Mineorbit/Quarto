@@ -2,16 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg6eccaxf6dtp"
-path="res://.godot/imported/logo.png-e2220799298e3631eb0e245316e0501a.ctex"
+uid="uid://bgitqkchkwdny"
+path="res://.godot/imported/Shrub_LeafTexture.png-df0c0d6aecf3171e6fcda3af471085a3.ctex"
 metadata={
 "vram_texture": false
+}
+generator_parameters={
+"md5": "b5cfa9d6c8febd618f91ac2843d50a1c"
 }
 
 [deps]
 
-source_file="res://assets/logo.png"
-dest_files=["res://.godot/imported/logo.png-e2220799298e3631eb0e245316e0501a.ctex"]
+source_file="res://assets/models/Shrub_LeafTexture.png"
+dest_files=["res://.godot/imported/Shrub_LeafTexture.png-df0c0d6aecf3171e6fcda3af471085a3.ctex"]
 
 [params]
 
@@ -23,7 +26,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

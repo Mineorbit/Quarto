@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d0hcjmoc31ax8"
-path="res://.godot/imported/Pillar.blend-3f8df2628a625a873de583a8a7cdec2f.scn"
+uid="uid://se3nernmrybt"
+path="res://.godot/imported/Water.blend-68f4b1454c74d13dea144ba465e401af.scn"
 
 [deps]
 
-source_file="res://assets/Pillar.blend"
-dest_files=["res://.godot/imported/Pillar.blend-3f8df2628a625a873de583a8a7cdec2f.scn"]
+source_file="res://assets/models/Water.blend"
+dest_files=["res://.godot/imported/Water.blend-68f4b1454c74d13dea144ba465e401af.scn"]
 
 [params]
 
@@ -26,7 +26,7 @@ nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
-meshes/light_baking=2
+meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
@@ -40,15 +40,11 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={
-"meshes": {
-"Pillar_Cube": {
-"generate/lightmap_uv": 1,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 20.0,
-"save_to_file/enabled": false,
-"save_to_file/fallback_path": "",
-"save_to_file/path": ""
+"materials": {
+"Water": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/materials/StandingWater.tres",
+"use_external/path": "uid://bc2varwnb2y5n"
 }
 }
 }

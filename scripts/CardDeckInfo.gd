@@ -1,5 +1,4 @@
-extends AspectRatioContainer
-
+extends Control
 # These variables should be added to the MultiplayerSynchronizer's replication list
 @export var deck_info_name: String = "CardDeck":
 	set(value):

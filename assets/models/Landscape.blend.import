@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://fal86fqtc6mm"
-path="res://.godot/imported/Waterfountain.blend-4d5b36f50c7dcd501b831fe1b9348f94.scn"
+uid="uid://bky3r7r5bf52k"
+path="res://.godot/imported/Landscape.blend-22889dc79916921140c86de18d9f7f99.scn"
 
 [deps]
 
-source_file="res://assets/Waterfountain.blend"
-dest_files=["res://.godot/imported/Waterfountain.blend-4d5b36f50c7dcd501b831fe1b9348f94.scn"]
+source_file="res://assets/models/Landscape.blend"
+dest_files=["res://.godot/imported/Landscape.blend-22889dc79916921140c86de18d9f7f99.scn"]
 
 [params]
 
@@ -26,7 +26,7 @@ nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
-meshes/light_baking=1
+meshes/light_baking=2
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
@@ -39,15 +39,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"Water": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://materials/FlowingWater.tres",
-"use_external/path": "uid://crpljguti2tok"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

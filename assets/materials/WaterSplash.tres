@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://drkmnj3h6k038"]
 
-[ext_resource type="Texture2D" uid="uid://b1nbw760k5tay" path="res://assets/fog.png" id="1_cul1m"]
+[ext_resource type="Texture2D" uid="uid://b1nbw760k5tay" path="res://assets/textures/fog.png" id="1_cul1m"]
 
 [resource]
 transparency = 1

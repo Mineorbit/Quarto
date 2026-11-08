@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dxatlebtrhfjl"
-path="res://.godot/imported/Shrub.blend-f88a7496eca42b8065cece60307330c5.scn"
+path="res://.godot/imported/Shrub.blend-d32954bb3d7996b88e4ff4c42db6cece.scn"
 
 [deps]
 
-source_file="res://assets/Shrub.blend"
-dest_files=["res://.godot/imported/Shrub.blend-f88a7496eca42b8065cece60307330c5.scn"]
+source_file="res://assets/models/Shrub.blend"
+dest_files=["res://.godot/imported/Shrub.blend-d32954bb3d7996b88e4ff4c42db6cece.scn"]
 
 [params]
 

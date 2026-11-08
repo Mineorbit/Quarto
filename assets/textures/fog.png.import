@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsykv5c3mbjnx"
-path.s3tc="res://.godot/imported/Shrub_LeafTexture.png-6e4dcc7fad7280312e7091b5fc660eda.s3tc.ctex"
+uid="uid://b1nbw760k5tay"
+path.s3tc="res://.godot/imported/fog.png-17d51352d86c4ae39c6a932ade9f5655.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "b5cfa9d6c8febd618f91ac2843d50a1c"
-}
 
 [deps]
 
-source_file="res://assets/Shrub_LeafTexture.png"
-dest_files=["res://.godot/imported/Shrub_LeafTexture.png-6e4dcc7fad7280312e7091b5fc660eda.s3tc.ctex"]
+source_file="res://assets/textures/fog.png"
+dest_files=["res://.godot/imported/fog.png-17d51352d86c4ae39c6a932ade9f5655.s3tc.ctex"]
 
 [params]
 

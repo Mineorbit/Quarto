@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://sihqoujix06h"]
 
-[ext_resource type="Texture2D" uid="uid://c8pcxi6gqh64o" path="res://icon.svg" id="1_qcark"]
+[ext_resource type="Texture2D" uid="uid://cy308l707xuk6" path="res://assets/textures/carddeck_default.png" id="2_k1im4"]
 [ext_resource type="Script" uid="uid://bpt0wfc54p2y7" path="res://scripts/CardDeckInfo.gd" id="2_sv58c"]
 [ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="3_k1im4"]
 
@@ -9,23 +9,37 @@ properties/0/path = NodePath(".:deck_info_name")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="CardDeckSelector" type="AspectRatioContainer" unique_id=111197453]
+[node name="CardDeckSelector" type="Panel" unique_id=1287421221]
 custom_minimum_size = Vector2(200, 0)
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("2_sv58c")
 
 [node name="CardDeckImage" type="TextureRect" parent="." unique_id=1834608952]
-layout_mode = 2
-texture = ExtResource("1_qcark")
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_k1im4")
+expand_mode = 4
+stretch_mode = 5
 
 [node name="CardDeckName" type="RichTextLabel" parent="." unique_id=334230654]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.85
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("3_k1im4")
 text = "ABC"
+scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 2
 

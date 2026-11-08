@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ba1kqprwuclf"
-path="res://.godot/imported/Card.blend-08e416dcee286a9c8543cb067bf9737d.scn"
+uid="uid://3ajq4noc3qrs"
+path="res://.godot/imported/PlayerHand.blend-7300beca614984d2fc6174561b724a1f.scn"
 
 [deps]
 
-source_file="res://assets/Card.blend"
-dest_files=["res://.godot/imported/Card.blend-08e416dcee286a9c8543cb067bf9737d.scn"]
+source_file="res://assets/models/PlayerHand.blend"
+dest_files=["res://.godot/imported/PlayerHand.blend-7300beca614984d2fc6174561b724a1f.scn"]
 
 [params]
 

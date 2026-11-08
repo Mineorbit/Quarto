@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b7c4ijo2qtbqh" path="res://scenes/GameWorld.tscn" id="4_3xj3m"]
 [ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="5_mcffj"]
 [ext_resource type="Script" uid="uid://cryx818lbty0e" path="res://scripts/InfoText.gd" id="6_2rd6h"]
-[ext_resource type="Texture2D" uid="uid://cdlageu8t8gyp" path="res://assets/timer.png" id="7_7ua8r"]
+[ext_resource type="Texture2D" uid="uid://cdlageu8t8gyp" path="res://assets/textures/timer.png" id="7_7ua8r"]
 [ext_resource type="Script" uid="uid://qegq228jj8r5" path="res://scripts/RoundTimer.gd" id="8_r7sob"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u5sy4"]
@@ -94,9 +94,10 @@ script = ExtResource("6_2rd6h")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.25
-anchor_top = 0.9
-anchor_right = 0.75
+anchor_top = 0.925
+anchor_right = 0.75000006
 anchor_bottom = 1.0
+offset_right = -6.1035156e-05
 theme = ExtResource("5_mcffj")
 text = "SUBMIT"
 

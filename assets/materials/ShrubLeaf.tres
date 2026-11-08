@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://b47weaon76k6w"]
 
-[ext_resource type="Shader" uid="uid://da8oixun5j2uc" path="res://materials/LeafShader.tres" id="1_137ki"]
+[ext_resource type="Shader" uid="uid://da8oixun5j2uc" path="res://assets/materials/LeafShader.tres" id="1_137ki"]
 
 [resource]
 render_priority = 0

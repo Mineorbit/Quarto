@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bky3r7r5bf52k"
-path="res://.godot/imported/Landscape.blend-c03d3cb085612caf8a1ffe9d2ef1cb59.scn"
+uid="uid://ba1kqprwuclf"
+path="res://.godot/imported/Card.blend-3dacfefa5c5ef39a3515f9d565bd4ee3.scn"
 
 [deps]
 
-source_file="res://assets/Landscape.blend"
-dest_files=["res://.godot/imported/Landscape.blend-c03d3cb085612caf8a1ffe9d2ef1cb59.scn"]
+source_file="res://assets/models/Card.blend"
+dest_files=["res://.godot/imported/Card.blend-3dacfefa5c5ef39a3515f9d565bd4ee3.scn"]
 
 [params]
 
@@ -26,7 +26,7 @@ nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
-meshes/light_baking=2
+meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true

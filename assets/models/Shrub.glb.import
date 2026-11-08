@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b3fhogg30tuq0"
-path="res://.godot/imported/Shrub.glb-e7d6db0e4b77fa688fa43a0644e91db9.scn"
+path="res://.godot/imported/Shrub.glb-89807aaed9c104329ba62e955e5532fc.scn"
 
 [deps]
 
-source_file="res://assets/Shrub.glb"
-dest_files=["res://.godot/imported/Shrub.glb-e7d6db0e4b77fa688fa43a0644e91db9.scn"]
+source_file="res://assets/models/Shrub.glb"
+dest_files=["res://.godot/imported/Shrub.glb-89807aaed9c104329ba62e955e5532fc.scn"]
 
 [params]
 
@@ -43,7 +43,7 @@ _subresources={
 "materials": {
 "Leaf": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://materials/ShrubLeaf.tres",
+"use_external/fallback_path": "res://assets/materials/ShrubLeaf.tres",
 "use_external/path": "uid://b47weaon76k6w"
 }
 }
