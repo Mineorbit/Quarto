@@ -34,7 +34,7 @@ static func get_own_player_id():
 	return NetworkLobby.players[NetworkLobby.own_id]["player_id"]
 
 static func compute_cardpack_hash(path: String):
-	var files = DirAccess.get_files_at("user://card_packs"+path)
+	var files = DirAccess.get_files_at("user://card_packs/"+path)
 	
 	var txt_files = Array(files).filter(func(f: String): return f.get_extension() == "txt")
 	
@@ -42,10 +42,13 @@ static func compute_cardpack_hash(path: String):
 	
 	var combined_hasher = HashingContext.new()
 	combined_hasher.start(HashingContext.HASH_SHA256)
-	
+	print("Hashing")
 	for file_name in txt_files:
+		print(file_name)
 		var full_path = path.path_join(file_name)
-		var file_hash = FileAccess.get_sha256(full_path)
+		var file_hash = FileAccess.get_sha256("user://card_packs/"+full_path)
+		print(full_path)
+		print(file_hash)
 		if file_hash != "":
 			combined_hasher.update(file_hash.to_utf8_buffer())
 			

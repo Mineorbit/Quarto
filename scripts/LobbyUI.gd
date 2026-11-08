@@ -80,6 +80,9 @@ func check_and_process_intersections() -> void:
 				if h in hashes:
 					new_intersection.append(h)
 			intersection = new_intersection
+		print("Current intersection: "+str(intersection))
+	
+	print("Intersection: "+str(intersection))
 	for child in card_decks.get_children():
 		child.queue_free()
 	
