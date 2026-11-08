@@ -90,6 +90,7 @@ func check_and_process_intersections() -> void:
 		if server_deck_map.has(hash_val):
 			var deck_path = server_deck_map[hash_val]
 			var new_card_deck_ui = card_deck_template.instantiate()
+			print(deck_path)
 			new_card_deck_ui.name = deck_path
 			new_card_deck_ui.load(deck_path)
 			card_decks.add_child(new_card_deck_ui)
