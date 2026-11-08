@@ -34,7 +34,7 @@ static func get_own_player_id():
 	return NetworkLobby.players[NetworkLobby.own_id]["player_id"]
 
 static func compute_cardpack_hash(path: String):
-	var files = DirAccess.get_files_at(path)
+	var files = DirAccess.get_files_at("user://card_packs"+path)
 	
 	var txt_files = Array(files).filter(func(f: String): return f.get_extension() == "txt")
 	

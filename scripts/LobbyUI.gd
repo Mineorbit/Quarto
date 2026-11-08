@@ -38,7 +38,8 @@ func add_card_decks_to_list() -> void:
 		var pack_hash = Game.compute_cardpack_hash(deck_path)
 		local_decks[pack_hash] = deck_path
 		local_hashes.append(pack_hash)
-		
+	
+	print(local_hashes)
 	if multiplayer.is_server():
 		server_deck_map = local_decks
 		peer_deck_hashes[multiplayer.get_unique_id()] = local_hashes
@@ -78,6 +79,9 @@ func check_and_process_intersections() -> void:
 				if h in hashes:
 					new_intersection.append(h)
 			intersection = new_intersection
+	for child in card_decks.get_children():
+		child.queue_free()
+	
 	for hash_val in intersection:
 		if server_deck_map.has(hash_val):
 			var deck_path = server_deck_map[hash_val]

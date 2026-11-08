@@ -34,7 +34,6 @@ func on_play_online_pressed() -> void:
 	NetworkLobby.player_info["name"] = username_field.text
 	print("Connecting as "+str(NetworkLobby.player_info["name"]))
 	NetworkLobby.join_game(ip_address_field.text)
-	
 
 
 func on_open_carddeck_button_pressed() -> void:
