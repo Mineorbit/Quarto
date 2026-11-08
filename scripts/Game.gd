@@ -29,6 +29,28 @@ enum GameState {
 	GAME_OVER
 }
 
+# TODO this should vary in local payer mode
+static func get_own_player_id():
+	return NetworkLobby.players[NetworkLobby.own_id]["player_id"]
+
+static func compute_cardpack_hash(path: String):
+	var files = DirAccess.get_files_at(path)
+	
+	var txt_files = Array(files).filter(func(f: String): return f.get_extension() == "txt")
+	
+	txt_files.sort()
+	
+	var combined_hasher = HashingContext.new()
+	combined_hasher.start(HashingContext.HASH_SHA256)
+	
+	for file_name in txt_files:
+		var full_path = path.path_join(file_name)
+		var file_hash = FileAccess.get_sha256(full_path)
+		if file_hash != "":
+			combined_hasher.update(file_hash.to_utf8_buffer())
+			
+	return combined_hasher.finish().hex_encode()
+
 signal player_turn_finished(id)
 
 func get_player_hand(player_id):
@@ -38,9 +60,7 @@ func get_player_hand(player_id):
 		player_hands[player_id] = players.find_child(str(player_id),false,false)
 		return player_hands[player_id]
 
-# TODO this should vary in local payer mode
-static func get_own_player_id():
-	return NetworkLobby.players[NetworkLobby.own_id]["player_id"]
+
 
 # Track the current loop state
 var current_state: GameState = GameState.LOADING
