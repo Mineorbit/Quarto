@@ -1,12 +1,14 @@
 [gd_resource type="Theme" format=3 uid="uid://lyh1ifqpagok"]
 
 [ext_resource type="FontFile" uid="uid://poi1qjfg6hou" path="res://assets/fonts/static/PlaywriteDEGrund-Light.ttf" id="1_lmais"]
+[ext_resource type="AudioStream" uid="uid://bvmcralgt2mqt" path="res://assets/sounds/button_click.wav" id="1_lvqna"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pexic"]
 bg_color = Color(0.8154075, 0.563458, 0.41906923, 1)
 
 [resource]
 default_font = ExtResource("1_lmais")
+Button/sounds/pressed_sound = ExtResource("1_lvqna")
 Button/styles/normal = SubResource("StyleBoxFlat_pexic")
 TextEdit/colors/background_color = Color(0.9642847, 0.88682616, 0.8444062, 1)
 TextEdit/colors/font_color = Color(0.68814373, 0.4480487, 0.30686155, 1)
