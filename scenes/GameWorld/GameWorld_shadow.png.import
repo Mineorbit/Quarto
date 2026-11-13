@@ -18,6 +18,7 @@ dest_files=["res://.godot/imported/GameWorld_shadow.png-12532b1b4250648865c6a575
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

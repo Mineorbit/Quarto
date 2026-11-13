@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cy308l707xuk6" path="res://assets/textures/carddeck_default.png" id="2_k1im4"]
 [ext_resource type="Script" uid="uid://bpt0wfc54p2y7" path="res://scripts/CardDeckInfo.gd" id="2_sv58c"]
 [ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="3_k1im4"]
+[ext_resource type="Texture2D" uid="uid://do6rawwnhd4fq" path="res://assets/textures/border.png" id="4_e6a6n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sv58c"]
 properties/0/path = NodePath(".:deck_info_name")
@@ -45,3 +46,28 @@ vertical_alignment = 2
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1821722543]
 replication_config = SubResource("SceneReplicationConfig_sv58c")
+
+[node name="Border" type="NinePatchRect" parent="." unique_id=2133156806]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_e6a6n")
+draw_center = false
+region_rect = Rect2(0, 0, 3, 3)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=1070099822]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[connection signal="toggled" from="CheckButton" to="Border" method="set_visible"]
