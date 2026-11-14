@@ -95,7 +95,14 @@ func check_and_process_intersections() -> void:
 			new_card_deck_ui.load(deck_path)
 			card_decks.add_child(new_card_deck_ui,true)
 
+func get_selected_cardpack():
+	for card_deck in card_decks.get_children():
+		if card_deck.get_node("CheckButton").button_pressed:
+			return card_deck.name
+	return ""
 
-
+# TODO only server may start
 func on_launch_game_pressed() -> void:
-	NetworkLobby.load_game.rpc("res://scenes/game.tscn")
+	var selected_cardpack = get_selected_cardpack()
+	print("Starting Game with Cardpack: "+str(selected_cardpack))
+	NetworkLobby.load_game.rpc("res://scenes/game.tscn",selected_cardpack)

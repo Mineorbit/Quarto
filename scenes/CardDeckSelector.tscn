@@ -4,11 +4,15 @@
 [ext_resource type="Script" uid="uid://bpt0wfc54p2y7" path="res://scripts/CardDeckInfo.gd" id="2_sv58c"]
 [ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="3_k1im4"]
 [ext_resource type="Texture2D" uid="uid://do6rawwnhd4fq" path="res://assets/textures/border.png" id="4_e6a6n"]
+[ext_resource type="ButtonGroup" uid="uid://dwt8e2yp6n17b" path="res://resources/CardSelectors.tres" id="5_fd80n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sv58c"]
 properties/0/path = NodePath(".:deck_info_name")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("CheckButton:button_pressed")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="CardDeckSelector" type="Panel" unique_id=1287421221]
 custom_minimum_size = Vector2(200, 0)
@@ -48,6 +52,7 @@ vertical_alignment = 2
 replication_config = SubResource("SceneReplicationConfig_sv58c")
 
 [node name="Border" type="NinePatchRect" parent="." unique_id=2133156806]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -69,5 +74,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+button_group = ExtResource("5_fd80n")
 
 [connection signal="toggled" from="CheckButton" to="Border" method="set_visible"]

@@ -25,6 +25,8 @@ var own_id = -1
 
 var players_loaded = 0
 
+var selected_cardpack = ""
+
 
 
 func _ready():
@@ -61,10 +63,9 @@ func remove_multiplayer_peer():
 	players.clear()
 
 
-# When the server decides to start the game from a UI scene,
-# do Lobby.load_game.rpc(filepath)
 @rpc("call_local", "reliable")
-func load_game(game_scene_path):
+func load_game(game_scene_path, cardpack_name):
+	selected_cardpack = cardpack_name
 	assign_player_ids()
 	get_tree().change_scene_to_file(game_scene_path)
 

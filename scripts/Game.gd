@@ -78,13 +78,16 @@ func count_player_card_files(path: String) -> int:
 func _ready():
 	player_turn_finished.connect(func(id): play_round( (id + 1)  % NetworkLobby.players.size()))
 	$UI/Submit.pressed.connect(func(): confirm_stat_selection.rpc())
-	load_cardpack("Testpack")
+	load_cardpack(NetworkLobby.selected_cardpack)
 	cameraHinge.set_player_view(true)
 	NetworkLobby.player_loaded.rpc()
 
 func load_cardpack(path):
 	print("Loading Cardpack: "+path)
 	var card_pack_path = "user://card_packs/"+path+"/"
+	if not FileAccess.file_exists(card_pack_path+"meta.txt"):
+		print("Cardpack does not exist!")
+		# TODO need to handle this case: go back to lobby
 	var meta_file = FileAccess.open(card_pack_path+"meta.txt", FileAccess.READ)
 	var cardset_name = meta_file.get_line()
 	print("Cardset: "+cardset_name)

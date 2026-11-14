@@ -7,7 +7,6 @@ extends Control
 
 
 func load(deck_name):
-	print("Loading Deck Info for "+str(deck_name))
 	var deck_path = "user://card_packs/"+deck_name
 	var deck_metafile_path = deck_path+"/meta.txt"
 	if FileAccess.file_exists(deck_metafile_path):
