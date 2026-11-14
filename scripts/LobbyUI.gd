@@ -11,7 +11,7 @@ func _ready() -> void:
 	NetworkLobby.player_connected.connect(add_player_to_list)
 	add_player_to_list(1,NetworkLobby.player_info)
 	add_card_decks_to_list()
-	$LaunchGame.disabled = !multiplayer.is_server()
+	$LaunchGame.disabled = true #!multiplayer.is_server()
 
 
 func add_player_to_list(peer_id,player_info):
@@ -93,6 +93,7 @@ func check_and_process_intersections() -> void:
 			print(deck_path)
 			new_card_deck_ui.name = deck_path
 			new_card_deck_ui.load(deck_path)
+			new_card_deck_ui.get_node("CheckButton").toggled.connect(func(state): $LaunchGame.disabled = !multiplayer.is_server() or !state )
 			card_decks.add_child(new_card_deck_ui,true)
 
 func get_selected_cardpack():

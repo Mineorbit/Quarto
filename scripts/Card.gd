@@ -32,10 +32,14 @@ func initialize_card(card_name,card_value_array):
 
 func set_image(card_image_path):
 	var new_mat = StandardMaterial3D.new()
-	var image = Image.load_from_file(card_image_path)
-	var card_texture = ImageTexture.create_from_image(image)
-	new_mat.albedo_texture = card_texture
-	$CardImage.set_surface_override_material(0, new_mat)
+	if FileAccess.file_exists(card_image_path):
+		var image = Image.load_from_file(card_image_path)
+		var card_texture = ImageTexture.create_from_image(image)
+		new_mat.albedo_texture = card_texture
+		$CardImage.set_surface_override_material(0, new_mat)
+	else:
+		# TODO default image
+		print("No Image loaded for card")
 
 # Call this on the server/authority
 func request_reparent(new_parent: Node, front: bool = true) -> void:
