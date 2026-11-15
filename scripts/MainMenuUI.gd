@@ -4,7 +4,7 @@ extends Control
 @onready var username_field = $Buttons/Username
 
 const LOBBY_UID = "uid://dw10bco65qepe"
-
+const CREDITS_UID = "uid://bi4o7qt221vwf"
 
 func gen_random_name():
 	var adj = ["Advanced", "Stinky", "Large", "Big", "Tiny", "Honored", "Precious", "Devoted", "Smirkin'", "Befuddled", "Chunky", "Felonious", "Malicious", "Wonderous", "Naughty", "Heinous"]
@@ -23,7 +23,6 @@ func _ready() -> void:
 
 
 func enter_lobby():
-	print("Entering Lobby")
 	get_tree().change_scene_to_file(LOBBY_UID)
 
 func on_host_lobby_pressed() -> void:
@@ -42,3 +41,7 @@ func on_open_carddeck_button_pressed() -> void:
 	var absolute_path = ProjectSettings.globalize_path(path)
 	# Open the folder in the OS file manager
 	OS.shell_open(absolute_path)
+
+
+func on_credits_pressed() -> void:
+	get_tree().change_scene_to_file(CREDITS_UID)

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bi4o7qt221vwf"]
+
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="1_hi4w3"]
+[ext_resource type="Script" uid="uid://c2qm6eu7mkcdi" path="res://scripts/Credits.gd" id="1_spvsy"]
+
+[node name="Credits" type="Control" unique_id=1417980485]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_spvsy")
+
+[node name="Back" type="Button" parent="." unique_id=1708722034]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_right = 1.0
+anchor_bottom = 0.05
+theme = ExtResource("1_hi4w3")
+text = "←"
+
+[node name="CreditsText" type="RichTextLabel" parent="." unique_id=1613182609]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_right = 0.85
+anchor_bottom = 1.0
+theme = ExtResource("1_hi4w3")
+text = "Font:
+\"Playwrite DE Grund\"
+Designed by Playwrite Project Authors
+(https://github.com/TypeTogether/Playwrite)
+Licensed under the SIL Open Font License, v1.1
+
+All other content designed by Maximilian Stillger (can be used as you like)
+"
+resize_font_to_fit = true
+maximum_font_size = 32
+
+[connection signal="pressed" from="Back" to="." method="on_back_pressed"]

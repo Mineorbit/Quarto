@@ -167,7 +167,7 @@ func deal_cards():
 # only called by server
 func start_game():
 	print("Started Game")
-	$UI/DebugText.text = str(get_own_player_id())
+	#$UI/DebugText.text = str(get_own_player_id())
 	for i in range(NetworkLobby.players.size()):
 		
 		var playerHand = PlayerHand.instantiate()
@@ -198,7 +198,6 @@ const REACTION_TIME = 10
 func confirm_stat_selection():
 	# Only allow ending the timer by the player who has the turn
 	if current_player_turn == NetworkLobby.players[multiplayer.get_remote_sender_id()]["player_id"]:
-		print("Stopping round timer")
 		RoundTimer.stop_timer()
 
 func play_round(player_id):
@@ -206,7 +205,6 @@ func play_round(player_id):
 	print("Playing Round of Player "+str(player_id))
 	if get_player_hand(player_id).get_top_card() == null:
 		await get_tree().create_timer(1).timeout
-		print("Player had no cards")
 		player_turn_finished.emit(player_id)
 		return
 		
@@ -218,13 +216,7 @@ func play_round(player_id):
 	
 	# Start the cancelable RoundTimer and await completion or early stop
 	RoundTimer.start_timer(REACTION_TIME)
-	var timed_out = await RoundTimer.finished
-	
-	if timed_out:
-		print("Round timed out naturally.")
-	else:
-		print("Round ended early by player confirmation.")
-		
+	await RoundTimer.finished
 	finish_round(player_id)
 
 
@@ -246,16 +238,13 @@ func find_winner_card_set(card_players,cards):
 	var max_card_value = 0
 	for i in range(card_players.size()):
 		var player_card_value: int = int(cards[i].card_values[picked_stat()])
-		print("Card: \""+str(cards[i].plain_card_name)+"\" with value "+str(player_card_value)+ " against "+str(max_card_value))
 		if player_card_value > max_card_value:
-			print("Beats")
 			max_card_value = player_card_value
 			winner_cards = [cards[i]]
 			round_winners = [card_players[i]]
 		elif player_card_value == max_card_value:
 			winner_cards.append(cards[i])
 			round_winners.append(card_players[i])
-	print("Winners: "+str(round_winners)+ " with cards: "+str(winner_cards))
 	return [round_winners,winner_cards]
 
 func finish_round(player_id):
@@ -342,7 +331,6 @@ func finish_round(player_id):
 	var players_with_cards = 0
 	for i in range(NetworkLobby.players.size()):
 		if get_player_hand(i).get_top_card() != null:
-			print("Player "+str(i+1)+" still has a card")
 			players_with_cards = players_with_cards + 1
 			
 	var current_player_wins = (players_with_cards == 1)
