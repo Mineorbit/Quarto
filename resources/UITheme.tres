@@ -5,6 +5,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pexic"]
 bg_color = Color(0.8154075, 0.563458, 0.41906923, 1)
+border_width_bottom = 2
+border_color = Color(0.30588236, 0.18039216, 0.105882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw2jw"]
+bg_color = Color(0.9647059, 0.8862745, 0.84313726, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_400sg"]
 bg_color = Color(0.6975485, 0.45553392, 0.3133366, 1)
@@ -16,6 +21,9 @@ corner_detail = 20
 default_font = ExtResource("1_lmais")
 Button/sounds/pressed_sound = ExtResource("1_lvqna")
 Button/styles/normal = SubResource("StyleBoxFlat_pexic")
+LineEdit/colors/caret_color = Color(0.48894686, 0.30439705, 0.19436902, 1)
+LineEdit/colors/font_color = Color(0.6862745, 0.44705883, 0.30588236, 1)
+LineEdit/styles/normal = SubResource("StyleBoxFlat_vw2jw")
 Panel/styles/panel = SubResource("StyleBoxFlat_400sg")
 TextEdit/colors/background_color = Color(0.9642847, 0.88682616, 0.8444062, 1)
 TextEdit/colors/font_color = Color(0.68814373, 0.4480487, 0.30686155, 1)
