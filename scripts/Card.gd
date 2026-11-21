@@ -4,6 +4,8 @@ extends Node3D
 @export var card_field_value: PackedScene
 @onready var card_name_label = $SubViewport/CardInformation/Name
 @onready var card_stats = $SubViewport/CardInformation/Stats/GridContainer
+@onready var card_move_sound: AudioStreamPlayer3D = $CardMove
+@onready var card_put_sound: AudioStreamPlayer3D = $CardPut
 
 var card_values = {}
 
@@ -88,3 +90,23 @@ func _process(delta: float) -> void:
 		else:
 			position = target_position
 		quaternion = quaternion.slerp(target_rotation,0.2)
+
+var _last_position: Vector3
+var _was_moving_fast: bool = false
+
+
+@export var speed_threshold: float = 2.0 # Meters per second
+
+func _ready() -> void:
+	_last_position = global_position
+
+func _physics_process(delta: float) -> void:
+	var distance_moved := global_position.distance_to(_last_position)
+	var current_speed := distance_moved / delta
+	
+	if current_speed > speed_threshold and not _was_moving_fast:
+		if not card_move_sound.playing:
+			card_move_sound.play()
+			
+	_was_moving_fast = current_speed > speed_threshold
+	_last_position = global_position
