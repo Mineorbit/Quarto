@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dm8660rctnhwd"]
+
+[ext_resource type="Theme" uid="uid://lyh1ifqpagok" path="res://resources/UITheme.tres" id="1_jvnd5"]
+
+[node name="PauseMenu" type="Control" unique_id=345043473]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1946446471]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.275
+anchor_right = 1.0
+anchor_bottom = 1.25
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jvnd5")
+
+[node name="Play Local" type="Button" parent="Buttons" unique_id=620247137]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Play Local"
+
+[node name="TextLabel" type="Label" parent="Buttons" unique_id=1373636266]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Multiplayer:"
+
+[node name="Username" type="TextEdit" parent="Buttons" unique_id=179115639]
+custom_minimum_size = Vector2(172.15, 32.825)
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Dein name"
+placeholder_text = "Dein name"
+
+[node name="Play Host" type="Button" parent="Buttons" unique_id=2070815958]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Host Lobby"
+
+[node name="OnlineContainer" type="HBoxContainer" parent="Buttons" unique_id=652825930]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+
+[node name="IP" type="TextEdit" parent="Buttons/OnlineContainer" unique_id=593876992]
+custom_minimum_size = Vector2(372.205, 32.825)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_jvnd5")
+text = "127.0.0.1"
+placeholder_text = "Dein name"
+
+[node name="Play Online" type="Button" parent="Buttons/OnlineContainer" unique_id=2079592922]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Connect Lobby
+"
+
+[node name="CardDeckFolder" type="Button" parent="Buttons" unique_id=1347751569]
+layout_mode = 2
+theme = ExtResource("1_jvnd5")
+text = "Open \"CardDecks\" Folder"
+
+[node name="Credits" type="Button" parent="Buttons" unique_id=1763987100]
+layout_mode = 2
+text = "Credits"
